@@ -26,14 +26,7 @@
 
 if (window.top != window.self) {
     window.top.location.href = "/c/frame.jsp";
-
 }
-#else if (!document.cookie || document.cookie.indexOf("JSESSIONID") == -1) {
-#    window.top.location.href = "http://501ichihashi.chatx2.whocares.jp/c/nocookie.jsp";
-#}
-#else if (!window.XMLHttpRequest && !window.ActiveXObject) {
-#    window.top.location.href = "http://501ichihashi.chatx2.whocares.jp/c/unsupported.jsp";
-#}
 
 WCUtils.bgCacheBugWorkaround();
 var chatxconfig = {"tags":{"msg.tag.mailUploadMsg":"<div>メール送信をクリックし、アップロードするファイルを1ファイルのみ添付してメール送信してください。<b>自動挿入される本文は変更しないでください。<\/b><\/div>","msg.tag.uploadMsg1":"<div class=\"uploadCaution\"><em class=\"uploadCaution\">！重要！<\/em><br \/>違法ファイル(無修正や著作権侵害など)は絶対にアップロードしないでください。<\/div>","msg.tag.maintenance":"<div id=\"maintenance\">現在メンテナンス中です。<br \/>申し訳ございませんがしばらくお待ちください。<br \/><br \/>終了予定まであと&nbsp;<span id=\"maintenanceSec\"><\/span>&nbsp;秒<\/div>"},"colors":[{"name":"撫子","value":"#eebbcb"},{"name":"臙脂","value":"#b94047"},{"name":"女郎花","value":"#f2f2b0"},{"name":"金糸雀","value":"#ebd842"},{"name":"榛","value":"#bfa46f"},{"name":"若草","value":"#c3d825"},{"name":"翡翠","value":"#38b48b"},{"name":"青碧","value":"#0f8e7b"},{"name":"月白","value":"#eaf4fc"},{"name":"空色","value":"#a0d8ef"},{"name":"青藤","value":"#84a2d4"},{"name":"薄葡萄","value":"#c0a2c7"},{"name":"竜胆","value":"#9079ad"},{"name":"菖蒲","value":"#cc7eb1"},{"name":"薄墨","value":"#a3a3a2"},{"name":"灰色","value":"#7d7d7d"},{"name":"瑠璃","value":"#0264a6"},{"name":"亜麻","value":"#c6b095"},{"name":"紫苑","value":"#836bad"},{"name":"シャリュトリューズ","value":"#99d02b"},{"name":"ネープルス","value":"#fff27b"},{"name":"ローズブラウン","value":"#7d4f5b"},{"name":"ペールライラック","value":"#cab2d6"}],"enableToggleUsers":false,"messages":{"msg.c.enter":"ご来店","msg.c.nameSuffix":"：","msg.c.err.busy":"ビジーです。","msg.c.hatenaAuth":"はてな認証","msg.c.pmAllow":"許可","msg.c.textLogSeparator":"--------------------------------------------------------------------------------","msg.c.pmDeny":"拒否","msg.c.err.unknownError":"不明なエラー","msg.c.pmAll":"来店者全員","msg.c.attach":"添付ファイル(%CT%, %SIZE%)","msg.c.none":"なし","msg.c.err.name":"名前を入力してください。","msg.c.attached":"あり","msg.c.pmArrow":"⇒","msg.c.mixiAuth":"mixiでログイン","msg.c.cancel":"キャンセル","msg.c.err.maxRows":"最大メッセージ数の指定が不正です。"},"enableMultiLine":true,"enableFontSizeSel":true,"enableThumbnail":false,"fixedViewStyle":-1,"enablePmAll":true,"enableTextEffect":false,"enableScrollType":true,"defaultViewStyle":1,"fixedEnterForm":false};
@@ -65,8 +58,13 @@ window.chatx = {
     multiLine: false,
     keyCheck: function() { return true; },
     updateConfig: function() { return false; },
-    writeDummyFrame: function() {},
-    onFrameLoad: function() {}
+    writeDummyFrame: function(id) {
+        // ダミーフレーム作成（Supabase版では不要だが互換性のため残す）
+        document.write('<iframe onload="chatx.onFrameLoad(this);" id="dmy" name="dmy" style="width:0px;height:0px;margin-left:-1000px;margin-top:-1000px;"></iframe>');
+    },
+    onFrameLoad: function(frame) {
+        // フレームロード処理（Supabase版では不要）
+    }
 };
 
 
@@ -434,9 +432,11 @@ a.logAttach {
 <span id="svlog"><img id="svlogImg" style="width:1px;height:1px;border:0;" alt="" src=""></span>
 </div><!-- container -->
 <script type="text/javascript"><!--
-chatx.writeDummyFrame("chatx");
+// ダミーフレームはwriteDummyFrame内で作成されるため、ここでは呼び出しのみ
+// chatx.writeDummyFrame("chatx");
 //-->
-</script><iframe onload="chatx.onFrameLoad(this);" id="dmy" name="dmy" style="width:0px;height:0px;margin-left:-1000px;margin-top:-1000px;"></iframe>
+</script>
+<iframe onload="chatx.onFrameLoad(this);" id="dmy" name="dmy" style="width:0px;height:0px;margin-left:-1000px;margin-top:-1000px;"></iframe>
 <iframe id="nkfrm" src="chat_files/_nk.htm" width="0" height="0" style="width:0; height: 0; border: 0; overflow: hidden"></iframe>
 <!-- layers -->
 <div id="mobileInfo" class="popup">
