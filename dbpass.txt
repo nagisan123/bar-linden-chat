@@ -3,8 +3,17 @@ URL:     https://qdwzvpbaxvmlbwloelas.supabase.co
 
 API_key: sb_publishable_M5ZtxZagVPQo_kbynpPjWA_C6ZBWcCz
 
-anon_key:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFkd3p2cGJheHZtbGJ3bG9lbGFzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc2MjI1MjAsImV4cCI6MjA4MzE5ODUyMH0.MZqPOpNOZrWHQVDGomP5LAhwmtaj33ZaPviq1i2rM1k
+anon_public:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFkd3p2cGJheHZtbGJ3bG9lbGFzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc2MjI1MjAsImV4cCI6MjA4MzE5ODUyMH0.MZqPOpNOZrWHQVDGomP5LAhwmtaj33ZaPviq1i2rM1k
 
+
+cd c:\Users\owlta\Downloads\whocares_chatx2\live-site
+# Gitリポジトリ初期化
+git init
+git add .
+git commit -m "Initial commit: BAR LINDEN Supabase版"
+git remote add origin https://github.com/nagisan123/bar-linden-chat.git
+git branch -M main
+git push -u origin main
 
 
 db:TIRxxkusJGGDGkvO
