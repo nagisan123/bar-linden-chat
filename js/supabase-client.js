@@ -28,18 +28,29 @@ class SupabaseChat {
 
     // 初期化
     async init() {
-        // 既存のメッセージを読み込み
-        await this.loadMessages();
-        
-        // オンラインユーザーを読み込み
-        await this.loadOnlineUsers();
-        
-        // リアルタイム購読を開始
-        this.subscribeToMessages();
-        this.subscribeToUsers();
-        
-        // ハートビート開始（5秒ごと）
-        this.startHeartbeat();
+        console.log('Supabase Chat init() called');
+        try {
+            // 既存のメッセージを読み込み
+            console.log('Loading messages...');
+            await this.loadMessages();
+            
+            // オンラインユーザーを読み込み
+            console.log('Loading online users...');
+            await this.loadOnlineUsers();
+            
+            // リアルタイム購読を開始
+            console.log('Subscribing to realtime...');
+            this.subscribeToMessages();
+            this.subscribeToUsers();
+            
+            // ハートビート開始（5秒ごと）
+            this.startHeartbeat();
+            
+            console.log('Supabase Chat initialized successfully');
+        } catch (error) {
+            console.error('Supabase Chat init error:', error);
+            throw error;
+        }
     }
 
     // メッセージ読み込み
@@ -104,9 +115,11 @@ class SupabaseChat {
 
     // 入室
     async enter(name, comment = '', url = '', denyPm = false) {
+        console.log('Enter called:', { name, comment, url, denyPm });
         try {
             // ユーザーIDを生成（セッションベース）
             const userId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+            console.log('Generated user ID:', userId);
             
             currentUser = {
                 id: userId,
@@ -118,6 +131,7 @@ class SupabaseChat {
             };
 
             // オンラインユーザーに追加
+            console.log('Inserting user to online_users...');
             const { error } = await supabase
                 .from('online_users')
                 .insert([{
@@ -129,14 +143,22 @@ class SupabaseChat {
                     deny_pm: denyPm
                 }]);
 
-            if (error) throw error;
+            if (error) {
+                console.error('Insert user error:', error);
+                throw error;
+            }
+            
+            console.log('User inserted successfully');
 
             // 入室メッセージを投稿
+            console.log('Sending system message...');
             await this.sendSystemMessage(`${name}さんがご来店しました`);
 
+            console.log('Enter completed successfully');
             return true;
         } catch (error) {
             console.error('入室エラー:', error);
+            alert('入室に失敗しました: ' + error.message);
             return false;
         }
     }
@@ -166,9 +188,14 @@ class SupabaseChat {
 
     // メッセージ送信
     async sendMessage(message, color = null, pmTo = null) {
-        if (!currentUser.id || !message.trim()) return false;
+        console.log('Send message called:', { message, color, pmTo, currentUser });
+        if (!currentUser.id || !message.trim()) {
+            console.warn('Cannot send message: no user or empty message');
+            return false;
+        }
 
         try {
+            console.log('Inserting message to chat_messages...');
             const { error } = await supabase
                 .from('chat_messages')
                 .insert([{
@@ -325,3 +352,8 @@ class SupabaseChat {
 
 // グローバルインスタンス
 const supabaseChat = new SupabaseChat();
+
+// デバッグ用：接続確認
+console.log('Supabase Client initialized');
+console.log('Supabase URL:', SUPABASE_URL);
+console.log('Supabase Chat instance:', supabaseChat);
