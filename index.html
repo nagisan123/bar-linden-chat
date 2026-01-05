@@ -304,7 +304,7 @@ a.logAttach {
  </p>
  </fieldset>
  <p>
-<label for="pmDmy">PM:</label><select onchange="chatx.focusInput();return false;" name="pmDmy" id="pmDmy" class="inpselect"><option value="" selected="selected"></option><option value="6yuimu_ive">藤白</option><option value="6yuimu_ivi">市橋</option><option value="6yuimu_iwo">吾妻</option><option value="all">来店者全員</option></select>
+<label for="pmDmy">PM:</label><select onchange="chatx.focusInput();return false;" name="pmDmy" id="pmDmy" class="inpselect"><option value="" selected="selected"></option></select>
 <span id="sndTools">
 <label for="selColorPicker">文字色</label>
 <select class="inpselect" id="selColorPicker" onchange="updateColor(this.options[this.selectedIndex].value); return false;" style="color: rgb(125, 125, 125);">
@@ -342,8 +342,8 @@ a.logAttach {
 </div>
 </div>
  </div>
- <div id="cond" style="visibility: visible;"><span id="condUser" style="display: inline;">来店：<span id="in">3</span></span>
-<span id="users">&nbsp;(<a href="javascript:void(0)" onclick="return chatx.showUserInfo(event, '6yuimu_ive');">藤白</a>, <a href="javascript:void(0)" onclick="return chatx.showUserInfo(event, '6yuimu_ivi');">市橋</a>, <a href="javascript:void(0)" onclick="return chatx.showUserInfo(event, '6yuimu_iwo');">吾妻</a>)&nbsp;</span><span id="condRom" style="display: inline;">外の影：<span id="rom">1</span></span></div>
+ <div id="cond" style="visibility: visible;"><span id="condUser" style="display: inline;">来店：<span id="in">0</span></span>
+<span id="users"></span><span id="condRom" style="display: inline;">外の影：<span id="rom">0</span></span></div>
 </div><!-- ctrl -->
 <div id="contentWrap" style="top: 456px; bottom: 64px;">
 <div id="hideLog" style="display: block;"></div>
