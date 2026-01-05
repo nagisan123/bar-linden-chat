@@ -1,0 +1,372 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta name="robots" content="noindex,nofollow,noarchive,nomediaindex,noimageindex">
+<link rel="stylesheet" href="adm_disp_files/adm.css" type="text/css">
+<title>chatx Admin</title>
+<script type="text/javascript" charset="UTF-8" src="adm_disp_files/wcutils.js"></script>
+<script type="text/javascript" charset="UTF-8" src="adm_disp_files/cpicker.js"></script>
+<script type="text/javascript"><!--
+
+var reColor = /^#(\w{3}|\w{6})$/;
+
+var cpicker = new CPicker();
+function _cpick_cb(color, param) {
+    param.value = color;
+    var elm = document.getElementById(param.id + "_btn");
+    if (elm && color.match(reColor)) {
+        elm.style.backgroundColor = color;
+    }
+}
+function colorFieldChanged(elm) {
+    var e = document.getElementById(elm.id + "_btn");
+    try {
+        if (e && elm.value.match(reColor)) {
+            e.style.backgroundColor = elm.value;
+        }
+    }
+    catch(ex) {
+    }
+}
+
+function startCPicker(elm, id) {
+    var e = document.getElementById(id);
+    if (e.disabled) {
+        return;
+    }
+    cpicker.show(true, elm, _cpick_cb, e);
+    return false;
+}
+
+function sound_prev(name) {
+    var elm = document.getElementById("embd" + name);
+    if (!elm || WCUtils.getIEVersion() >= 9.0) {
+        elm = document.getElementById(name);
+    }
+    if (elm) {
+        try {
+            elm.Play();
+        }
+        catch(e) {
+            try {
+                elm.play();
+            }
+            catch(e) {
+                try {
+                    elm.DoPlay();
+                }
+                catch(e) {
+                }
+            }
+        }
+    }
+}
+
+//-->
+</script>
+
+<!--[if IE]>
+<style type="text/css">
+.menuSeparator {
+    margin: 0;
+}
+</style>
+<![endif]-->
+
+</head>
+<body>
+
+<div id="container">
+
+<div id="header">
+<div id="headerTitle">chatx 管理</div>
+<div id="loginInfo">
+<div id="loginId">
+<span>ログイン中: <span class="roomName">501ichihashi</span></span>
+</div>
+<div id="loginMenu">
+</div>
+<div style="clear:both"></div>
+</div>
+</div>
+
+<div id="lmenu">
+<div id="lmenuContainer">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/config">動作設定*</a></p>
+<p class="lmenuCurItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/disp">表示設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/mobile">携帯関連設定</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/accesskey">アクセスキー設定</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/enter">入室設定</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/input">入力制限</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/mixi">mixi OpenID*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/hatena">はてな認証*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/twitter">Twitter連携</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/msg_common">文字列設定1*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/msg_mobile">文字列設定2</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/msg_info">文字列設定3</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/html">HTML設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/theme">テーマ設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/css">CSS設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/mobiledisp">携帯表示設定</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/color">文字色設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/icon">ICON*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/iconGroup">ICONグループ*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/sound">サウンド*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/command">コマンド</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/random">ランダムアクション</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/cap">キャップ</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/aa">顔文字リスト*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/insicon">発言用ICON*</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/logclear">ログクリア</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/users">ユーザー状況</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/logs">過去ログ</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/condv2">入室状況タグ</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/condprog">入室状況タグ(PHP)</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/chatinfo">チャット情報確認</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/chgpass">ID/パスワード変更</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/chgmail">メールアドレス変更</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/confsync">設定コピー*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/confinit">設定初期化*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/confback">設定バックアップ</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/confrestr">設定リストア*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/unregist">登録削除</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/logout">ログアウト</a></p>
+</div>
+</div>
+<div id="content">
+<div id="content2">
+<div class="configForm">
+
+<div class="formDesc">
+チャット表示関連の設定を行います。
+</div>
+
+<div><div id="info"><span>　</span></div></div>
+
+<form action="disp" method="post">
+<input type="hidden" name="opr" value="1">
+
+<table class="configFormTab">
+
+ <tbody><tr>
+ <td class="formLabel">未入室時のユーザー状況</td>
+ <td class="formInput">
+ <select name="romCond" id="romCond">
+                <option value="0">非表示</option>
+                <option value="1">ユーザー数</option>
+                <option value="2">ユーザー数,ROM数</option>
+                <option value="3" selected="selected">ユーザー数,ROM数,ユーザー情報</option>
+                <option value="4">ユーザー数,ユーザー情報</option>
+            </select>
+ <div class="descr">未入室状態のユーザー状況表示方法を指定します。</div>
+ </td>
+ </tr>
+
+ <tr>
+ <td class="formLabel">入室時のユーザー状況</td>
+ <td class="formInput">
+ <select name="cond" id="cond">
+                <option value="0">非表示</option>
+                <option value="1">ユーザー数</option>
+                <option value="2">ユーザー数,ROM数</option>
+                <option value="3" selected="selected">ユーザー数,ROM数,ユーザー情報</option>
+                <option value="4">ユーザー数,ユーザー情報</option>
+            </select>
+ <div class="descr">入室状態のユーザー状況表示方法を指定します。</div>
+ </td>
+ </tr>
+
+ <tr>
+ <td class="formLabel">ユーザー情報画面</td>
+ <td class="formInput">
+ <input type="checkbox" value="1" id="showHost" name="showHost"><label for="showHost">ホスト名</label><br>
+ <input type="checkbox" value="1" id="showIp" name="showIp"><label for="showIp">IPアドレス</label><br>
+ <input type="checkbox" value="1" id="showTerm" name="showTerm"><label for="showTerm">端末情報</label><br>
+ <input type="checkbox" value="1" id="showId" name="showId"><label for="showTerm">ID</label><br>
+ <div class="descr">ユーザー情報画面(ポップアップ)に表示する項目を選択します。設定後の入室から反映されます。入退室メッセージの情報表示/非表示は<a href="http://501ichihashi.chatx2.whocares.jp/adm/msg_info">文字列設定3</a>でカスタマイズしてください。</div>
+ </td>
+ </tr>
+
+ <tr>
+ <td class="formLabel">発言者情報</td>
+ <td class="formInput">
+ <input type="checkbox" value="1" id="showMsgTerm" name="showMsgTerm"><label for="showMsgTerm">端末情報</label><br>
+ <input type="checkbox" value="1" id="showMsgId" name="showMsgId"><label for="showMsgId">ID</label><br>
+ <div class="descr">発言に付加する情報を指定します。</div>
+ </td>
+ </tr>
+
+
+<tr>
+ <td class="formLabel">キャップユーザーの情報</td>
+ <td class="formInput">
+ <input type="checkbox" value="1" id="hideCapInfo" name="hideCapInfo"><label for="hideCapInfo">非表示</label>
+ <div class="descr">キャップユーザーの場合、ユーザー情報（ホスト名や端末情報）を非表示にします。設定後の入室から反映されます。</div>
+ </td>
+ </tr>
+
+ <tr>
+ <td class="formLabel">管理画面リンク</td>
+ <td class="formInput">
+ <input type="checkbox" value="1" id="showAdminLink" name="showAdminLink" checked="checked"><label for="showAdminLink">表示</label>
+ <div class="descr">管理画面へのリンクを表示します。</div>
+ </td>
+ </tr>
+
+ <tr>
+ <td class="formLabel">モバイルリンク</td>
+ <td class="formInput">
+ <input type="checkbox" value="1" id="showQrCode" name="showQrCode"><label for="showQrCode">表示</label>
+ <div class="descr">モバイルリンク(QR Code)を表示します。</div>
+ </td>
+ </tr>
+
+ <tr>
+ <td class="formLabel">日時フォーマット</td>
+ <td class="formInput">
+<select name="dateFormat" id="dateFormat">
+<option value=""></option>
+<option value="yyyy/MM/dd HH:mm">2026/01/05 22:36</option>
+<option value="MM/dd(E) HH:mm" selected="selected">01/05(月) 22:36</option>
+<option value="MM/dd HH:mm">01/05 22:36</option>
+<option value="HH:mm:ss">22:36:11</option>
+<option value="HH:mm">22:36</option>
+</select>
+ <div class="descr">ログの日時表示フォーマットを指定します。設定後から反映されます。</div>
+ </td>
+ </tr>
+
+ <tr>
+ <td class="formLabel">表示スタイルを固定(PC)</td>
+ <td class="formInput">
+ <select name="fixedViewStyle" id="fixedViewStyle">
+                <option value="-1" selected="selected">固定しない</option>
+                <option value="1">スタイル1</option>
+                <option value="2">スタイル2</option>
+                <option value="3">スタイル3</option>
+            </select>
+ <div class="descr">PCからの利用時にログ表示スタイルを固定します。ICONモードの場合は無視されます。</div>
+ </td>
+ </tr>
+
+ <tr>
+ <td class="formLabel">デフォルト表示スタイル(PC)</td>
+ <td class="formInput">
+ <select name="defaultViewStyle" id="defaultViewStyle">
+                <option value="1" selected="selected">スタイル1</option>
+                <option value="2">スタイル2</option>
+                <option value="3">スタイル3</option>
+            </select>
+ <div class="descr">初期表示時のデフォルト表示スタイルを指定します。「表示スタイルを固定」「ICONモード」を設定している場合は無視されます。</div>
+ </td>
+ </tr>
+
+ <tr>
+ <td class="formLabel">入室フォームを常に表示(PC)</td>
+ <td class="formInput">
+ <input type="checkbox" value="1" id="fixedEnterForm" name="fixedEnterForm"><label for="fixedEnterForm">常に表示する</label>
+ <div class="descr">未入室状態では入室フォームを常に表示します。</div>
+ </td>
+ </tr>
+
+ <tr>
+ <td class="formLabel">サムネイル表示</td>
+ <td class="formInput">
+ <input type="checkbox" value="1" id="enableThumbnail" name="enableThumbnail"><label for="enableThumbnail">PC</label><br>
+ <input type="checkbox" value="1" id="enableSimpleThumbnail" name="enableSimpleThumbnail"><label for="enableSimpleThumbnail">シンプルモード</label><br>
+ <input type="checkbox" value="1" id="enableMobileThumbnail" name="enableMobileThumbnail"><label for="enableMobileThumbnail">携帯</label><br>
+ <div class="descr">添付ファイルが画像の場合、サムネイルを表示します。</div>
+ </td>
+ </tr>
+
+ <tr>
+ <td class="formLabel">文字色選択表示</td>
+ <td class="formInput">
+ <select name="colorPickerType" id="colorPickerType">
+                <option value="0">ポップアップ</option>
+                <option value="1" selected="selected">セレクトリスト</option>
+            </select>
+ <div class="descr">文字色選択機能の表示方法を指定します。</div>
+ </td>
+ </tr>
+
+ <tr>
+ <td class="formLabel">ID生成方法</td>
+ <td class="formInput">
+ <input type="checkbox" value="1" id="idDateChange" name="idDateChange"><label for="idDateChange">日替わりIDを使用</label><br>
+ <label for="idKey">ID生成キー </label><input type="text" name="idKey" id="idKey" size="16" maxlength="64">
+ <div class="descr">IDの生成方法を指定します。通常、ID生成キーを指定する必要はありませんが、別のチャットとIDを共通にしたい場合にそれぞれのチャットで同じ値を指定します。</div>
+ </td>
+ </tr>
+
+ <tr>
+ <td class="formLabel">ユーザー状況表示切り替え(PC)</td>
+ <td class="formInput">
+ <input type="checkbox" value="1" id="enableToggleUsers" name="enableToggleUsers"><label for="enableToggleUsers">有効</label>
+ <div class="descr">ユーザー状況詳細の表示／非表示を切り替え可能にします。</div>
+ </td>
+ </tr>
+
+ <tr>
+ <td class="formLabel">同一IPのROM</td>
+ <td class="formInput">
+ <input type="checkbox" value="1" id="noCountDupIp" name="noCountDupIp"><label for="noCountDupIp">カウントしない</label>
+ <div class="descr">同一IPからのROMをカウントしないようにします。</div>
+ </td>
+ </tr>
+
+ <tr>
+ <td class="formLabel">発言ハイライト機能</td>
+ <td class="formInput">
+ <input type="checkbox" value="1" id="enableTextEffect" name="enableTextEffect"><label for="enableTextEffect">有効</label>
+ <div class="descr">新しい発言をハイライト表示します。PCのみ。試験運用。
+<a href="http://labs.adobe.com/technologies/spry/" target="_blank">Adobe Spry</a>を使用。</div>
+ </td>
+ </tr>
+
+ <tr>
+ <td class="formLabel">上部HTMLの表示切り替え</td>
+ <td class="formInput">
+ <input type="checkbox" value="1" id="toggleUserHtml" name="toggleUserHtml" checked="checked"><label for="toggleUserHtml">有効</label>
+ <div class="descr">上部HTML（PC）の表示／非表示切り替え機能を有効にします。</div>
+ </td>
+ </tr>
+
+ <tr>
+ <td class="formLabel">Favicon URL</td>
+ <td class="formInput">
+ <input type="text" name="faviconUrl" id="faviconUrl" size="32">
+ <div class="descr"><a href="http://ja.wikipedia.org/wiki/Favicon" target="_blnak">Favicon</a>のURLを指定します。</div>
+ </td>
+ </tr>
+
+
+ <tr>
+ <td class="formSmt" colspan="2"><input class="smt" type="submit" value="設定"></td>
+ </tr>
+
+</tbody></table>
+
+</form>
+
+</div>
+
+</div>
+</div>
+<div style="clear:both"></div>
+</div>
+
+<div id="footer">© <a target="_blank" title="無料レンタルチャット" href="http://www.whocares.jp/">WHOCARES</a> <a href="http://www.whocares.jp/chatx.jsp" target="_blank">chatx</a>&nbsp;3.23</div>
+
+
+
+</body></html>

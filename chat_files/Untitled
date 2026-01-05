@@ -1,0 +1,2 @@
+if (window.chatx && window.chatx.refreshAdCB) { window.chatx.refreshAdCB("<iframe frameborder=\"0\" allowtransparency=\"true\" height=\"60\" width=\"468\" marginheight=\"0\" scrolling=\"no\" src=\"\/c\/ad001.jsp\" marginwidth=\"0\"><\/iframe>"); }
+

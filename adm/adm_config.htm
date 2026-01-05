@@ -1,0 +1,428 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta name="robots" content="noindex,nofollow,noarchive,nomediaindex,noimageindex">
+<link rel="stylesheet" href="adm_config_files/adm.css" type="text/css">
+<title>chatx Admin</title>
+<script type="text/javascript" charset="UTF-8" src="adm_config_files/wcutils.js"></script>
+<script type="text/javascript" charset="UTF-8" src="adm_config_files/cpicker.js"></script>
+<script type="text/javascript"><!--
+
+var reColor = /^#(\w{3}|\w{6})$/;
+
+var cpicker = new CPicker();
+function _cpick_cb(color, param) {
+    param.value = color;
+    var elm = document.getElementById(param.id + "_btn");
+    if (elm && color.match(reColor)) {
+        elm.style.backgroundColor = color;
+    }
+}
+function colorFieldChanged(elm) {
+    var e = document.getElementById(elm.id + "_btn");
+    try {
+        if (e && elm.value.match(reColor)) {
+            e.style.backgroundColor = elm.value;
+        }
+    }
+    catch(ex) {
+    }
+}
+
+function startCPicker(elm, id) {
+    var e = document.getElementById(id);
+    if (e.disabled) {
+        return;
+    }
+    cpicker.show(true, elm, _cpick_cb, e);
+    return false;
+}
+
+function sound_prev(name) {
+    var elm = document.getElementById("embd" + name);
+    if (!elm || WCUtils.getIEVersion() >= 9.0) {
+        elm = document.getElementById(name);
+    }
+    if (elm) {
+        try {
+            elm.Play();
+        }
+        catch(e) {
+            try {
+                elm.play();
+            }
+            catch(e) {
+                try {
+                    elm.DoPlay();
+                }
+                catch(e) {
+                }
+            }
+        }
+    }
+}
+
+//-->
+</script>
+
+<!--[if IE]>
+<style type="text/css">
+.menuSeparator {
+    margin: 0;
+}
+</style>
+<![endif]-->
+
+</head>
+<body>
+
+<div id="container">
+
+<div id="header">
+<div id="headerTitle">chatx 管理</div>
+<div id="loginInfo">
+<div id="loginId">
+<span>ログイン中: <span class="roomName">501ichihashi</span></span>
+</div>
+<div id="loginMenu">
+</div>
+<div style="clear:both"></div>
+</div>
+</div>
+
+<div id="lmenu">
+<div id="lmenuContainer">
+<p class="lmenuCurItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/config">動作設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/disp">表示設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/mobile">携帯関連設定</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/accesskey">アクセスキー設定</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/enter">入室設定</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/input">入力制限</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/mixi">mixi OpenID*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/hatena">はてな認証*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/twitter">Twitter連携</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/msg_common">文字列設定1*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/msg_mobile">文字列設定2</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/msg_info">文字列設定3</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/html">HTML設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/theme">テーマ設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/css">CSS設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/mobiledisp">携帯表示設定</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/color">文字色設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/icon">ICON*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/iconGroup">ICONグループ*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/sound">サウンド*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/command">コマンド</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/random">ランダムアクション</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/cap">キャップ</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/aa">顔文字リスト*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/insicon">発言用ICON*</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/logclear">ログクリア</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/users">ユーザー状況</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/logs">過去ログ</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/condv2">入室状況タグ</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/condprog">入室状況タグ(PHP)</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/chatinfo">チャット情報確認</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/chgpass">ID/パスワード変更</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/chgmail">メールアドレス変更</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/confsync">設定コピー*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/confinit">設定初期化*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/confback">設定バックアップ</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/confrestr">設定リストア*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/unregist">登録削除</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/logout">ログアウト</a></p>
+</div>
+</div>
+<div id="content">
+<div id="content2">
+<div class="configForm">
+
+<div class="formDesc">
+チャット動作関連の設定を行います。
+</div>
+
+<div><div id="info"><span>　</span></div></div>
+
+<form action="config" method="post">
+<input type="hidden" name="opr" value="1">
+
+<table class="configFormTab">
+
+ <tbody><tr>
+ <td class="formLabel">ホームページURL</td>
+ <td class="formInput">
+ <input type="text" size="36" maxlength="128" id="url" name="url" value="http://nanos.jp/solarterm/">
+ <div class="descr">ホームページのURLを指定します。</div>
+ </td>
+ </tr>
+
+ <tr>
+ <td class="formLabel">PCアクセス</td>
+ <td class="formInput">
+ <input type="checkbox" value="1" id="enablePc" name="enablePc" checked="checked"><label for="enablePc">有効</label>
+ <div class="descr">PCからのアクセスを有効にします。</div>
+ </td>
+ </tr>
+
+ <tr>
+ <td class="formLabel">モバイルアクセス</td>
+ <td class="formInput">
+ <input type="checkbox" value="1" id="enableMobile" name="enableMobile" checked="checked"><label for="enableMobile">有効</label>
+ <div class="descr">携帯からのアクセスを有効にします。</div>
+ </td>
+ </tr>
+
+ <tr>
+ <td class="formLabel">シンプルモード</td>
+ <td class="formInput">
+ <input type="checkbox" value="1" id="enableSimple" name="enableSimple" checked="checked"><label for="enableSimple">有効</label>
+ <div class="descr">シンプルモード対象端末(携帯フルブラウザやゲーム機など)からのアクセスを有効にします。</div>
+ </td>
+ </tr>
+
+ <tr>
+ <td class="formLabel">PCモードタイムアウト</td>
+ <td class="formInput">
+ <input type="text" size="4" maxlength="3" id="asyncTimeout" name="asyncTimeout" value="10"> 秒
+ <div class="descr">PC(Comet)モードのタイムアウトを3秒から60秒で指定します。通常、大きな値にする必要はありません。</div>
+ </td>
+ </tr>
+
+ <tr>
+ <td class="formLabel">シンプルモードタイムアウト</td>
+ <td class="formInput">
+ <input type="text" size="4" maxlength="3" id="pcTimeout" name="pcTimeout" value="120"> 秒
+ <div class="descr">シンプルモードのタイムアウトを60秒から180秒で指定します。</div>
+ </td>
+ </tr>
+
+ <tr>
+ <td class="formLabel">未入室時のログ閲覧</td>
+ <td class="formInput">
+ <input type="checkbox" value="1" id="allowRom" name="allowRom"><label for="allowRom">許可する</label>
+ <div class="descr">未入室状態でのログ閲覧を許可します。</div>
+ </td>
+ </tr>
+
+ <tr>
+ <td class="formLabel">PM機能</td>
+ <td class="formInput">
+ <input type="checkbox" value="1" id="enablePm" name="enablePm" checked="checked"><label for="enablePm">有効</label>
+ <div class="descr">PM(プライベートメッセージ,ささやき)機能を有効にします。</div>
+ </td>
+ </tr>
+
+ <tr>
+ <td class="formLabel">入室者全員宛てPM</td>
+ <td class="formInput">
+ <input type="checkbox" value="1" id="enablePmAll" name="enablePmAll" checked="checked"><label for="enablePmAll">有効</label>
+ <div class="descr">PMで「入室者全員」宛てを選択可能にします。</div>
+ </td>
+ </tr>
+
+ <tr>
+ <td class="formLabel">ファイルアップロード</td>
+ <td class="formInput">
+ <input type="checkbox" value="1" id="enableUpload" name="enableUpload" checked="checked"><label for="enableUpload">有効</label>
+ <div class="descr">ファイルアップロード機能を有効にします。</div>
+ </td>
+ </tr>
+
+ <tr>
+ <td class="formLabel">PC絵文字入力</td>
+ <td class="formInput">
+ <input type="checkbox" value="1" id="enablePcEmojiInput" name="enablePcEmojiInput"><label for="enablePcEmojiInput">有効</label>
+ <div class="descr">PCから絵文字入力可能にします。</div>
+ </td>
+ </tr>
+
+ <tr>
+ <td class="formLabel">URL入力</td>
+ <td class="formInput">
+ <input type="checkbox" value="1" id="enableUrlInput" name="enableUrlInput" checked="checked"><label for="enableUrlInput">有効</label>
+ <div class="descr">入室時のURL入力を有効にします。</div>
+ </td>
+ </tr>
+
+ <tr>
+ <td class="formLabel">コメント入力</td>
+ <td class="formInput">
+ <input type="checkbox" value="1" id="enableCommentInput" name="enableCommentInput" checked="checked"><label for="enableCommentInput">有効</label>
+ <div class="descr">入室時のコメント入力を有効にします。</div>
+ </td>
+ </tr>
+
+ <tr>
+ <td class="formLabel">URL自動リンク</td>
+ <td class="formInput">
+ <input type="checkbox" value="1" id="autoLink" name="autoLink" checked="checked"><label for="autoLink">有効</label>
+ <div class="descr">発言のURLを自動リンクします。設定後の発言から反映されます。</div>
+ </td>
+ </tr>
+
+ <tr>
+ <td class="formLabel">リダイレクタ</td>
+ <td class="formInput">
+ <input type="checkbox" value="1" id="redirector" name="redirector" checked="checked"><label for="redirector">有効</label>
+ <div class="descr">各URLのリンクにリダイレクタを使用します。設定後の入室,発言から反映されます。</div>
+ </td>
+ </tr>
+
+ <tr>
+ <td class="formLabel">ICONモード</td>
+ <td class="formInput">
+ <input type="checkbox" value="1" id="iconmode" name="iconmode"><label for="iconmode">ICONモードチャット</label>
+ <div class="descr">チャットをICONチャットにします。</div>
+ </td>
+ </tr>
+
+ <tr>
+ <td class="formLabel">ICONアップロード</td>
+ <td class="formInput">
+ <input type="checkbox" value="1" id="enableIconUpload" name="enableIconUpload"><label for="enableIconUpload">有効</label>
+ <div class="descr">入室時にICONをアップロード可能にします。</div>
+ </td>
+ </tr>
+
+ <tr>
+ <td class="formLabel">ICONグループ</td>
+ <td class="formInput">
+ <input type="checkbox" value="1" id="enableIconGroup" name="enableIconGroup"><label for="enableIconGroup">有効</label>
+ <div class="descr">ICONグループ機能を有効にします。注意:ICONグループを有効にすると、ICONアップロードは常にOFFとなります。グループの設定は「<a href="http://501ichihashi.chatx2.whocares.jp/adm/iconGroup">ICONグループ</a>」から行います。</div>
+ </td>
+ </tr>
+
+ <tr>
+ <td class="formLabel">複数行入力</td>
+ <td class="formInput">
+ <input type="checkbox" value="1" id="enableMultiLine" name="enableMultiLine" checked="checked"><label for="enableMultiLine">有効</label>
+ <div class="descr">複数行入力を可能にします。</div>
+ </td>
+ </tr>
+
+ <tr>
+ <td class="formLabel">表示フォントサイズ選択</td>
+ <td class="formInput">
+ <input type="checkbox" value="1" id="enableFontSizeSel" name="enableFontSizeSel" checked="checked"><label for="enableFontSizeSel">有効</label>
+ <div class="descr">設定から表示フォントサイズを選択可能にします。</div>
+ </td>
+ </tr>
+
+ <tr>
+ <td class="formLabel">スクロール選択</td>
+ <td class="formInput">
+ <input type="checkbox" value="1" id="enableScrollType" name="enableScrollType" checked="checked"><label for="enableScrollType">有効</label>
+ <div class="descr">設定からスクロール方法の選択可能にします。</div>
+ </td>
+ </tr>
+
+ <tr>
+ <td class="formLabel">発言文字サイズ選択</td>
+ <td class="formInput">
+ <input type="checkbox" value="1" id="enableSendFontSize" name="enableSendFontSize"><label for="enableSendFontSize">有効</label>
+ <div class="descr">発言時の文字サイズが選択可能になります。</div>
+ </td>
+ </tr>
+
+<tr>
+ <td class="formLabel">ムービー埋め込み選択</td>
+ <td class="formInput">
+ <input type="checkbox" value="1" id="enableUpdateTagSel" name="enableUpdateTagSel"><label for="enableUpdateTagSel">有効</label>
+ <div class="descr">設定画面で「ムービーを埋め込む」を選択可能にします。</div>
+ </td>
+ </tr>
+
+<tr>
+ <td class="formLabel">チャットの過去ログ</td>
+ <td class="formInput">
+ <select name="arcLogLevel" id="arcLogLevel">
+                <option value="0">取得しない</option>
+                <option value="1" selected="selected">PM以外を取得</option>
+                <option value="2">全て取得</option>
+            </select>
+ <div class="descr">過去ログの取得方法を指定します。設定後の入室ユーザーから反映されます。</div>
+ </td>
+ </tr>
+
+ <tr>
+ <td class="formLabel">入室通知機能</td>
+ <td class="formInput">
+ <input type="checkbox" value="1" id="enableSubscribe" name="enableSubscribe" checked="checked"><label for="enableSubscribe">有効</label>
+ <div class="descr">入室通知機能を有効にします。</div>
+ </td>
+ </tr>
+
+ <tr>
+ <td class="formLabel">入室パスワード</td>
+ <td class="formInput">
+ <input type="text" size="18" maxlength="64" id="enterPassword" name="enterPassword">
+ <div class="descr">チャットの入室をパスワード制限する場合にパスワードを指定します。</div>
+ </td>
+ </tr>
+
+ <tr>
+ <td class="formLabel">自動ログクリア</td>
+ <td class="formInput">
+ <input type="checkbox" value="1" id="autoLogClear" name="autoLogClear"><label for="autoLogClear">有効</label>
+ <div class="descr">入室者が0になると、自動的にログをクリアします。</div>
+ </td>
+ </tr>
+
+ <tr>
+ <td class="formLabel">テキストログ機能</td>
+ <td class="formInput">
+ <input type="checkbox" value="1" id="enableTextLog" name="enableTextLog" checked="checked"><label for="enableTextLog">有効</label>
+ <div class="descr">テキストログ生成機能を有効にします。</div>
+ </td>
+ </tr>
+
+ <tr>
+ <td class="formLabel">トリップ長</td>
+ <td class="formInput">
+ <select name="tripLength" id="tripLength">
+                <option value="10" selected="selected">10桁</option>
+                <option value="8">8桁</option>
+            </select>
+ <div class="descr">トリップの長さを指定します。8桁はセキュリティ上問題がありますので利用しないことを推奨します。</div>
+ </td>
+ </tr>
+
+ <tr>
+ <td class="formLabel">無発言自動退室</td>
+ <td class="formInput">
+ <input type="text" size="4" maxlength="3" id="autoExitMin" name="autoExitMin" value="0"> 分
+ <div class="descr">指定時間(分)発言が無い場合に自動退室にします。10から120で指定します。0で無効です。</div>
+ </td>
+ </tr>
+
+
+<input type="hidden" name="rating" id="rating" value="20">
+<tr>
+ <td class="formSmt" colspan="2"><input class="smt" type="submit" value="設定"></td>
+ </tr>
+
+</tbody></table>
+
+</form>
+
+</div>
+
+</div>
+</div>
+<div style="clear:both"></div>
+</div>
+
+<div id="footer">© <a target="_blank" title="無料レンタルチャット" href="http://www.whocares.jp/">WHOCARES</a> <a href="http://www.whocares.jp/chatx.jsp" target="_blank">chatx</a>&nbsp;3.23</div>
+
+
+
+</body></html>

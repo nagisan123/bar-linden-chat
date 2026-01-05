@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta name="robots" content="noindex,nofollow,noarchive,nomediaindex,noimageindex">
+<link rel="stylesheet" href="adm_condv2_files/adm.css" type="text/css">
+<title>chatx Admin</title>
+<script type="text/javascript" charset="UTF-8" src="adm_condv2_files/wcutils.js"></script>
+<script type="text/javascript" charset="UTF-8" src="adm_condv2_files/cpicker.js"></script>
+<script type="text/javascript"><!--
+
+var reColor = /^#(\w{3}|\w{6})$/;
+
+var cpicker = new CPicker();
+function _cpick_cb(color, param) {
+    param.value = color;
+    var elm = document.getElementById(param.id + "_btn");
+    if (elm && color.match(reColor)) {
+        elm.style.backgroundColor = color;
+    }
+}
+function colorFieldChanged(elm) {
+    var e = document.getElementById(elm.id + "_btn");
+    try {
+        if (e && elm.value.match(reColor)) {
+            e.style.backgroundColor = elm.value;
+        }
+    }
+    catch(ex) {
+    }
+}
+
+function startCPicker(elm, id) {
+    var e = document.getElementById(id);
+    if (e.disabled) {
+        return;
+    }
+    cpicker.show(true, elm, _cpick_cb, e);
+    return false;
+}
+
+function sound_prev(name) {
+    var elm = document.getElementById("embd" + name);
+    if (!elm || WCUtils.getIEVersion() >= 9.0) {
+        elm = document.getElementById(name);
+    }
+    if (elm) {
+        try {
+            elm.Play();
+        }
+        catch(e) {
+            try {
+                elm.play();
+            }
+            catch(e) {
+                try {
+                    elm.DoPlay();
+                }
+                catch(e) {
+                }
+            }
+        }
+    }
+}
+
+//-->
+</script>
+
+<!--[if IE]>
+<style type="text/css">
+.menuSeparator {
+    margin: 0;
+}
+</style>
+<![endif]-->
+
+</head>
+<body>
+
+<div id="container">
+
+<div id="header">
+<div id="headerTitle">chatx 管理</div>
+<div id="loginInfo">
+<div id="loginId">
+<span>ログイン中: <span class="roomName">501ichihashi</span></span>
+</div>
+<div id="loginMenu">
+</div>
+<div style="clear:both"></div>
+</div>
+</div>
+
+<div id="lmenu">
+<div id="lmenuContainer">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/config">動作設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/disp">表示設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/mobile">携帯関連設定</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/accesskey">アクセスキー設定</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/enter">入室設定</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/input">入力制限</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/mixi">mixi OpenID*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/hatena">はてな認証*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/twitter">Twitter連携</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/msg_common">文字列設定1*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/msg_mobile">文字列設定2</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/msg_info">文字列設定3</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/html">HTML設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/theme">テーマ設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/css">CSS設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/mobiledisp">携帯表示設定</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/color">文字色設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/icon">ICON*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/iconGroup">ICONグループ*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/sound">サウンド*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/command">コマンド</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/random">ランダムアクション</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/cap">キャップ</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/aa">顔文字リスト*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/insicon">発言用ICON*</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/logclear">ログクリア</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/users">ユーザー状況</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/logs">過去ログ</a></p>
+<hr class="menuSeparator">
+<p class="lmenuCurItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/condv2">入室状況タグ</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/condprog">入室状況タグ(PHP)</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/chatinfo">チャット情報確認</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/chgpass">ID/パスワード変更</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/chgmail">メールアドレス変更</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/confsync">設定コピー*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/confinit">設定初期化*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/confback">設定バックアップ</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/confrestr">設定リストア*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/unregist">登録削除</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/logout">ログアウト</a></p>
+</div>
+</div>
+<div id="content">
+<div id="content2">
+<div class="configForm">
+
+<div class="formDesc">
+チャットの入室状況をHP等に表示できます。「表示用タグ」を任意の場所に埋め込み、「スクリプトタグ」を1回のみ、&lt;/body&gt;の直前に埋め込んでください。(複数のチャットの入室状況を設置する場合も、スクリプトタグは1回のみ)
+</div>
+
+
+<div style="margin-top: 1em">
+
+<div><label class="formLabel">表示用タグ - 入室人数</label></div>
+<textarea class="tagTarea" onfocus="this.select()" readonly="readonly" cols="20" rows="2" wrap="off">&lt;span
+ data-chatx-id="501ichihashi.chatx2.whocares.jp" 
+data-chatx-type="numUsers"&gt;-&lt;noscript&gt;&lt;img alt="" width="24"
+ height="12" 
+src="https://501ichihashi.chatx2.whocares.jp/mcond/users.png" 
+/&gt;&lt;/noscript&gt;&lt;/span&gt;</textarea><br>
+<br>
+
+<div><label class="formLabel">表示用タグ - ROM人数</label></div>
+<textarea class="tagTarea" onfocus="this.select()" readonly="readonly" cols="20" rows="2" wrap="off">&lt;span
+ data-chatx-id="501ichihashi.chatx2.whocares.jp" 
+data-chatx-type="numRoms"&gt;-&lt;noscript&gt;&lt;img alt="" width="24" 
+height="12" src="https://501ichihashi.chatx2.whocares.jp/mcond/roms.png"
+ /&gt;&lt;/noscript&gt;&lt;/span&gt;</textarea><br>
+<br>
+
+<div><label class="formLabel">表示用タグ - 入室中ユーザー</label></div>
+<textarea class="tagTarea" onfocus="this.select()" readonly="readonly" cols="20" rows="2" wrap="off">&lt;span data-chatx-id="501ichihashi.chatx2.whocares.jp" data-chatx-type="users"&gt;&lt;/span&gt;</textarea><br>
+<br>
+
+<div><label class="formLabel">表示用タグ - 入室中ユーザー2 (入室コメント表示)</label></div>
+<textarea class="tagTarea" onfocus="this.select()" readonly="readonly" cols="20" rows="2" wrap="off">&lt;div data-chatx-id="501ichihashi.chatx2.whocares.jp" data-chatx-type="users2"&gt;&lt;/div&gt;</textarea><br>
+<br>
+
+<div><label class="formLabel">表示用タグ - 空満状況</label></div>
+<textarea class="tagTarea" onfocus="this.select()" readonly="readonly" cols="20" rows="2" wrap="off">&lt;span data-chatx-id="501ichihashi.chatx2.whocares.jp" data-chatx-type="availability"&gt;-&lt;/span&gt;</textarea><br>
+<br>
+
+<div><label class="formLabel">スクリプトタグ</label></div>
+<textarea class="tagTarea" onfocus="this.select()" readonly="readonly" cols="20" rows="2" wrap="off">&lt;script src="https://chatx2.whocares.jp/_static/js/cond.js"&gt;&lt;/script&gt;</textarea><br>
+<br>
+
+</div>
+
+<div>
+<a href="http://chatx2.whocares.jp/cond_sample.html" target="_blank">設置サンプル</a><br>
+<a href="http://501ichihashi.chatx2.whocares.jp/adm/viewSource2" target="_blank">設置サンプルのhtmlソース</a>
+</div>
+
+
+<div id="xn" class="xnote2" style="margin: 1em 0">
+<div style="font-weight: bold">注意点</div>
+<ul style="margin-left:1em">
+<li>※ 状況表示の可否は「<a href="http://501ichihashi.chatx2.whocares.jp/adm/disp">表示設定</a>」「未入室時のユーザー状況」の設定が適用されます。表示されない場合は、設定を確認してください。</li>
+<li>設置ページの自動リロード(metaタグやjavascript等を利用した)は行わないでください。</li>
+<li>タグを改変してサーバーに負荷がかかる利用が行われた場合、予告なく使用を禁止する場合があります。</li>
+</ul>
+</div>
+
+</div>
+
+</div>
+</div>
+<div style="clear:both"></div>
+</div>
+
+<div id="footer">© <a target="_blank" title="無料レンタルチャット" href="http://www.whocares.jp/">WHOCARES</a> <a href="http://www.whocares.jp/chatx.jsp" target="_blank">chatx</a>&nbsp;3.23</div>
+
+
+
+</body></html>

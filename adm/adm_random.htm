@@ -1,0 +1,844 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta name="robots" content="noindex,nofollow,noarchive,nomediaindex,noimageindex">
+<link rel="stylesheet" href="adm_random_files/adm.css" type="text/css">
+<title>chatx Admin</title>
+<script type="text/javascript" charset="UTF-8" src="adm_random_files/wcutils.js"></script>
+<script type="text/javascript" charset="UTF-8" src="adm_random_files/cpicker.js"></script>
+<script type="text/javascript"><!--
+
+var reColor = /^#(\w{3}|\w{6})$/;
+
+var cpicker = new CPicker();
+function _cpick_cb(color, param) {
+    param.value = color;
+    var elm = document.getElementById(param.id + "_btn");
+    if (elm && color.match(reColor)) {
+        elm.style.backgroundColor = color;
+    }
+}
+function colorFieldChanged(elm) {
+    var e = document.getElementById(elm.id + "_btn");
+    try {
+        if (e && elm.value.match(reColor)) {
+            e.style.backgroundColor = elm.value;
+        }
+    }
+    catch(ex) {
+    }
+}
+
+function startCPicker(elm, id) {
+    var e = document.getElementById(id);
+    if (e.disabled) {
+        return;
+    }
+    cpicker.show(true, elm, _cpick_cb, e);
+    return false;
+}
+
+function sound_prev(name) {
+    var elm = document.getElementById("embd" + name);
+    if (!elm || WCUtils.getIEVersion() >= 9.0) {
+        elm = document.getElementById(name);
+    }
+    if (elm) {
+        try {
+            elm.Play();
+        }
+        catch(e) {
+            try {
+                elm.play();
+            }
+            catch(e) {
+                try {
+                    elm.DoPlay();
+                }
+                catch(e) {
+                }
+            }
+        }
+    }
+}
+
+//-->
+</script>
+
+<!--[if IE]>
+<style type="text/css">
+.menuSeparator {
+    margin: 0;
+}
+</style>
+<![endif]-->
+
+</head>
+<body>
+
+<div id="container">
+
+<div id="header">
+<div id="headerTitle">chatx 管理</div>
+<div id="loginInfo">
+<div id="loginId">
+<span>ログイン中: <span class="roomName">501ichihashi</span></span>
+</div>
+<div id="loginMenu">
+</div>
+<div style="clear:both"></div>
+</div>
+</div>
+
+<div id="lmenu">
+<div id="lmenuContainer">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/config">動作設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/disp">表示設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/mobile">携帯関連設定</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/accesskey">アクセスキー設定</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/enter">入室設定</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/input">入力制限</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/mixi">mixi OpenID*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/hatena">はてな認証*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/twitter">Twitter連携</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/msg_common">文字列設定1*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/msg_mobile">文字列設定2</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/msg_info">文字列設定3</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/html">HTML設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/theme">テーマ設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/css">CSS設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/mobiledisp">携帯表示設定</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/color">文字色設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/icon">ICON*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/iconGroup">ICONグループ*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/sound">サウンド*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/command">コマンド</a></p>
+<p class="lmenuCurItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/random">ランダムアクション</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/cap">キャップ</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/aa">顔文字リスト*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/insicon">発言用ICON*</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/logclear">ログクリア</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/users">ユーザー状況</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/logs">過去ログ</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/condv2">入室状況タグ</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/condprog">入室状況タグ(PHP)</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/chatinfo">チャット情報確認</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/chgpass">ID/パスワード変更</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/chgmail">メールアドレス変更</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/confsync">設定コピー*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/confinit">設定初期化*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/confback">設定バックアップ</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/confrestr">設定リストア*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/unregist">登録削除</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/logout">ログアウト</a></p>
+</div>
+</div>
+<div id="content">
+<div id="content2">
+<script type="text/javascript"><!--
+var o_dat = [
+    [  1, "%NAME%さんの運勢は『大吉』です。" ],
+    [  2, "%NAME%さんの運勢は『中吉』です。" ],
+    [  3, "%NAME%さんの運勢は『小吉』です。" ],
+    [ 10, "%NAME%さんの運勢は『吉』です。" ],
+    [  8, "%NAME%さんの運勢は『末吉』です。" ],
+    [  2, "%NAME%さんの運勢は『凶』です。" ],
+    [  1, "%NAME%さんの運勢は『大凶』です。" ]
+];
+
+var c_dat = [
+    [  1, "%NAME%はサイコロを振った! [1][2][3]ヒフミ" ],
+    [  1, "%NAME%はサイコロを振った! [4][5][6]シゴロ" ],
+    [  5, "%NAME%はサイコロを振った! [1][3][4]目無し" ],
+    [  2, "%NAME%はサイコロを振った! [2][2][2]アラシ" ],
+    [  2, "%NAME%はサイコロを振った! [3][3][3]アラシ" ],
+    [  2, "%NAME%はサイコロを振った! [4][4][4]アラシ" ],
+    [  2, "%NAME%はサイコロを振った! [6][6][6]アラシ" ],
+    [  2, "%NAME%はサイコロを振った! [1][1][1]ピンゾロ" ],
+    [  2, "%NAME%はサイコロを振った! [5][5][5]ゴゾロ" ],
+    [  4, "%NAME%はサイコロを振った! [1][6][6]インケツ" ],
+    [  4, "%NAME%はサイコロを振った! [2][6][6]ニタコ" ],
+    [  4, "%NAME%はサイコロを振った! [3][6][6]サンタ" ],
+    [  4, "%NAME%はサイコロを振った! [4][6][6]シニメ" ],
+    [  4, "%NAME%はサイコロを振った! [5][6][6]ゴケ" ],
+    [  4, "%NAME%はサイコロを振った! [6][1][1]ロッポウ" ],
+    [  3, "%NAME%はサイコロを振った! [1][1][x]しょんべん" ]
+];
+
+function omikuji() {
+    if (! confirm("ランダムアクションをおみくじに初期化します。よろしいですか？")) {
+        return false;
+    }
+    set(o_dat);
+    document.getElementById("randomActionCommand").value = "おみくじ";
+    return false;
+}
+function chinchirorin() {
+    if (! confirm("ランダムアクションをチンチロリンに初期化します。よろしいですか？")) {
+        return false;
+    }
+    set(c_dat);
+    document.getElementById("randomActionCommand").value = "チンチロリン";
+    return false;
+}
+function set(ar) {
+    for (var i=0; i < ar.length; i++) {
+        selectOption("weight" + i, ar[i][0]);
+        document.getElementById("msg" + i).value = ar[i][1];
+    }
+    for (var i=ar.length; i < 30; i++) {
+        selectOption("weight" + i, 1);
+        document.getElementById("msg" + i).value = "";
+    }
+}
+function selectOption(name, val) {
+    var e = document.getElementById(name);
+    for (var i=0, n=e.options.length; i < n; i++) {
+        if (e.options[i].value == val) {
+            e.options[i].selected = true;
+            break;
+        }
+    }
+}
+
+//-->
+</script>
+
+<div class="configForm">
+
+<div class="formDesc">
+ランダムアクションの設定を行います。
+</div>
+
+<div><div id="info"><span>　</span></div></div>
+
+<form action="random" method="post">
+<input type="hidden" name="opr" value="1">
+
+<table class="configFormTab">
+
+ <tbody><tr>
+ <td class="formLabel">コマンド</td>
+ <td class="formInput">
+ <input type="text" maxlength="32" size="20" id="randomActionCommand" name="randomActionCommand" value="つまむ">
+ <div class="descr">ランダムアクションコマンドの文字列を指定します。</div>
+ </td>
+ </tr>
+
+</tbody></table>
+
+<div style="margin-top:1em">
+[<a href="javascript:void(0)" onclick="return omikuji();">おみくじ</a>]
+[<a href="javascript:void(0)" onclick="return chinchirorin();">チンチロリン</a>]
+</div>
+
+<table class="ntab">
+<tbody><tr>
+<th class="ntabth">ウェイト</th>
+<th class="ntabth">メッセージ</th>
+</tr>
+
+<tr>
+ <td class="ntabtd">
+<select name="weight0" id="weight0">
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3" selected="selected">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+</select>
+ </td>
+ <td class="ntabtd">
+<input type="text" name="msg0" id="msg0" size="36" maxlength="256" value="%NAME%がつまんだ、あさり…！と思ったら貝殻のみだった。中味は鍋の底へ沈んでいるかもしれない、let's再チャレンジ☆">
+ </td>
+ </tr>
+<tr>
+ <td class="ntabtd">
+<select name="weight1" id="weight1">
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3" selected="selected">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+</select>
+ </td>
+ <td class="ntabtd">
+<input type="text" name="msg1" id="msg1" size="36" maxlength="256" value="%NAME%がつまんだ、にんじん、にんじん、にんじん、にんじんのみ、いっぱい掬った。体にとっても良さそうだ、残さず食べよう笑">
+ </td>
+ </tr>
+<tr>
+ <td class="ntabtd">
+<select name="weight2" id="weight2">
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3" selected="selected">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+</select>
+ </td>
+ <td class="ntabtd">
+<input type="text" name="msg2" id="msg2" size="36" maxlength="256" value="%NAME%がつまんだ、しらたき、切れてない。どんだけ長いんだ…一気に啜れ！">
+ </td>
+ </tr>
+<tr>
+ <td class="ntabtd">
+<select name="weight3" id="weight3">
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3" selected="selected">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+</select>
+ </td>
+ <td class="ntabtd">
+<input type="text" name="msg3" id="msg3" size="36" maxlength="256" value="%NAME%がつまんだ、あっつあつな豆腐、ごま豆乳鍋で甘み増してまろやかトロリ、…と期待したらお玉から逃げた。取れたのは幻だったのかも">
+ </td>
+ </tr>
+<tr>
+ <td class="ntabtd">
+<select name="weight4" id="weight4">
+<option value="1" selected="selected">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+</select>
+ </td>
+ <td class="ntabtd">
+<input type="text" name="msg4" id="msg4" size="36" maxlength="256" value="%NAME%がつまんだ、摘んだ、と思ったら豆腐が崩れて鍋に逆戻り。そりゃそうだ、次はおたまでお願いします。">
+ </td>
+ </tr>
+<tr>
+ <td class="ntabtd">
+<select name="weight5" id="weight5">
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3" selected="selected">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+</select>
+ </td>
+ <td class="ntabtd">
+<input type="text" name="msg5" id="msg5" size="36" maxlength="256" value="%NAME%がつまんだ、鶏つくね、コリコリとした食感はおそらく軟骨。美味いのでもうひとつ追加で。">
+ </td>
+ </tr>
+<tr>
+ <td class="ntabtd">
+<select name="weight6" id="weight6">
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3" selected="selected">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+</select>
+ </td>
+ <td class="ntabtd">
+<input type="text" name="msg6" id="msg6" size="36" maxlength="256" value="%NAME%がつまんだ、餅。……の端。ひとかけら。鍋の中で揺れる本体。広がりすぎる前にお玉ですくいたい">
+ </td>
+ </tr>
+<tr>
+ <td class="ntabtd">
+<select name="weight7" id="weight7">
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3" selected="selected">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+</select>
+ </td>
+ <td class="ntabtd">
+<input type="text" name="msg7" id="msg7" size="36" maxlength="256" value="%NAME%がつまんだ、何かピンクの物体が見えた！けれど、また白い液体の中へ泳いでいった…。掬いかけたのは鮭、…だったかもしれない。鮭">
+ </td>
+ </tr>
+<tr>
+ <td class="ntabtd">
+<select name="weight8" id="weight8">
+<option value="1" selected="selected">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+</select>
+ </td>
+ <td class="ntabtd">
+<input type="text" name="msg8" id="msg8" size="36" maxlength="256" value="%NAME%がつまんだ、肉厚の椎茸、噛んだら熱々の汁がジュワ。熱い、若干火傷したかも、けど美味い">
+ </td>
+ </tr>
+<tr>
+ <td class="ntabtd">
+<select name="weight9" id="weight9">
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3" selected="selected">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+</select>
+ </td>
+ <td class="ntabtd">
+<input type="text" name="msg9" id="msg9" size="36" maxlength="256" value="%NAME%がつまんだ、肉、肉、がっつり大きな鶏肉が二つ、大当たり！ほろ、と口の中で解ける柔らかジューシーな美味しさ">
+ </td>
+ </tr>
+<tr>
+ <td class="ntabtd">
+<select name="weight10" id="weight10">
+<option value="1" selected="selected">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+</select>
+ </td>
+ <td class="ntabtd">
+<input type="text" name="msg10" id="msg10" size="36" maxlength="256" value="%NAME%がつまんだ、豚肉、と思ったら油揚げだった…。いや、これはこれで汁たっぷりで美味いから大丈夫。">
+ </td>
+ </tr>
+<tr>
+ <td class="ntabtd">
+<select name="weight11" id="weight11">
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3" selected="selected">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+</select>
+ </td>
+ <td class="ntabtd">
+<input type="text" name="msg11" id="msg11" size="36" maxlength="256" value="%NAME%がつまんだ、味の染みた大根、煮崩れ間近。火傷覚悟で頬張りましょう。">
+ </td>
+ </tr>
+<tr>
+ <td class="ntabtd">
+<select name="weight12" id="weight12">
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3" selected="selected">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+</select>
+ </td>
+ <td class="ntabtd">
+<input type="text" name="msg12" id="msg12" size="36" maxlength="256" value="%NAME%がつまんだ、花形に切られた人参２枚、可愛さに心もホッコリ。食べるのが勿体ない、なんて言ってないで是非食べて頂きたい。">
+ </td>
+ </tr>
+<tr>
+ <td class="ntabtd">
+<select name="weight13" id="weight13">
+<option value="1" selected="selected">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+</select>
+ </td>
+ <td class="ntabtd">
+<input type="text" name="msg13" id="msg13" size="36" maxlength="256" value="%NAME%がつまんだ、これは白菜、いや、レタス……かな？食べたら分かる、良い感じに煮込まれた何かの葉の部分。">
+ </td>
+ </tr>
+<tr>
+ <td class="ntabtd">
+<select name="weight14" id="weight14">
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3" selected="selected">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+</select>
+ </td>
+ <td class="ntabtd">
+<input type="text" name="msg14" id="msg14" size="36" maxlength="256" value="%NAME%がつまんだ、えのきの一群れ...の中の一本。ほろり。残りは豆乳の中へ。えのきいぃぃー！熱い雫が散った。FIN">
+ </td>
+ </tr>
+<tr>
+ <td class="ntabtd">
+<select name="weight15" id="weight15">
+<option value="1" selected="selected">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+</select>
+ </td>
+ <td class="ntabtd">
+<input type="text" name="msg15" id="msg15" size="36" maxlength="256" value="%NAME%がつまんだ、たらと鮭のダブル取り、どっちから食べよう…なんて迷っている間に隣から箸が伸びてくるかも！？">
+ </td>
+ </tr>
+<tr>
+ <td class="ntabtd">
+<select name="weight16" id="weight16">
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3" selected="selected">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+</select>
+ </td>
+ <td class="ntabtd">
+<input type="text" name="msg16" id="msg16" size="36" maxlength="256" value="%NAME%がつまんだ、白菜ごっそり、噛んだらコリッ。…取り切れなかった鱈の骨が混ざって１本。飲み込まないように気をつけて。">
+ </td>
+ </tr>
+<tr>
+ <td class="ntabtd">
+<select name="weight17" id="weight17">
+<option value="1" selected="selected">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+</select>
+ </td>
+ <td class="ntabtd">
+<input type="text" name="msg17" id="msg17" size="36" maxlength="256" value="%NAME%がつまんだ、オモチ！美味しそうなお餅が取れた！一度焼いた柔らかでのびーーーるお餅。煮込まれて、とってもアッツアツなので火傷しちゃうかも？！">
+ </td>
+ </tr>
+<tr>
+ <td class="ntabtd">
+<select name="weight18" id="weight18">
+<option value="1" selected="selected">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+</select>
+ </td>
+ <td class="ntabtd">
+<input type="text" name="msg18" id="msg18" size="36" maxlength="256" value="%NAME%の箸がつまんだ、鶏肉と絡みついたしらたきのおまけ付き。当たりです、明日は良い事がある、かもしれない。">
+ </td>
+ </tr>
+<tr>
+ <td class="ntabtd">
+<select name="weight19" id="weight19">
+<option value="1" selected="selected">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+</select>
+ </td>
+ <td class="ntabtd">
+<input type="text" name="msg19" id="msg19" size="36" maxlength="256" value="%NAME%の箸がつまんだ、箸に豚肉がごっそり刺さってきた。さながらBBQの串。鍋なのに。――食べた後、新しい豚肉を投入する仕事のおまけつき★（※豆乳のダジャレではない）">
+ </td>
+ </tr>
+<tr>
+ <td class="ntabtd">
+<select name="weight20" id="weight20">
+<option value="1" selected="selected">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+</select>
+ </td>
+ <td class="ntabtd">
+<input type="text" name="msg20" id="msg20" size="36" maxlength="256" value="%NAME%の箸がつま…んでない。箸が、箸が…蓮根の穴を…く、くぐりぬけてるうゥ―!?　驚くついでに隣の人の口に放りこもう。ぽい">
+ </td>
+ </tr>
+<tr>
+ <td class="ntabtd">
+<select name="weight21" id="weight21">
+<option value="1" selected="selected">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+</select>
+ </td>
+ <td class="ntabtd">
+<input type="text" name="msg21" id="msg21" size="36" maxlength="256" value="%NAME%の箸がつまんだ、と言うよりは突き刺さった。ホクホクの里芋が並んで２つ。もうひとつ刺して団子にしたい。">
+ </td>
+ </tr>
+<tr>
+ <td class="ntabtd">
+<select name="weight22" id="weight22">
+<option value="1" selected="selected">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+</select>
+ </td>
+ <td class="ntabtd">
+<input type="text" name="msg22" id="msg22" size="36" maxlength="256" value="%NAME%の箸がつまんだ、狙いを定めた鶏肉！……の筈が、手元が狂って帆立をゲット。…え？最初から狙ってましたが、何か？">
+ </td>
+ </tr>
+<tr>
+ <td class="ntabtd">
+<select name="weight23" id="weight23">
+<option value="1" selected="selected">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+</select>
+ </td>
+ <td class="ntabtd">
+<input type="text" name="msg23" id="msg23" size="36" maxlength="256" value="%NAME%の箸がつまんだ、出ました大振りの牡蠣。しっかりと目に焼き付けてから、口の中に広がるクリーミーな味わいを堪能しましょう">
+ </td>
+ </tr>
+<tr>
+ <td class="ntabtd">
+<select name="weight24" id="weight24">
+<option value="1" selected="selected">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+</select>
+ </td>
+ <td class="ntabtd">
+<input type="text" name="msg24" id="msg24" size="36" maxlength="256" value="%NAME%の箸がつまんだのは、鶏のぶつ切り（骨付き。美味）に水菜が引っ掛かり、おまけに豆腐も乗ってきた。最高です。酒が進む！">
+ </td>
+ </tr>
+<tr>
+ <td class="ntabtd">
+<select name="weight25" id="weight25">
+<option value="1" selected="selected">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+</select>
+ </td>
+ <td class="ntabtd">
+<input type="text" name="msg25" id="msg25" size="36" maxlength="256" value="%NAME%の箸がつまんだ、白菜とえのき。持ち上げたら、端っこギリギリを摘んだらしい牡蠣も釣れた。これはラッキー！">
+ </td>
+ </tr>
+<tr>
+ <td class="ntabtd">
+<select name="weight26" id="weight26">
+<option value="1" selected="selected">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+</select>
+ </td>
+ <td class="ntabtd">
+<input type="text" name="msg26" id="msg26" size="36" maxlength="256" value="%NAME%の箸がつまんだ、透ける緑も美しいロールキャベツ。丁寧に包まれ…丁寧に…、包まれすぎて主役はキャベツ!?　確かにロールキャベツだ！間違ってない！　俯いて食べよう">
+ </td>
+ </tr>
+<tr>
+ <td class="ntabtd">
+<select name="weight27" id="weight27">
+<option value="1" selected="selected">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+</select>
+ </td>
+ <td class="ntabtd">
+<input type="text" name="msg27" id="msg27" size="36" maxlength="256" value="%NAME%の箸がつまんだ、湯気舞う特製ロールキャベツ。裏切りはなく、じゅわっと溢れる旨味を味わおう。みじん切りにしたネギやニンジン、砕いたコンソメが練り込んである一品。">
+ </td>
+ </tr>
+<tr>
+ <td class="ntabtd">
+<select name="weight28" id="weight28">
+<option value="1" selected="selected">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+</select>
+ </td>
+ <td class="ntabtd">
+<input type="text" name="msg28" id="msg28" size="36" maxlength="256" value="%NAME%の箸がつまんだ、3㎝はあるゴボウ。誰かが適当に切ったらしい。でも美味いです、ゴボウ">
+ </td>
+ </tr>
+<tr>
+ <td class="ntabtd">
+<select name="weight29" id="weight29">
+<option value="1" selected="selected">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+</select>
+ </td>
+ <td class="ntabtd">
+<input type="text" name="msg29" id="msg29" size="36" maxlength="256" value="%NAME%の箸がつまんだ、あっつあつのソーセージ。噛んだら中からとろ～りチーズIN。猫舌だって大丈夫、お冷はお代わり自由です！">
+ </td>
+ </tr>
+</tbody></table>
+
+<br>
+<input class="smt" type="submit" value="設定">
+
+</form>
+
+<div id="xn" class="xnote" style="margin: 1em 0">
+<p>ウェイトはメッセージの出現率の調整に使用します。値が大きいほど出現率が高くなります。</p>
+<br>
+<p>メッセージには変数 %NAME%(コマンド発行者)、%TERM%(端末), %IP%(IPアドレス), %HOST%(ホスト名)が使用できます。</p>
+</div>
+
+</div>
+
+</div>
+</div>
+<div style="clear:both"></div>
+</div>
+
+<div id="footer">© <a target="_blank" title="無料レンタルチャット" href="http://www.whocares.jp/">WHOCARES</a> <a href="http://www.whocares.jp/chatx.jsp" target="_blank">chatx</a>&nbsp;3.23</div>
+
+
+
+</body></html>

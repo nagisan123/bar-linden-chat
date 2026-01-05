@@ -1,0 +1,522 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta name="robots" content="noindex,nofollow,noarchive,nomediaindex,noimageindex">
+<link rel="stylesheet" href="adm-msg_common_files/adm.css" type="text/css">
+<title>chatx Admin</title>
+<script type="text/javascript" charset="UTF-8" src="adm-msg_common_files/wcutils.js"></script>
+<script type="text/javascript" charset="UTF-8" src="adm-msg_common_files/cpicker.js"></script>
+<script type="text/javascript"><!--
+
+var reColor = /^#(\w{3}|\w{6})$/;
+
+var cpicker = new CPicker();
+function _cpick_cb(color, param) {
+    param.value = color;
+    var elm = document.getElementById(param.id + "_btn");
+    if (elm && color.match(reColor)) {
+        elm.style.backgroundColor = color;
+    }
+}
+function colorFieldChanged(elm) {
+    var e = document.getElementById(elm.id + "_btn");
+    try {
+        if (e && elm.value.match(reColor)) {
+            e.style.backgroundColor = elm.value;
+        }
+    }
+    catch(ex) {
+    }
+}
+
+function startCPicker(elm, id) {
+    var e = document.getElementById(id);
+    if (e.disabled) {
+        return;
+    }
+    cpicker.show(true, elm, _cpick_cb, e);
+    return false;
+}
+
+function sound_prev(name) {
+    var elm = document.getElementById("embd" + name);
+    if (!elm || WCUtils.getIEVersion() >= 9.0) {
+        elm = document.getElementById(name);
+    }
+    if (elm) {
+        try {
+            elm.Play();
+        }
+        catch(e) {
+            try {
+                elm.play();
+            }
+            catch(e) {
+                try {
+                    elm.DoPlay();
+                }
+                catch(e) {
+                }
+            }
+        }
+    }
+}
+
+//-->
+</script>
+
+<!--[if IE]>
+<style type="text/css">
+.menuSeparator {
+    margin: 0;
+}
+</style>
+<![endif]-->
+
+</head>
+<body>
+
+<div id="container">
+
+<div id="header">
+<div id="headerTitle">chatx 管理</div>
+<div id="loginInfo">
+<div id="loginId">
+<span>ログイン中: <span class="roomName">501ichihashi</span></span>
+</div>
+<div id="loginMenu">
+</div>
+<div style="clear:both"></div>
+</div>
+</div>
+
+<div id="lmenu">
+<div id="lmenuContainer">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/config">動作設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/disp">表示設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/mobile">携帯関連設定</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/accesskey">アクセスキー設定</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/enter">入室設定</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/input">入力制限</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/mixi">mixi OpenID*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/hatena">はてな認証*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/twitter">Twitter連携</a></p>
+<hr class="menuSeparator">
+<p class="lmenuCurItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/msg_common">文字列設定1*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/msg_mobile">文字列設定2</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/msg_info">文字列設定3</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/html">HTML設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/theme">テーマ設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/css">CSS設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/mobiledisp">携帯表示設定</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/color">文字色設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/icon">ICON*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/iconGroup">ICONグループ*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/sound">サウンド*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/command">コマンド</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/random">ランダムアクション</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/cap">キャップ</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/aa">顔文字リスト*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/insicon">発言用ICON*</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/logclear">ログクリア</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/users">ユーザー状況</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/logs">過去ログ</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/condv2">入室状況タグ</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/condprog">入室状況タグ(PHP)</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/chatinfo">チャット情報確認</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/chgpass">ID/パスワード変更</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/chgmail">メールアドレス変更</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/confsync">設定コピー*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/confinit">設定初期化*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/confback">設定バックアップ</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/confrestr">設定リストア*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/unregist">登録削除</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/logout">ログアウト</a></p>
+</div>
+</div>
+<div id="content">
+<div id="content2">
+<div class="configForm">
+
+<div class="formDesc">
+表示文字列(PC,共通)の設定を行います。
+</div>
+
+<div><div id="info"><span>　</span></div></div>
+
+<form action="msg_common" method="post">
+<input type="hidden" name="opr" value="1">
+
+<table class="configFormTab">
+
+<tbody><tr>
+ <td class="formLabel">タイトル</td>
+ <td class="formInput">
+ <input type="text" size="40" maxlength="96" id="title" name="title" value="BAR LINDEN">
+ <div class="descr">ブラウザタイトル</div>
+ </td>
+ </tr>
+
+<tr>
+ <td class="formLabel">HOME</td>
+ <td class="formInput">
+ <input type="text" size="40" maxlength="96" id="home" name="home" value="HOME">
+ <div class="descr">HOMEリンク</div>
+ </td>
+ </tr>
+
+<tr>
+ <td class="formLabel">入室</td>
+ <td class="formInput">
+ <input type="text" size="40" maxlength="96" id="enter" name="enter" value="ご来店">
+ <div class="descr">入室リンク</div>
+ </td>
+ </tr>
+
+<tr>
+ <td class="formLabel">管理画面</td>
+ <td class="formInput">
+ <input type="text" size="40" maxlength="96" id="admin" name="admin" value="STAFF ROOM">
+ <div class="descr">管理画面リンク</div>
+ </td>
+ </tr>
+
+<tr>
+ <td class="formLabel">メニューセパレータ</td>
+ <td class="formInput">
+ <input type="text" size="40" maxlength="96" id="menuSepa" name="menuSepa" value="｜">
+ <div class="descr">メニューのセパレータ文字列</div>
+ </td>
+ </tr>
+
+<tr>
+ <td class="formLabel">お知らせ</td>
+ <td class="formInput">
+ <input type="text" size="40" maxlength="96" id="infoName" name="infoName">
+ <div class="descr">お知らせ文字列</div>
+ </td>
+ </tr>
+
+<tr>
+ <td class="formLabel">設定</td>
+ <td class="formInput">
+ <input type="text" size="40" maxlength="96" id="config" name="config" value="設定">
+ <div class="descr">設定リンク</div>
+ </td>
+ </tr>
+
+<tr>
+ <td class="formLabel">退室</td>
+ <td class="formInput">
+ <input type="text" size="40" maxlength="96" id="exit" name="exit" value="ご帰宅">
+ <div class="descr">退室リンク</div>
+ </td>
+ </tr>
+
+<tr>
+ <td class="formLabel">入室通知</td>
+ <td class="formInput">
+ <input type="text" size="40" maxlength="96" id="notification" name="notification" value="mail通知">
+ <div class="descr">入室通知リンク</div>
+ </td>
+ </tr>
+
+<tr>
+ <td class="formLabel">テキストログ</td>
+ <td class="formInput">
+ <input type="text" size="40" maxlength="96" id="textlog" name="textlog" value="テキストログ">
+ <div class="descr">テキストログリンク</div>
+ </td>
+ </tr>
+
+<tr>
+ <td class="formLabel">モバイル</td>
+ <td class="formInput">
+ <input type="text" size="40" maxlength="96" id="mobile" name="mobile" value="モバイル">
+ <div class="descr">モバイルリンク</div>
+ </td>
+ </tr>
+
+<tr>
+ <td class="formLabel">名前</td>
+ <td class="formInput">
+ <input type="text" size="40" maxlength="96" id="enterName" name="enterName" value="名前:">
+ <div class="descr">入室画面名前ラベル</div>
+ </td>
+ </tr>
+
+<tr>
+ <td class="formLabel">URL</td>
+ <td class="formInput">
+ <input type="text" size="40" maxlength="96" id="enterUrl" name="enterUrl" value="URL:">
+ <div class="descr">入室画面URLラベル</div>
+ </td>
+ </tr>
+
+<tr>
+ <td class="formLabel">コメント</td>
+ <td class="formInput">
+ <input type="text" size="40" maxlength="96" id="enterComment" name="enterComment" value="本日の服装:">
+ <div class="descr">入室画面コメントラベル</div>
+ </td>
+ </tr>
+
+<tr>
+ <td class="formLabel">ICON</td>
+ <td class="formInput">
+ <input type="text" size="40" maxlength="96" id="enterIcon" name="enterIcon" value="ICON:">
+ <div class="descr">入室画面ICONラベル</div>
+ </td>
+ </tr>
+
+<tr>
+ <td class="formLabel">ICONアップロード</td>
+ <td class="formInput">
+ <input type="text" size="40" maxlength="96" id="enterIconUpload" name="enterIconUpload" value="ICONアップロード:">
+ <div class="descr">入室画面ICONアップロードラベル</div>
+ </td>
+ </tr>
+
+<tr>
+ <td class="formLabel">パスワード</td>
+ <td class="formInput">
+ <input type="text" size="40" maxlength="96" id="enterPass" name="enterPass" value="PASS">
+ <div class="descr">入室画面パスワードラベル</div>
+ </td>
+ </tr>
+
+<tr>
+ <td class="formLabel">PM拒否</td>
+ <td class="formInput">
+ <input type="text" size="40" maxlength="96" id="enterDenyPm" name="enterDenyPm" value="PMを拒否">
+ <div class="descr">入室画面「PMを拒否」ラベル</div>
+ </td>
+ </tr>
+
+<tr>
+ <td class="formLabel">入室</td>
+ <td class="formInput">
+ <input type="text" size="40" maxlength="96" id="enterSUbmit" name="enterSUbmit" value="ご来店">
+ <div class="descr">入室画面submitボタン</div>
+ </td>
+ </tr>
+
+<tr>
+ <td class="formLabel">発言</td>
+ <td class="formInput">
+ <input type="text" size="40" maxlength="96" id="sendSubmit" name="sendSubmit" value="発言">
+ <div class="descr">発言ボタン</div>
+ </td>
+ </tr>
+
+<tr>
+ <td class="formLabel">PM</td>
+ <td class="formInput">
+ <input type="text" size="40" maxlength="96" id="pm" name="pm" value="PM">
+ <div class="descr">ユーザー情報画面のPMラベル</div>
+ </td>
+ </tr>
+
+<tr>
+ <td class="formLabel">PM</td>
+ <td class="formInput">
+ <input type="text" size="40" maxlength="96" id="sendPm" name="sendPm" value="PM:">
+ <div class="descr">PMセレクトラベル</div>
+ </td>
+ </tr>
+
+<tr>
+ <td class="formLabel">文字サイズ</td>
+ <td class="formInput">
+ <input type="text" size="40" maxlength="96" id="sendFs" name="sendFs" value="文字サイズ:">
+ <div class="descr">文字サイズセレクトラベル</div>
+ </td>
+ </tr>
+
+<tr>
+ <td class="formLabel">入室状況</td>
+ <td class="formInput">
+ <input type="text" size="40" maxlength="96" id="condCond" name="condCond">
+ <div class="descr">入室状況ラベル</div>
+ </td>
+ </tr>
+
+<tr>
+ <td class="formLabel">入室</td>
+ <td class="formInput">
+ <input type="text" size="40" maxlength="96" id="condIn" name="condIn" value="来店：">
+ <div class="descr">入室状況「入室」</div>
+ </td>
+ </tr>
+
+<tr>
+ <td class="formLabel">閲覧</td>
+ <td class="formInput">
+ <input type="text" size="40" maxlength="96" id="condRom" name="condRom" value="外の影：">
+ <div class="descr">入室状況「閲覧」</div>
+ </td>
+ </tr>
+
+<tr>
+ <td class="formLabel">閲覧禁止</td>
+ <td class="formInput">
+ <input type="text" size="40" maxlength="96" id="condHideLog" name="condHideLog">
+ <div class="descr">未入室閲覧禁止メッセージ</div>
+ </td>
+ </tr>
+
+<tr>
+ <td class="formLabel">添付</td>
+ <td class="formInput">
+ <input type="text" size="40" maxlength="96" id="attach" name="attach" value="添付ファイル(%CT%, %SIZE%)">
+ <div class="descr">添付ファイルリンク。%CT%はcontent-type、%SIZE%はサイズに変換されます。</div>
+ </td>
+ </tr>
+
+<tr>
+ <td class="formLabel">入室者全員</td>
+ <td class="formInput">
+ <input type="text" size="40" maxlength="96" id="pmAll" name="pmAll" value="来店者全員">
+ <div class="descr">PMの「入室者全員」</div>
+ </td>
+ </tr>
+
+<tr>
+ <td class="formLabel">名前記号</td>
+ <td class="formInput">
+ <input type="text" size="40" maxlength="96" id="nameSuffix" name="nameSuffix" value="：">
+ <div class="descr">名前の右端に付加する記号</div>
+ </td>
+ </tr>
+
+<tr>
+ <td class="formLabel">PM矢印</td>
+ <td class="formInput">
+ <input type="text" size="40" maxlength="96" id="pmAllow" name="pmAllow" value="⇒">
+ <div class="descr">PMの矢印文字列</div>
+ </td>
+ </tr>
+
+<tr>
+ <td class="formLabel">顔文字挿入</td>
+ <td class="formInput">
+ <input type="text" size="40" maxlength="96" id="insertAA" name="insertAA" value="顔文字挿入">
+ <div class="descr">顔文字挿入のリンク</div>
+ </td>
+ </tr>
+
+<tr>
+ <td class="formLabel">ICON挿入</td>
+ <td class="formInput">
+ <input type="text" size="40" maxlength="96" id="insertIcon" name="insertIcon" value="ICON挿入">
+ <div class="descr">ICON挿入のリンク</div>
+ </td>
+ </tr>
+
+<tr>
+ <td class="formLabel">文字色</td>
+ <td class="formInput">
+ <input type="text" size="40" maxlength="96" id="color" name="color" value="文字色">
+ <div class="descr">文字色ラベル</div>
+ </td>
+ </tr>
+
+<tr>
+ <td class="formLabel">情報非表示</td>
+ <td class="formInput">
+ <input type="text" size="40" maxlength="96" id="hideInfo" name="hideInfo" value="-">
+ <div class="descr">キャップユーザー情報非表示の際の代替文字列</div>
+ </td>
+ </tr>
+
+<tr>
+ <td class="formLabel">テキストログ</td>
+ <td class="formInput">
+ <input type="text" size="40" maxlength="96" id="textLogSeparator" name="textLogSeparator" value="--------------------------------------------------------------------------------">
+ <div class="descr">テキストログの行セパレーター</div>
+ </td>
+ </tr>
+
+<tr>
+ <td class="formLabel">色選択</td>
+ <td class="formInput">
+ <input type="text" size="40" maxlength="96" id="sendToolColor" name="sendToolColor">
+ <div class="descr">色選択ボタンの文字列</div>
+ </td>
+ </tr>
+
+<tr>
+ <td class="formLabel">絵文字</td>
+ <td class="formInput">
+ <input type="text" size="40" maxlength="96" id="sendToolEmoji" name="sendToolEmoji">
+ <div class="descr">絵文字ICONの文字列</div>
+ </td>
+ </tr>
+
+<tr>
+ <td class="formLabel">添付</td>
+ <td class="formInput">
+ <input type="text" size="40" maxlength="96" id="sendToolUpload" name="sendToolUpload">
+ <div class="descr">添付ICONの文字列</div>
+ </td>
+ </tr>
+
+<tr>
+ <td class="formLabel">Cookie</td>
+ <td class="formInput">
+ <input type="text" size="40" maxlength="96" id="cookie" name="cookie" value="Cookie">
+ <div class="descr">Cookie文字列</div>
+ </td>
+ </tr>
+
+<tr>
+ <td class="formLabel">サウンド</td>
+ <td class="formInput">
+ <input type="text" size="40" maxlength="96" id="sound" name="sound" value="サウンド">
+ <div class="descr">サウンド文字列</div>
+ </td>
+ </tr>
+
+<tr>
+ <td class="formLabel">隠す</td>
+ <td class="formInput">
+ <input type="text" size="40" maxlength="96" id="toggleUserHtmlHide" name="toggleUserHtmlHide" value="隠す">
+ <div class="descr">上部HTML表示切り替えの「隠す」文字列</div>
+ </td>
+ </tr>
+
+<tr>
+ <td class="formLabel">表示</td>
+ <td class="formInput">
+ <input type="text" size="40" maxlength="96" id="toggleUserHtmlVisi" name="toggleUserHtmlVisi" value="表示">
+ <div class="descr">上部HTML表示切り替えの「表示」文字列</div>
+ </td>
+ </tr>
+
+<tr>
+ <td class="formSmt" colspan="2"><input class="smt" type="submit" value="設定"></td>
+ </tr>
+
+</tbody></table>
+
+</form>
+</div>
+
+</div>
+</div>
+<div style="clear:both"></div>
+</div>
+
+<div id="footer">© <a target="_blank" title="無料レンタルチャット" href="http://www.whocares.jp/">WHOCARES</a> <a href="http://www.whocares.jp/chatx.jsp" target="_blank">chatx</a>&nbsp;3.23</div>
+
+
+
+</body></html>

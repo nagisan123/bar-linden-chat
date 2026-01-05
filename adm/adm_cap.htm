@@ -1,0 +1,789 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta name="robots" content="noindex,nofollow,noarchive,nomediaindex,noimageindex">
+<link rel="stylesheet" href="adm_cap_files/adm.css" type="text/css">
+<title>chatx Admin</title>
+<script type="text/javascript" charset="UTF-8" src="adm_cap_files/wcutils.js"></script>
+<script type="text/javascript" charset="UTF-8" src="adm_cap_files/cpicker.js"></script>
+<script type="text/javascript"><!--
+
+var reColor = /^#(\w{3}|\w{6})$/;
+
+var cpicker = new CPicker();
+function _cpick_cb(color, param) {
+    param.value = color;
+    var elm = document.getElementById(param.id + "_btn");
+    if (elm && color.match(reColor)) {
+        elm.style.backgroundColor = color;
+    }
+}
+function colorFieldChanged(elm) {
+    var e = document.getElementById(elm.id + "_btn");
+    try {
+        if (e && elm.value.match(reColor)) {
+            e.style.backgroundColor = elm.value;
+        }
+    }
+    catch(ex) {
+    }
+}
+
+function startCPicker(elm, id) {
+    var e = document.getElementById(id);
+    if (e.disabled) {
+        return;
+    }
+    cpicker.show(true, elm, _cpick_cb, e);
+    return false;
+}
+
+function sound_prev(name) {
+    var elm = document.getElementById("embd" + name);
+    if (!elm || WCUtils.getIEVersion() >= 9.0) {
+        elm = document.getElementById(name);
+    }
+    if (elm) {
+        try {
+            elm.Play();
+        }
+        catch(e) {
+            try {
+                elm.play();
+            }
+            catch(e) {
+                try {
+                    elm.DoPlay();
+                }
+                catch(e) {
+                }
+            }
+        }
+    }
+}
+
+//-->
+</script>
+
+<!--[if IE]>
+<style type="text/css">
+.menuSeparator {
+    margin: 0;
+}
+</style>
+<![endif]-->
+
+</head>
+<body>
+
+<div id="container">
+
+<div id="header">
+<div id="headerTitle">chatx 管理</div>
+<div id="loginInfo">
+<div id="loginId">
+<span>ログイン中: <span class="roomName">501ichihashi</span></span>
+</div>
+<div id="loginMenu">
+</div>
+<div style="clear:both"></div>
+</div>
+</div>
+
+<div id="lmenu">
+<div id="lmenuContainer">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/config">動作設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/disp">表示設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/mobile">携帯関連設定</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/accesskey">アクセスキー設定</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/enter">入室設定</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/input">入力制限</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/mixi">mixi OpenID*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/hatena">はてな認証*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/twitter">Twitter連携</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/msg_common">文字列設定1*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/msg_mobile">文字列設定2</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/msg_info">文字列設定3</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/html">HTML設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/theme">テーマ設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/css">CSS設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/mobiledisp">携帯表示設定</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/color">文字色設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/icon">ICON*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/iconGroup">ICONグループ*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/sound">サウンド*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/command">コマンド</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/random">ランダムアクション</a></p>
+<p class="lmenuCurItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/cap">キャップ</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/aa">顔文字リスト*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/insicon">発言用ICON*</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/logclear">ログクリア</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/users">ユーザー状況</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/logs">過去ログ</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/condv2">入室状況タグ</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/condprog">入室状況タグ(PHP)</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/chatinfo">チャット情報確認</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/chgpass">ID/パスワード変更</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/chgmail">メールアドレス変更</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/confsync">設定コピー*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/confinit">設定初期化*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/confback">設定バックアップ</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/confrestr">設定リストア*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/unregist">登録削除</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/logout">ログアウト</a></p>
+</div>
+</div>
+<div id="content">
+<div id="content2">
+<div class="configForm">
+
+<div class="formDesc">
+キャップの設定を行います。「★」は自動付加されませんので、表示する場合は名前に指定してください。専用色は #000000 形式で指定してください。
+</div>
+
+<div><div id="info"><span>　</span></div></div>
+
+<form action="cap" method="post">
+<input type="hidden" name="opr" value="1">
+
+<table class="ntab">
+<tbody><tr>
+<th class="ntabth">名前</th>
+<th class="ntabth">パスワード</th>
+<th class="ntabth">専用色(省略可)</th>
+</tr>
+
+<tr>
+<td class="ntabtd">
+<input type="text" name="name0" maxlength="64">
+</td>
+<td class="ntabtd">
+<input size="12" maxlength="64" id="pass0" name="pass0" type="text">
+</td>
+<td class="ntabtd">
+<input size="8" maxlength="7" id="color0" name="color0" type="text" onchange="colorFieldChanged(this)">
+<span id="color0_btn" onclick="return startCPicker(this, 'color0');" class="cpickBtn" style="background-color: ">...</span>
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name1" maxlength="64">
+</td>
+<td class="ntabtd">
+<input size="12" maxlength="64" id="pass1" name="pass1" type="text">
+</td>
+<td class="ntabtd">
+<input size="8" maxlength="7" id="color1" name="color1" type="text" onchange="colorFieldChanged(this)">
+<span id="color1_btn" onclick="return startCPicker(this, 'color1');" class="cpickBtn" style="background-color: ">...</span>
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name2" maxlength="64">
+</td>
+<td class="ntabtd">
+<input size="12" maxlength="64" id="pass2" name="pass2" type="text">
+</td>
+<td class="ntabtd">
+<input size="8" maxlength="7" id="color2" name="color2" type="text" onchange="colorFieldChanged(this)">
+<span id="color2_btn" onclick="return startCPicker(this, 'color2');" class="cpickBtn" style="background-color: ">...</span>
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name3" maxlength="64">
+</td>
+<td class="ntabtd">
+<input size="12" maxlength="64" id="pass3" name="pass3" type="text">
+</td>
+<td class="ntabtd">
+<input size="8" maxlength="7" id="color3" name="color3" type="text" onchange="colorFieldChanged(this)">
+<span id="color3_btn" onclick="return startCPicker(this, 'color3');" class="cpickBtn" style="background-color: ">...</span>
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name4" maxlength="64">
+</td>
+<td class="ntabtd">
+<input size="12" maxlength="64" id="pass4" name="pass4" type="text">
+</td>
+<td class="ntabtd">
+<input size="8" maxlength="7" id="color4" name="color4" type="text" onchange="colorFieldChanged(this)">
+<span id="color4_btn" onclick="return startCPicker(this, 'color4');" class="cpickBtn" style="background-color: ">...</span>
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name5" maxlength="64">
+</td>
+<td class="ntabtd">
+<input size="12" maxlength="64" id="pass5" name="pass5" type="text">
+</td>
+<td class="ntabtd">
+<input size="8" maxlength="7" id="color5" name="color5" type="text" onchange="colorFieldChanged(this)">
+<span id="color5_btn" onclick="return startCPicker(this, 'color5');" class="cpickBtn" style="background-color: ">...</span>
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name6" maxlength="64">
+</td>
+<td class="ntabtd">
+<input size="12" maxlength="64" id="pass6" name="pass6" type="text">
+</td>
+<td class="ntabtd">
+<input size="8" maxlength="7" id="color6" name="color6" type="text" onchange="colorFieldChanged(this)">
+<span id="color6_btn" onclick="return startCPicker(this, 'color6');" class="cpickBtn" style="background-color: ">...</span>
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name7" maxlength="64">
+</td>
+<td class="ntabtd">
+<input size="12" maxlength="64" id="pass7" name="pass7" type="text">
+</td>
+<td class="ntabtd">
+<input size="8" maxlength="7" id="color7" name="color7" type="text" onchange="colorFieldChanged(this)">
+<span id="color7_btn" onclick="return startCPicker(this, 'color7');" class="cpickBtn" style="background-color: ">...</span>
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name8" maxlength="64">
+</td>
+<td class="ntabtd">
+<input size="12" maxlength="64" id="pass8" name="pass8" type="text">
+</td>
+<td class="ntabtd">
+<input size="8" maxlength="7" id="color8" name="color8" type="text" onchange="colorFieldChanged(this)">
+<span id="color8_btn" onclick="return startCPicker(this, 'color8');" class="cpickBtn" style="background-color: ">...</span>
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name9" maxlength="64">
+</td>
+<td class="ntabtd">
+<input size="12" maxlength="64" id="pass9" name="pass9" type="text">
+</td>
+<td class="ntabtd">
+<input size="8" maxlength="7" id="color9" name="color9" type="text" onchange="colorFieldChanged(this)">
+<span id="color9_btn" onclick="return startCPicker(this, 'color9');" class="cpickBtn" style="background-color: ">...</span>
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name10" maxlength="64">
+</td>
+<td class="ntabtd">
+<input size="12" maxlength="64" id="pass10" name="pass10" type="text">
+</td>
+<td class="ntabtd">
+<input size="8" maxlength="7" id="color10" name="color10" type="text" onchange="colorFieldChanged(this)">
+<span id="color10_btn" onclick="return startCPicker(this, 'color10');" class="cpickBtn" style="background-color: ">...</span>
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name11" maxlength="64">
+</td>
+<td class="ntabtd">
+<input size="12" maxlength="64" id="pass11" name="pass11" type="text">
+</td>
+<td class="ntabtd">
+<input size="8" maxlength="7" id="color11" name="color11" type="text" onchange="colorFieldChanged(this)">
+<span id="color11_btn" onclick="return startCPicker(this, 'color11');" class="cpickBtn" style="background-color: ">...</span>
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name12" maxlength="64">
+</td>
+<td class="ntabtd">
+<input size="12" maxlength="64" id="pass12" name="pass12" type="text">
+</td>
+<td class="ntabtd">
+<input size="8" maxlength="7" id="color12" name="color12" type="text" onchange="colorFieldChanged(this)">
+<span id="color12_btn" onclick="return startCPicker(this, 'color12');" class="cpickBtn" style="background-color: ">...</span>
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name13" maxlength="64">
+</td>
+<td class="ntabtd">
+<input size="12" maxlength="64" id="pass13" name="pass13" type="text">
+</td>
+<td class="ntabtd">
+<input size="8" maxlength="7" id="color13" name="color13" type="text" onchange="colorFieldChanged(this)">
+<span id="color13_btn" onclick="return startCPicker(this, 'color13');" class="cpickBtn" style="background-color: ">...</span>
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name14" maxlength="64">
+</td>
+<td class="ntabtd">
+<input size="12" maxlength="64" id="pass14" name="pass14" type="text">
+</td>
+<td class="ntabtd">
+<input size="8" maxlength="7" id="color14" name="color14" type="text" onchange="colorFieldChanged(this)">
+<span id="color14_btn" onclick="return startCPicker(this, 'color14');" class="cpickBtn" style="background-color: ">...</span>
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name15" maxlength="64">
+</td>
+<td class="ntabtd">
+<input size="12" maxlength="64" id="pass15" name="pass15" type="text">
+</td>
+<td class="ntabtd">
+<input size="8" maxlength="7" id="color15" name="color15" type="text" onchange="colorFieldChanged(this)">
+<span id="color15_btn" onclick="return startCPicker(this, 'color15');" class="cpickBtn" style="background-color: ">...</span>
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name16" maxlength="64">
+</td>
+<td class="ntabtd">
+<input size="12" maxlength="64" id="pass16" name="pass16" type="text">
+</td>
+<td class="ntabtd">
+<input size="8" maxlength="7" id="color16" name="color16" type="text" onchange="colorFieldChanged(this)">
+<span id="color16_btn" onclick="return startCPicker(this, 'color16');" class="cpickBtn" style="background-color: ">...</span>
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name17" maxlength="64">
+</td>
+<td class="ntabtd">
+<input size="12" maxlength="64" id="pass17" name="pass17" type="text">
+</td>
+<td class="ntabtd">
+<input size="8" maxlength="7" id="color17" name="color17" type="text" onchange="colorFieldChanged(this)">
+<span id="color17_btn" onclick="return startCPicker(this, 'color17');" class="cpickBtn" style="background-color: ">...</span>
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name18" maxlength="64">
+</td>
+<td class="ntabtd">
+<input size="12" maxlength="64" id="pass18" name="pass18" type="text">
+</td>
+<td class="ntabtd">
+<input size="8" maxlength="7" id="color18" name="color18" type="text" onchange="colorFieldChanged(this)">
+<span id="color18_btn" onclick="return startCPicker(this, 'color18');" class="cpickBtn" style="background-color: ">...</span>
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name19" maxlength="64">
+</td>
+<td class="ntabtd">
+<input size="12" maxlength="64" id="pass19" name="pass19" type="text">
+</td>
+<td class="ntabtd">
+<input size="8" maxlength="7" id="color19" name="color19" type="text" onchange="colorFieldChanged(this)">
+<span id="color19_btn" onclick="return startCPicker(this, 'color19');" class="cpickBtn" style="background-color: ">...</span>
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name20" maxlength="64">
+</td>
+<td class="ntabtd">
+<input size="12" maxlength="64" id="pass20" name="pass20" type="text">
+</td>
+<td class="ntabtd">
+<input size="8" maxlength="7" id="color20" name="color20" type="text" onchange="colorFieldChanged(this)">
+<span id="color20_btn" onclick="return startCPicker(this, 'color20');" class="cpickBtn" style="background-color: ">...</span>
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name21" maxlength="64">
+</td>
+<td class="ntabtd">
+<input size="12" maxlength="64" id="pass21" name="pass21" type="text">
+</td>
+<td class="ntabtd">
+<input size="8" maxlength="7" id="color21" name="color21" type="text" onchange="colorFieldChanged(this)">
+<span id="color21_btn" onclick="return startCPicker(this, 'color21');" class="cpickBtn" style="background-color: ">...</span>
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name22" maxlength="64">
+</td>
+<td class="ntabtd">
+<input size="12" maxlength="64" id="pass22" name="pass22" type="text">
+</td>
+<td class="ntabtd">
+<input size="8" maxlength="7" id="color22" name="color22" type="text" onchange="colorFieldChanged(this)">
+<span id="color22_btn" onclick="return startCPicker(this, 'color22');" class="cpickBtn" style="background-color: ">...</span>
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name23" maxlength="64">
+</td>
+<td class="ntabtd">
+<input size="12" maxlength="64" id="pass23" name="pass23" type="text">
+</td>
+<td class="ntabtd">
+<input size="8" maxlength="7" id="color23" name="color23" type="text" onchange="colorFieldChanged(this)">
+<span id="color23_btn" onclick="return startCPicker(this, 'color23');" class="cpickBtn" style="background-color: ">...</span>
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name24" maxlength="64">
+</td>
+<td class="ntabtd">
+<input size="12" maxlength="64" id="pass24" name="pass24" type="text">
+</td>
+<td class="ntabtd">
+<input size="8" maxlength="7" id="color24" name="color24" type="text" onchange="colorFieldChanged(this)">
+<span id="color24_btn" onclick="return startCPicker(this, 'color24');" class="cpickBtn" style="background-color: ">...</span>
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name25" maxlength="64">
+</td>
+<td class="ntabtd">
+<input size="12" maxlength="64" id="pass25" name="pass25" type="text">
+</td>
+<td class="ntabtd">
+<input size="8" maxlength="7" id="color25" name="color25" type="text" onchange="colorFieldChanged(this)">
+<span id="color25_btn" onclick="return startCPicker(this, 'color25');" class="cpickBtn" style="background-color: ">...</span>
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name26" maxlength="64">
+</td>
+<td class="ntabtd">
+<input size="12" maxlength="64" id="pass26" name="pass26" type="text">
+</td>
+<td class="ntabtd">
+<input size="8" maxlength="7" id="color26" name="color26" type="text" onchange="colorFieldChanged(this)">
+<span id="color26_btn" onclick="return startCPicker(this, 'color26');" class="cpickBtn" style="background-color: ">...</span>
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name27" maxlength="64">
+</td>
+<td class="ntabtd">
+<input size="12" maxlength="64" id="pass27" name="pass27" type="text">
+</td>
+<td class="ntabtd">
+<input size="8" maxlength="7" id="color27" name="color27" type="text" onchange="colorFieldChanged(this)">
+<span id="color27_btn" onclick="return startCPicker(this, 'color27');" class="cpickBtn" style="background-color: ">...</span>
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name28" maxlength="64">
+</td>
+<td class="ntabtd">
+<input size="12" maxlength="64" id="pass28" name="pass28" type="text">
+</td>
+<td class="ntabtd">
+<input size="8" maxlength="7" id="color28" name="color28" type="text" onchange="colorFieldChanged(this)">
+<span id="color28_btn" onclick="return startCPicker(this, 'color28');" class="cpickBtn" style="background-color: ">...</span>
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name29" maxlength="64">
+</td>
+<td class="ntabtd">
+<input size="12" maxlength="64" id="pass29" name="pass29" type="text">
+</td>
+<td class="ntabtd">
+<input size="8" maxlength="7" id="color29" name="color29" type="text" onchange="colorFieldChanged(this)">
+<span id="color29_btn" onclick="return startCPicker(this, 'color29');" class="cpickBtn" style="background-color: ">...</span>
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name30" maxlength="64">
+</td>
+<td class="ntabtd">
+<input size="12" maxlength="64" id="pass30" name="pass30" type="text">
+</td>
+<td class="ntabtd">
+<input size="8" maxlength="7" id="color30" name="color30" type="text" onchange="colorFieldChanged(this)">
+<span id="color30_btn" onclick="return startCPicker(this, 'color30');" class="cpickBtn" style="background-color: ">...</span>
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name31" maxlength="64">
+</td>
+<td class="ntabtd">
+<input size="12" maxlength="64" id="pass31" name="pass31" type="text">
+</td>
+<td class="ntabtd">
+<input size="8" maxlength="7" id="color31" name="color31" type="text" onchange="colorFieldChanged(this)">
+<span id="color31_btn" onclick="return startCPicker(this, 'color31');" class="cpickBtn" style="background-color: ">...</span>
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name32" maxlength="64">
+</td>
+<td class="ntabtd">
+<input size="12" maxlength="64" id="pass32" name="pass32" type="text">
+</td>
+<td class="ntabtd">
+<input size="8" maxlength="7" id="color32" name="color32" type="text" onchange="colorFieldChanged(this)">
+<span id="color32_btn" onclick="return startCPicker(this, 'color32');" class="cpickBtn" style="background-color: ">...</span>
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name33" maxlength="64">
+</td>
+<td class="ntabtd">
+<input size="12" maxlength="64" id="pass33" name="pass33" type="text">
+</td>
+<td class="ntabtd">
+<input size="8" maxlength="7" id="color33" name="color33" type="text" onchange="colorFieldChanged(this)">
+<span id="color33_btn" onclick="return startCPicker(this, 'color33');" class="cpickBtn" style="background-color: ">...</span>
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name34" maxlength="64">
+</td>
+<td class="ntabtd">
+<input size="12" maxlength="64" id="pass34" name="pass34" type="text">
+</td>
+<td class="ntabtd">
+<input size="8" maxlength="7" id="color34" name="color34" type="text" onchange="colorFieldChanged(this)">
+<span id="color34_btn" onclick="return startCPicker(this, 'color34');" class="cpickBtn" style="background-color: ">...</span>
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name35" maxlength="64">
+</td>
+<td class="ntabtd">
+<input size="12" maxlength="64" id="pass35" name="pass35" type="text">
+</td>
+<td class="ntabtd">
+<input size="8" maxlength="7" id="color35" name="color35" type="text" onchange="colorFieldChanged(this)">
+<span id="color35_btn" onclick="return startCPicker(this, 'color35');" class="cpickBtn" style="background-color: ">...</span>
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name36" maxlength="64">
+</td>
+<td class="ntabtd">
+<input size="12" maxlength="64" id="pass36" name="pass36" type="text">
+</td>
+<td class="ntabtd">
+<input size="8" maxlength="7" id="color36" name="color36" type="text" onchange="colorFieldChanged(this)">
+<span id="color36_btn" onclick="return startCPicker(this, 'color36');" class="cpickBtn" style="background-color: ">...</span>
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name37" maxlength="64">
+</td>
+<td class="ntabtd">
+<input size="12" maxlength="64" id="pass37" name="pass37" type="text">
+</td>
+<td class="ntabtd">
+<input size="8" maxlength="7" id="color37" name="color37" type="text" onchange="colorFieldChanged(this)">
+<span id="color37_btn" onclick="return startCPicker(this, 'color37');" class="cpickBtn" style="background-color: ">...</span>
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name38" maxlength="64">
+</td>
+<td class="ntabtd">
+<input size="12" maxlength="64" id="pass38" name="pass38" type="text">
+</td>
+<td class="ntabtd">
+<input size="8" maxlength="7" id="color38" name="color38" type="text" onchange="colorFieldChanged(this)">
+<span id="color38_btn" onclick="return startCPicker(this, 'color38');" class="cpickBtn" style="background-color: ">...</span>
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name39" maxlength="64">
+</td>
+<td class="ntabtd">
+<input size="12" maxlength="64" id="pass39" name="pass39" type="text">
+</td>
+<td class="ntabtd">
+<input size="8" maxlength="7" id="color39" name="color39" type="text" onchange="colorFieldChanged(this)">
+<span id="color39_btn" onclick="return startCPicker(this, 'color39');" class="cpickBtn" style="background-color: ">...</span>
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name40" maxlength="64">
+</td>
+<td class="ntabtd">
+<input size="12" maxlength="64" id="pass40" name="pass40" type="text">
+</td>
+<td class="ntabtd">
+<input size="8" maxlength="7" id="color40" name="color40" type="text" onchange="colorFieldChanged(this)">
+<span id="color40_btn" onclick="return startCPicker(this, 'color40');" class="cpickBtn" style="background-color: ">...</span>
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name41" maxlength="64">
+</td>
+<td class="ntabtd">
+<input size="12" maxlength="64" id="pass41" name="pass41" type="text">
+</td>
+<td class="ntabtd">
+<input size="8" maxlength="7" id="color41" name="color41" type="text" onchange="colorFieldChanged(this)">
+<span id="color41_btn" onclick="return startCPicker(this, 'color41');" class="cpickBtn" style="background-color: ">...</span>
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name42" maxlength="64">
+</td>
+<td class="ntabtd">
+<input size="12" maxlength="64" id="pass42" name="pass42" type="text">
+</td>
+<td class="ntabtd">
+<input size="8" maxlength="7" id="color42" name="color42" type="text" onchange="colorFieldChanged(this)">
+<span id="color42_btn" onclick="return startCPicker(this, 'color42');" class="cpickBtn" style="background-color: ">...</span>
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name43" maxlength="64">
+</td>
+<td class="ntabtd">
+<input size="12" maxlength="64" id="pass43" name="pass43" type="text">
+</td>
+<td class="ntabtd">
+<input size="8" maxlength="7" id="color43" name="color43" type="text" onchange="colorFieldChanged(this)">
+<span id="color43_btn" onclick="return startCPicker(this, 'color43');" class="cpickBtn" style="background-color: ">...</span>
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name44" maxlength="64">
+</td>
+<td class="ntabtd">
+<input size="12" maxlength="64" id="pass44" name="pass44" type="text">
+</td>
+<td class="ntabtd">
+<input size="8" maxlength="7" id="color44" name="color44" type="text" onchange="colorFieldChanged(this)">
+<span id="color44_btn" onclick="return startCPicker(this, 'color44');" class="cpickBtn" style="background-color: ">...</span>
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name45" maxlength="64">
+</td>
+<td class="ntabtd">
+<input size="12" maxlength="64" id="pass45" name="pass45" type="text">
+</td>
+<td class="ntabtd">
+<input size="8" maxlength="7" id="color45" name="color45" type="text" onchange="colorFieldChanged(this)">
+<span id="color45_btn" onclick="return startCPicker(this, 'color45');" class="cpickBtn" style="background-color: ">...</span>
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name46" maxlength="64">
+</td>
+<td class="ntabtd">
+<input size="12" maxlength="64" id="pass46" name="pass46" type="text">
+</td>
+<td class="ntabtd">
+<input size="8" maxlength="7" id="color46" name="color46" type="text" onchange="colorFieldChanged(this)">
+<span id="color46_btn" onclick="return startCPicker(this, 'color46');" class="cpickBtn" style="background-color: ">...</span>
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name47" maxlength="64">
+</td>
+<td class="ntabtd">
+<input size="12" maxlength="64" id="pass47" name="pass47" type="text">
+</td>
+<td class="ntabtd">
+<input size="8" maxlength="7" id="color47" name="color47" type="text" onchange="colorFieldChanged(this)">
+<span id="color47_btn" onclick="return startCPicker(this, 'color47');" class="cpickBtn" style="background-color: ">...</span>
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name48" maxlength="64">
+</td>
+<td class="ntabtd">
+<input size="12" maxlength="64" id="pass48" name="pass48" type="text">
+</td>
+<td class="ntabtd">
+<input size="8" maxlength="7" id="color48" name="color48" type="text" onchange="colorFieldChanged(this)">
+<span id="color48_btn" onclick="return startCPicker(this, 'color48');" class="cpickBtn" style="background-color: ">...</span>
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name49" maxlength="64">
+</td>
+<td class="ntabtd">
+<input size="12" maxlength="64" id="pass49" name="pass49" type="text">
+</td>
+<td class="ntabtd">
+<input size="8" maxlength="7" id="color49" name="color49" type="text" onchange="colorFieldChanged(this)">
+<span id="color49_btn" onclick="return startCPicker(this, 'color49');" class="cpickBtn" style="background-color: ">...</span>
+</td>
+</tr>
+<tr>
+<td class="formSmt" colspan="3"><input class="smt" type="submit" value="設定"></td>
+</tr>
+</tbody></table>
+
+</form>
+
+<div id="xn" class="xnote" style="margin: 1em 0">
+<p>使用例：名前を「管理人★」、パスワードを「pass」と設定した場合、チャット入室時の名前欄に「#pass」を指定することで「管理人★」として入室できます。</p>
+<br>
+<p>専用色を設定すると、チャット中の文字色選択状況に関わらず、常にその色が使用されます。(設定後の入室から反映されます)</p>
+</div>
+
+</div>
+
+</div>
+</div>
+<div style="clear:both"></div>
+</div>
+
+<div id="footer">© <a target="_blank" title="無料レンタルチャット" href="http://www.whocares.jp/">WHOCARES</a> <a href="http://www.whocares.jp/chatx.jsp" target="_blank">chatx</a>&nbsp;3.23</div>
+
+
+
+</body></html>

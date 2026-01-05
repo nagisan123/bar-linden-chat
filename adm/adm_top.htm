@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta name="robots" content="noindex,nofollow,noarchive,nomediaindex,noimageindex">
+<link rel="stylesheet" href="adm_top_files/adm.css" type="text/css">
+<title>chatx Admin</title>
+<script type="text/javascript" charset="UTF-8" src="adm_top_files/wcutils.js"></script>
+<script type="text/javascript" charset="UTF-8" src="adm_top_files/cpicker.js"></script>
+<script type="text/javascript"><!--
+
+var reColor = /^#(\w{3}|\w{6})$/;
+
+var cpicker = new CPicker();
+function _cpick_cb(color, param) {
+    param.value = color;
+    var elm = document.getElementById(param.id + "_btn");
+    if (elm && color.match(reColor)) {
+        elm.style.backgroundColor = color;
+    }
+}
+function colorFieldChanged(elm) {
+    var e = document.getElementById(elm.id + "_btn");
+    try {
+        if (e && elm.value.match(reColor)) {
+            e.style.backgroundColor = elm.value;
+        }
+    }
+    catch(ex) {
+    }
+}
+
+function startCPicker(elm, id) {
+    var e = document.getElementById(id);
+    if (e.disabled) {
+        return;
+    }
+    cpicker.show(true, elm, _cpick_cb, e);
+    return false;
+}
+
+function sound_prev(name) {
+    var elm = document.getElementById("embd" + name);
+    if (!elm || WCUtils.getIEVersion() >= 9.0) {
+        elm = document.getElementById(name);
+    }
+    if (elm) {
+        try {
+            elm.Play();
+        }
+        catch(e) {
+            try {
+                elm.play();
+            }
+            catch(e) {
+                try {
+                    elm.DoPlay();
+                }
+                catch(e) {
+                }
+            }
+        }
+    }
+}
+
+//-->
+</script>
+
+<!--[if IE]>
+<style type="text/css">
+.menuSeparator {
+    margin: 0;
+}
+</style>
+<![endif]-->
+
+</head>
+<body>
+
+<div id="container">
+
+<div id="header">
+<div id="headerTitle">chatx 管理</div>
+<div id="loginInfo">
+<div id="loginId">
+<span>ログイン中: <span class="roomName">501ichihashi</span></span>
+</div>
+<div id="loginMenu">
+</div>
+<div style="clear:both"></div>
+</div>
+</div>
+
+<div id="lmenu">
+<div id="lmenuContainer">
+<p class="lmenuItem"><a href="adm_config.htm">動作設定*</a></p>
+<p class="lmenuItem"><a href="adm_disp.htm">表示設定*</a></p>
+<p class="lmenuItem"><a href="adm_mobile.htm">携帯関連設定</a></p>
+<p class="lmenuItem"><a href="adm_accesskey.htm">アクセスキー設定</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="adm_enter.htm">入室設定</a></p>
+<p class="lmenuItem"><a href="adm_input.htm">入力制限</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="adm_mixi.htm">mixi OpenID*</a></p>
+<p class="lmenuItem"><a href="adm_hatena.htm">はてな認証*</a></p>
+<p class="lmenuItem"><a href="adm_twitter.htm">Twitter連携</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="adm-msg_common.htm">文字列設定1*</a></p>
+<p class="lmenuItem"><a href="adm-msg_mobile.htm">文字列設定2</a></p>
+<p class="lmenuItem"><a href="adm-msg_info.htm">文字列設定3</a></p>
+<p class="lmenuItem"><a href="adm_html.htm">HTML設定*</a></p>
+<p class="lmenuItem"><a href="adm_theme.htm">テーマ設定*</a></p>
+<p class="lmenuItem"><a href="adm_css.htm">CSS設定*</a></p>
+<p class="lmenuItem"><a href="adm_mobiledisp.htm">携帯表示設定</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="adm_color.htm">文字色設定*</a></p>
+<p class="lmenuItem"><a href="adm_icon.htm">ICON*</a></p>
+<p class="lmenuItem"><a href="adm_iconGroup.htm">ICONグループ*</a></p>
+<p class="lmenuItem"><a href="adm_sound.htm">サウンド*</a></p>
+<p class="lmenuItem"><a href="adm_command.htm">コマンド</a></p>
+<p class="lmenuItem"><a href="adm_random.htm">ランダムアクション</a></p>
+<p class="lmenuItem"><a href="adm_cap.htm">キャップ</a></p>
+<p class="lmenuItem"><a href="adm_aa.htm">顔文字リスト*</a></p>
+<p class="lmenuItem"><a href="adm_insicon.htm">発言用ICON*</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="adm_logclear.htm">ログクリア</a></p>
+<p class="lmenuItem"><a href="adm_users.htm">ユーザー状況</a></p>
+<p class="lmenuItem"><a href="adm_logs.htm">過去ログ</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="adm_condv2.htm">入室状況タグ</a></p>
+<p class="lmenuItem"><a href="adm_condprog.htm">入室状況タグ(PHP)</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="adm_chatinfo.htm">チャット情報確認</a></p>
+<p class="lmenuItem"><a href="adm_chgpass.htm">ID/パスワード変更</a></p>
+<p class="lmenuItem"><a href="adm_chgmail.htm">メールアドレス変更</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="adm_confsync.htm">設定コピー*</a></p>
+<p class="lmenuItem"><a href="adm_confinit.htm">設定初期化*</a></p>
+<p class="lmenuItem"><a href="adm_confback.htm">設定バックアップ</a></p>
+<p class="lmenuItem"><a href="adm_confrestr.htm">設定リストア*</a></p>
+<p class="lmenuItem"><a href="adm_unregist.htm">登録削除</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="adm_logout.htm">ログアウト</a></p>
+</div>
+</div>
+<div id="content">
+<div id="content2">
+<div id="greeting">
+ようこそ <span class="roomName">501ichihashi</span> 管理人さん。<br>
+左のメニューから処理を選択してください。
+</div>
+
+<div id="xn" class="xnote" style="margin: 1em 0">
+<p>メニューに "*" が付いている項目は、設定変更時に接続中ユーザー(ROMも含む)側で強制リロードが発生します。そのため、できる限りユーザーがいない状況で設定してください。</p>
+</div>
+
+</div>
+</div>
+<div style="clear:both"></div>
+</div>
+
+<div id="footer">BAR LINDEN 管理画面 - Supabase版</div>
+
+
+
+</body></html>

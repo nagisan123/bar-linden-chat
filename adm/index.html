@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta name="robots" content="noindex,nofollow,noarchive,nomediaindex,noimageindex">
+<link rel="stylesheet" href="adm_files/adm.css" type="text/css">
+<title>chatx Admin</title>
+<script type="text/javascript" charset="UTF-8" src="adm_files/wcutils.js"></script>
+<script type="text/javascript" charset="UTF-8" src="adm_files/cpicker.js"></script>
+<script type="text/javascript"><!--
+
+var reColor = /^#(\w{3}|\w{6})$/;
+
+var cpicker = new CPicker();
+function _cpick_cb(color, param) {
+    param.value = color;
+    var elm = document.getElementById(param.id + "_btn");
+    if (elm && color.match(reColor)) {
+        elm.style.backgroundColor = color;
+    }
+}
+function colorFieldChanged(elm) {
+    var e = document.getElementById(elm.id + "_btn");
+    try {
+        if (e && elm.value.match(reColor)) {
+            e.style.backgroundColor = elm.value;
+        }
+    }
+    catch(ex) {
+    }
+}
+
+function startCPicker(elm, id) {
+    var e = document.getElementById(id);
+    if (e.disabled) {
+        return;
+    }
+    cpicker.show(true, elm, _cpick_cb, e);
+    return false;
+}
+
+function sound_prev(name) {
+    var elm = document.getElementById("embd" + name);
+    if (!elm || WCUtils.getIEVersion() >= 9.0) {
+        elm = document.getElementById(name);
+    }
+    if (elm) {
+        try {
+            elm.Play();
+        }
+        catch(e) {
+            try {
+                elm.play();
+            }
+            catch(e) {
+                try {
+                    elm.DoPlay();
+                }
+                catch(e) {
+                }
+            }
+        }
+    }
+}
+
+//-->
+</script>
+
+<!--[if IE]>
+<style type="text/css">
+.menuSeparator {
+    margin: 0;
+}
+</style>
+<![endif]-->
+
+</head>
+<body>
+
+<div id="container">
+
+<div id="header">
+<div id="headerTitle">chatx 管理</div>
+</div>
+
+<div id="lmenu">
+<div id="lmenuContainer">
+</div>
+</div>
+<div id="content">
+<div id="content2">
+<div id="loginForm">
+ <form action="#" method="post" onsubmit="return handleLogin();">
+ <input type="hidden" name="opr" value="1">
+ <table id="formTab">
+ <tbody><tr>
+ <td colspan="2">
+ <div id="info"><span>　</span></div></td>
+ </tr>
+ <tr>
+ <td class="formLabel">サーバー</td>
+ <td class="formInput">
+ chatx2</td>
+ </tr>
+ <tr>
+ <td class="formLabel">チャットID</td>
+ <td class="formInput">
+ 501ichihashi</td>
+ </tr>
+ <tr>
+ <td class="formLabel">管理者ID</td>
+ <td class="formInput">
+ <input id="i" type="text" name="i">
+ </td>
+ </tr>
+ <tr>
+ <td class="formLabel">パスワード</td>
+ <td class="formInput">
+ <input id="pass" type="password" name="pass">
+ </td>
+ </tr>
+ <tr>
+ <td colspan="2" class="formSmt">
+ <input id="smt" class="smt" type="submit" value="ログイン">
+ </td>
+ </tr>
+ <tr>
+ <td colspan="2" style="text-align:center">
+ <noscript>
+ <p class="warn">JavaScriptを有効にしてください。</p>
+ </noscript>
+ <p class="warn" id="warnCookie" style="display:none">Cookieを有効にしてください。</p>
+ </td>
+ </tr>
+ </tbody></table>
+ </form>
+ <p id="remlink">[<a href="../index.html">チャットページへ戻る</a>]</p>
+</div>
+
+<script type="text/javascript"><!--
+// ログイン処理
+function handleLogin() {
+    var userId = document.getElementById("i").value;
+    var password = document.getElementById("pass").value;
+    
+    // ID/パスワードチェック（両方とも184k）
+    if (userId === "184k" && password === "184k") {
+        // ログイン成功
+        sessionStorage.setItem("adminLoggedIn", "true");
+        sessionStorage.setItem("adminId", userId);
+        // 管理トップページへ遷移
+        window.location.href = "adm_top.htm";
+        return false;
+    } else {
+        // ログイン失敗
+        document.getElementById("info").innerHTML = '<span style="color:red">IDまたはパスワードが違います</span>';
+        return false;
+    }
+}
+
+// ページ読み込み時の処理
+document.getElementById("smt").disabled = false;
+if (document.getElementById("i").value.length != 0) {
+    document.getElementById("pass").focus();
+}
+else {
+    document.getElementById("i").focus();
+}
+//-->
+</script>
+
+</div>
+</div>
+<div style="clear:both"></div>
+</div>
+
+<div id="footer">© <a target="_blank" title="無料レンタルチャット" href="http://www.whocares.jp/">WHOCARES</a> <a href="http://www.whocares.jp/chatx.jsp" target="_blank">chatx</a>&nbsp;3.23</div>
+
+
+
+</body></html>

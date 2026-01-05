@@ -1,0 +1,239 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta name="robots" content="noindex,nofollow,noarchive,nomediaindex,noimageindex">
+<link rel="stylesheet" href="adm_html_files/adm.css" type="text/css">
+<title>chatx Admin</title>
+<script type="text/javascript" charset="UTF-8" src="adm_html_files/wcutils.js"></script>
+<script type="text/javascript" charset="UTF-8" src="adm_html_files/cpicker.js"></script>
+<script type="text/javascript"><!--
+
+var reColor = /^#(\w{3}|\w{6})$/;
+
+var cpicker = new CPicker();
+function _cpick_cb(color, param) {
+    param.value = color;
+    var elm = document.getElementById(param.id + "_btn");
+    if (elm && color.match(reColor)) {
+        elm.style.backgroundColor = color;
+    }
+}
+function colorFieldChanged(elm) {
+    var e = document.getElementById(elm.id + "_btn");
+    try {
+        if (e && elm.value.match(reColor)) {
+            e.style.backgroundColor = elm.value;
+        }
+    }
+    catch(ex) {
+    }
+}
+
+function startCPicker(elm, id) {
+    var e = document.getElementById(id);
+    if (e.disabled) {
+        return;
+    }
+    cpicker.show(true, elm, _cpick_cb, e);
+    return false;
+}
+
+function sound_prev(name) {
+    var elm = document.getElementById("embd" + name);
+    if (!elm || WCUtils.getIEVersion() >= 9.0) {
+        elm = document.getElementById(name);
+    }
+    if (elm) {
+        try {
+            elm.Play();
+        }
+        catch(e) {
+            try {
+                elm.play();
+            }
+            catch(e) {
+                try {
+                    elm.DoPlay();
+                }
+                catch(e) {
+                }
+            }
+        }
+    }
+}
+
+//-->
+</script>
+
+<!--[if IE]>
+<style type="text/css">
+.menuSeparator {
+    margin: 0;
+}
+</style>
+<![endif]-->
+
+</head>
+<body>
+
+<div id="container">
+
+<div id="header">
+<div id="headerTitle">chatx 管理</div>
+<div id="loginInfo">
+<div id="loginId">
+<span>ログイン中: <span class="roomName">501ichihashi</span></span>
+</div>
+<div id="loginMenu">
+</div>
+<div style="clear:both"></div>
+</div>
+</div>
+
+<div id="lmenu">
+<div id="lmenuContainer">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/config">動作設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/disp">表示設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/mobile">携帯関連設定</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/accesskey">アクセスキー設定</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/enter">入室設定</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/input">入力制限</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/mixi">mixi OpenID*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/hatena">はてな認証*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/twitter">Twitter連携</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/msg_common">文字列設定1*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/msg_mobile">文字列設定2</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/msg_info">文字列設定3</a></p>
+<p class="lmenuCurItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/html">HTML設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/theme">テーマ設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/css">CSS設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/mobiledisp">携帯表示設定</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/color">文字色設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/icon">ICON*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/iconGroup">ICONグループ*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/sound">サウンド*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/command">コマンド</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/random">ランダムアクション</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/cap">キャップ</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/aa">顔文字リスト*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/insicon">発言用ICON*</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/logclear">ログクリア</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/users">ユーザー状況</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/logs">過去ログ</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/condv2">入室状況タグ</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/condprog">入室状況タグ(PHP)</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/chatinfo">チャット情報確認</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/chgpass">ID/パスワード変更</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/chgmail">メールアドレス変更</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/confsync">設定コピー*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/confinit">設定初期化*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/confback">設定バックアップ</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/confrestr">設定リストア*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/unregist">登録削除</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/logout">ログアウト</a></p>
+</div>
+</div>
+<div id="content">
+<div id="content2">
+<div class="configForm">
+
+<div class="formDesc">
+チャット画面に表示する、ユーザー定義のHTMLタグを指定します。タグはXHTMLに自動変換されますので、入力値が変化する場合があります。また、使用できないタグは取り除かれます。
+</div>
+
+<div><div id="info"><span>　</span></div></div>
+
+<div class="advForm">
+
+<form action="html" method="post">
+<input type="hidden" name="opr" id="opr" value="1">
+
+<div><label class="formLabel">PC入室前上部HTML</label></div>
+<textarea cols="20" rows="10" id="userHtml" name="userHtml" class="advtext">&lt;br /&gt;
+&lt;span style="color:#9fc24d;font-size:11pt;"&gt;《BAR LINDEN》&lt;span&gt;
+&lt;br /&gt;&lt;br /&gt;&lt;img border="0" src="https://static.nanos.jp/upload/s/solarterm/mtr/0/0/20240713170423.jpg" /&gt;
+&lt;span style="color:#a3a3a2;font-size:10pt;"&gt;&lt;br /&gt;&lt;br /&gt;
+・道を一つ外れた路地、灯りに照らされた看板の傍に階段。踊り場を挟んで二度下るとその先に分厚い木製の厚い扉&lt;br /&gt;
+・jazzが微かに流れる店内はカウンター6席と2人掛の卓5つと20席に満たぬ広さ&lt;br /&gt;
+・床は船の甲板に用いられる木を使用した焦茶の素朴な板張り&lt;br /&gt;
+・扉を始めとする調度は年数を経た深い飴色の木材を使用&lt;br /&gt;
+・灯りは暖色のダウンライトを天井と壁に配置、日常の多忙な心地を和らげる程度の光量で空間を温める&lt;br /&gt;
+・喫煙可（同席の方がいらっしゃる場合は、一言お断りを願います）&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;</textarea><br>
+
+<div><label class="formLabel">携帯入室前上部HTML</label></div>
+<textarea cols="20" rows="10" id="userHtmlMobile1" name="userHtmlMobile1" class="advtext">&lt;br /&gt;
+&lt;span style="color:#9fc24d;font-size:11pt;"&gt;《BAR  LINDEN》&lt;span&gt;
+&lt;br /&gt;&lt;br /&gt;&lt;img src="https://static.nanos.jp/upload/s/solarterm/mtr/0/0/20240713170423.jpg" border="0" /&gt;
+&lt;span style="color:#a3a3a2;font-size:10pt;"&gt;&lt;br /&gt;&lt;br /&gt;
+・道を一つ外れた路地、灯りに照らされた看板の傍に階段。踊り場を挟んで二度下るとその先に分厚い木製の厚い扉&lt;br /&gt;
+・jazzが微かに流れる店内はカウンター6席と2人掛の卓5つと20席に満たぬ広さ&lt;br /&gt;
+・床は船の甲板に用いられる木を使用した焦茶の素朴な板張り&lt;br /&gt;
+・扉を始めとする調度は年数を経た深い飴色の木材を使用&lt;br /&gt;
+・灯りは暖色のダウンライトを天井と壁に配置、日常の多忙な心地を和らげる程度の光量で空間を温める&lt;br /&gt;
+・喫煙可（同席の方がいらっしゃる場合は、一言お断りを願います）&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;</textarea><br>
+
+<div><label class="formLabel">携帯入室前下部HTML</label></div>
+<textarea cols="20" rows="10" id="userHtmlMobile2" name="userHtmlMobile2" class="advtext">&lt;br /&gt;
+&lt;span style="color:#9fc24d;font-size:11pt;"&gt;《BAR Linden》&lt;span&gt;
+&lt;br /&gt;&lt;br /&gt;&lt;img src="https://static.nanos.jp/upload/s/solarterm/mtr/0/0/20240713170423.jpg" border="0" /&gt;
+&lt;span style="color:#a3a3a2;font-size:10pt;"&gt;&lt;br /&gt;&lt;br /&gt;
+・道を一つ外れた路地、灯りに照らされた看板の傍に階段。踊り場を挟んで二度下るとその先に分厚い木製の厚い扉&lt;br /&gt;
+・jazzが微かに流れる店内はカウンター6席と2人掛の卓5つと20席に満たぬ広さ&lt;br /&gt;
+・床は船の甲板に用いられる木を使用した焦茶の素朴な板張り&lt;br /&gt;
+・扉を始めとする調度は年数を経た深い飴色の木材を使用&lt;br /&gt;
+・灯りは暖色のダウンライトを天井と壁に配置、日常の多忙な心地を和らげる程度の光量で空間を温める&lt;br /&gt;
+・喫煙可（同席の方がいらっしゃる場合は、一言お断りを願います）&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;</textarea><br>
+
+<div><label class="formLabel">携帯ログ水平線</label></div>
+<textarea style="height: 2em" cols="20" rows="2" id="logSeparator" name="logSeparator" class="advtext">&lt;hr /&gt;</textarea><br>
+
+<div><label class="formLabel">説明(meta description)</label></div>
+<input maxlength="64" style="width:100%" type="text" d="description" name="description"><br>
+
+<div class="formSmt">
+<input class="smt" type="submit" value="設定">
+</div>
+
+</form>
+
+</div>
+
+<div id="xn" class="xnote" style="margin: 1em 0">
+<p style="font-weight:bold">注意点</p>
+
+<ul style="margin-left:1em">
+<li>誤りのあるタグ設定により、表示が乱れたり動作に不具合が発生する場合があります。ご利用の際は十分注意して設定してください。</li>
+</ul>
+
+</div>
+
+</div>
+
+</div>
+</div>
+<div style="clear:both"></div>
+</div>
+
+<div id="footer">© <a target="_blank" title="無料レンタルチャット" href="http://www.whocares.jp/">WHOCARES</a> <a href="http://www.whocares.jp/chatx.jsp" target="_blank">chatx</a>&nbsp;3.23</div>
+
+
+
+</body></html>

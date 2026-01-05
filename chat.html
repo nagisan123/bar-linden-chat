@@ -1,0 +1,575 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="alternate" media="handheld" type="application/xhtml+xml" href="http://501ichihashi.chatx2.whocares.jp/m/?guid=on">
+<link rel="alternate" media="handheld" type="text/html" href="http://501ichihashi.chatx2.whocares.jp/m/?guid=on">
+<link rel="shortcut icon" href="http://chatx2.whocares.jp/favicon.ico">
+<link rel="icon" href="http://chatx2.whocares.jp/favicon.ico">
+<meta name="rating" content="general">
+<meta name="robots" content="noarchive,nofollow,noimageindex,nomediaindex">
+<title>BAR LINDEN</title>
+<!-- Supabase JS Client -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script type="text/javascript" charset="UTF-8" src="chat_files/wcutils.js"></script>
+<script type="text/javascript" charset="UTF-8" src="chat_files/chatx.js"></script>
+<script type="text/javascript" charset="UTF-8" src="chat_files/wcpicker.js"></script>
+<script type="text/javascript" charset="UTF-8" src="chat_files/modal.js"></script>
+
+<!-- Supabaseクライアント -->
+<script type="text/javascript" charset="UTF-8" src="js/supabase-client.js"></script>
+<link rel="stylesheet" href="chat_files/chatx.css" type="text/css">
+<noscript>
+<meta http-equiv="refresh" content="0; url=http://501ichihashi.chatx2.whocares.jp/c/noscript.jsp" />
+</noscript>
+<script type="text/javascript"><!--
+
+if (window.top != window.self) {
+    window.top.location.href = "/c/frame.jsp";
+
+}
+#else if (!document.cookie || document.cookie.indexOf("JSESSIONID") == -1) {
+#    window.top.location.href = "http://501ichihashi.chatx2.whocares.jp/c/nocookie.jsp";
+#}
+#else if (!window.XMLHttpRequest && !window.ActiveXObject) {
+#    window.top.location.href = "http://501ichihashi.chatx2.whocares.jp/c/unsupported.jsp";
+#}
+
+WCUtils.bgCacheBugWorkaround();
+var chatxconfig = {"tags":{"msg.tag.mailUploadMsg":"<div>メール送信をクリックし、アップロードするファイルを1ファイルのみ添付してメール送信してください。<b>自動挿入される本文は変更しないでください。<\/b><\/div>","msg.tag.uploadMsg1":"<div class=\"uploadCaution\"><em class=\"uploadCaution\">！重要！<\/em><br \/>違法ファイル(無修正や著作権侵害など)は絶対にアップロードしないでください。<\/div>","msg.tag.maintenance":"<div id=\"maintenance\">現在メンテナンス中です。<br \/>申し訳ございませんがしばらくお待ちください。<br \/><br \/>終了予定まであと&nbsp;<span id=\"maintenanceSec\"><\/span>&nbsp;秒<\/div>"},"colors":[{"name":"撫子","value":"#eebbcb"},{"name":"臙脂","value":"#b94047"},{"name":"女郎花","value":"#f2f2b0"},{"name":"金糸雀","value":"#ebd842"},{"name":"榛","value":"#bfa46f"},{"name":"若草","value":"#c3d825"},{"name":"翡翠","value":"#38b48b"},{"name":"青碧","value":"#0f8e7b"},{"name":"月白","value":"#eaf4fc"},{"name":"空色","value":"#a0d8ef"},{"name":"青藤","value":"#84a2d4"},{"name":"薄葡萄","value":"#c0a2c7"},{"name":"竜胆","value":"#9079ad"},{"name":"菖蒲","value":"#cc7eb1"},{"name":"薄墨","value":"#a3a3a2"},{"name":"灰色","value":"#7d7d7d"},{"name":"瑠璃","value":"#0264a6"},{"name":"亜麻","value":"#c6b095"},{"name":"紫苑","value":"#836bad"},{"name":"シャリュトリューズ","value":"#99d02b"},{"name":"ネープルス","value":"#fff27b"},{"name":"ローズブラウン","value":"#7d4f5b"},{"name":"ペールライラック","value":"#cab2d6"}],"enableToggleUsers":false,"messages":{"msg.c.enter":"ご来店","msg.c.nameSuffix":"：","msg.c.err.busy":"ビジーです。","msg.c.hatenaAuth":"はてな認証","msg.c.pmAllow":"許可","msg.c.textLogSeparator":"--------------------------------------------------------------------------------","msg.c.pmDeny":"拒否","msg.c.err.unknownError":"不明なエラー","msg.c.pmAll":"来店者全員","msg.c.attach":"添付ファイル(%CT%, %SIZE%)","msg.c.none":"なし","msg.c.err.name":"名前を入力してください。","msg.c.attached":"あり","msg.c.pmArrow":"⇒","msg.c.mixiAuth":"mixiでログイン","msg.c.cancel":"キャンセル","msg.c.err.maxRows":"最大メッセージ数の指定が不正です。"},"enableMultiLine":true,"enableFontSizeSel":true,"enableThumbnail":false,"fixedViewStyle":-1,"enablePmAll":true,"enableTextEffect":false,"enableScrollType":true,"defaultViewStyle":1,"fixedEnterForm":false};
+var roomdef = {"icon":"./chat_files","attach":"./chat_files","cookieDomain":"localhost","chattop":"./"};
+// Supabase版chatxオブジェクト
+window.chatx = {
+    focusInput: function() { var inp = document.getElementById('msgDmy'); if (inp) inp.focus(); },
+    updateColor: function(col) { document.getElementById('colorDmy').value = col; },
+    toggleForm: function() {},
+    showConfigDialog: function(e) { WCUtils.showPopup2(e, 'config', true); return false; },
+    showUserInfo: function(e, userId) { WCUtils.showPopup2(e, 'userinfo', true); return false; },
+    send: async function() {
+        var msg = document.getElementById('msgDmy').value.trim();
+        var color = document.getElementById('colorDmy').value;
+        var pmTo = document.getElementById('pmDmy').value;
+        if (!msg) return false;
+        await supabaseChat.sendMessage(msg, color, pmTo || null);
+        document.getElementById('msgDmy').value = '';
+        return false;
+    },
+    destroy: function() { if (window.supabaseChat) supabaseChat.destroy(); },
+    order: 'desc',
+    getTextLog: function() { return ''; },
+    getInfo: function() { return navigator.userAgent; },
+    isAdjust: function() { return false; },
+    adjust: function() {},
+    toggleUsersView: function() {},
+    suspend: function() {},
+    multiLine: false,
+    keyCheck: function() { return true; },
+    updateConfig: function() { return false; },
+    writeDummyFrame: function() {},
+    onFrameLoad: function() {}
+};
+
+
+var colorpicker = new wcpicker(chatxconfig.colors, false);
+
+
+async function startup() {
+    // sessionStorageから入室情報を取得
+    var enterData = sessionStorage.getItem('enterData');
+    if (!enterData) {
+        // 入室情報がない場合はindexに戻る
+        window.location.href = 'index.html';
+        return;
+    }
+    var data = JSON.parse(enterData);
+    sessionStorage.removeItem('enterData');
+    
+    // Supabase初期化
+    await supabaseChat.init();
+    
+    // 自動入室
+    await supabaseChat.enter(data.name, data.comment, data.url, data.denyPm);
+}
+function onUpdateConfig() {
+
+}
+async function destroy() {
+    if (supabaseChat && supabaseChat.currentUser && supabaseChat.currentUser.id) {
+        await supabaseChat.exit();
+    }
+    if (window.supabaseChat) supabaseChat.destroy();
+}
+function subscr() {
+    alert('mail通知機能はSupabase版では未実装です');
+    return false;
+}
+
+function textlog(event) {
+    if (chatx.order == "asc") {
+        document.getElementById("textLogLogorder1").checked = true;
+    }
+    else {
+        document.getElementById("textLogLogorder2").checked = true;
+    }
+    WCUtils.showPopup2(event, "textLog", true);
+    return false;
+}
+
+function genTextLog() {
+    // Supabaseからログを取得してテキスト化
+    var order = document.getElementById("textLogLogorder1").checked? "asc" : "desc";
+    var pm = document.getElementById("textLogPm")?
+            document.getElementById("textLogPm").checked : false;
+    var info = document.getElementById("textLogInfo").checked;
+    
+    if (window.supabaseChat && window.supabaseChat.messages) {
+        var messages = window.supabaseChat.messages;
+        if (order === "desc") messages = messages.slice().reverse();
+        
+        var result = "";
+        messages.forEach(function(msg) {
+            if (!pm && msg.pm_to) return; // PMを除外
+            var time = new Date(msg.created_at).toLocaleString('ja-JP');
+            result += msg.user_name + "：" + msg.message + " (" + time + ")\n";
+        });
+        document.getElementById("textLogResult").value = result;
+    } else {
+        document.getElementById("textLogResult").value = "ログがありません";
+    }
+    return false;
+}
+
+function updateColor(col) {
+    chatx.updateColor(col);
+    chatx.focusInput();
+}
+
+function curStatus(event) {
+    var status = "Supabase版 BAR LINDEN\n";
+    status += "User Agent: " + navigator.userAgent + "\n";
+    if (window.supabaseChat && window.supabaseChat.currentUser) {
+        status += "User: " + window.supabaseChat.currentUser.name + "\n";
+        status += "Online Users: " + (window.supabaseChat.onlineUsers ? window.supabaseChat.onlineUsers.length : 0);
+    }
+    document.getElementById("curStatusTa").value = status;
+    WCUtils.showPopup2(event, "curStatus", true);
+    return false;
+}
+
+function susp(evt) {
+    // 一時停止機能は未実装
+    return false;
+}
+
+function toggleUserHtml() {
+    var link = document.getElementById("toggleUserHtmlInl");
+    var elm = document.getElementById("userhtmlcontent");
+    if (link && elm) {
+        if (elm.style.display == "none") {
+            elm.style.display = "block";
+            link.innerHTML = "隠す";
+        }
+        else {
+            elm.style.display = "none";
+            link.innerHTML = "表示";
+        }
+    }
+}
+
+
+//-->
+</script>
+
+<!--[if lt IE 8]>
+<style type="text/css">
+div#contentWrap {
+  position: static;
+  overflow-y: scroll;
+  width: 100%;
+  height: expression(
+    ((document.documentElement && document.documentElement.clientHeight?
+      document.documentElement.clientHeight : document.body.clientHeight) -
+      document.getElementById("ctrl").offsetHeight -
+      document.getElementById("ctrl2").offsetHeight -
+      document.getElementById("ad").offsetHeight) + "px");
+}
+a#pictgAnch, a#colorAnch, a#attachAnch { display:inline-block; }
+div#userinfo dd { word-wrap: break-word; }
+div.log3 span.logUser { word-wrap: break-word; }
+span.logContent { word-wrap: break-word; }
+div.clog { word-wrap: break-word; }
+</style>
+<![endif]-->
+
+<!--[if lt IE 7]>
+<style type="text/css">
+div.clog { height: 1%; }
+</style>
+<![endif]-->
+
+<!--[if (gt IE 6)|(lt IE 5.5000)]>
+<style type="text/css">
+div.clr {
+  font-size: 1px;
+  line-height: 1px;
+  overflow: hidden;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
+</style>
+<![endif]-->
+
+<link rel="stylesheet" href="chat_files/plain.css" type="text/css">
+<style type="text/css">
+body {
+ background-color: #000000;
+ color: #9fc24d;
+}
+
+
+div#s {
+ background-color: #000000;
+ border-top: solid 1px #9fc24d;
+ border-left: solid 1px #9fc24d;
+ border-right: solid 1px #9fc24d;
+ border-bottom: solid 1px #9fc24d;
+}
+
+span.logMsgPm{background-color:#4d4c61;}
+
+div.popup {
+ background-color: #000000;
+}
+
+legend {
+ color: #9fc24d;
+}
+
+.emflw a {
+ color: #9fc24d !important;
+}
+
+a:link, a:visited, a:active { color: #a3a3a2; text-decoration: none; }
+a:hover { color: #9fc24d; text-decoration: none; }
+
+div#menu a:hover {
+ background-color:（カラーコード入れる） ;text-decoration: none;
+}
+
+input.inptext, input.inppassword, input.inpfile, input.inpsubmit, input.inpbutton, select.inpselect, textarea.inptextarea {
+ background-color: #000000;
+ color: #a3a3a2;
+ border: solid 1px #a3a3a2;
+}
+
+div.logInfo {
+ color: #9fc24d;
+}
+
+div.clog {
+ border-bottom: dashed 1px #ebd842;
+}
+
+html {
+ scrollbar-arrow-color: #00984f;
+ scrollbar-base-color: #9fc24d;
+ scrollbar-darkshadow-color: #9fc24d;
+ scrollbar-face-color: #000000;
+ scrollbar-highlight-color: #9fc24d;
+ scrollbar-shadow-color: #9fc24d;
+ scrollbar-track-color: #9fc24d;
+}
+
+p#userinfoName {
+ color: #9fc24d;
+}
+
+a#attachAnch {
+ background: url(/images/emoji/e/EF78b.gif) center left no-repeat;
+}
+
+a.logAttach {
+ background: url(/images/emoji/e/EF78b.gif) center left no-repeat;
+}</style>
+<script id="adscr" src="chat_files/Untitled" type="text/javascript" charset="UTF-8"></script></head>
+<body onload="startup()" onunload="destroy()" style="font-size: 100%;"><div id="container">
+<noscript><p>JavaScriptを有効にしてください。</p></noscript>
+<div id="adcontainer1"></div>
+<div id="ctrl" style="height: 147px;">
+ <div id="s">
+ <div id="menu" style="visibility: visible;">
+ <a href="index.html">HOME</a><span class="menuSepa">｜</span><span id="enter" style="display: none;"><a id="enterAnc" href="javascript:void(0)" onclick="return chatx.toggleForm();">ご来店</a><span class="menuSepa">｜</span></span><span id="exit" style="display: inline;"><a href="javascript:void(0)" onclick="document.getElementById('exitf').submit(); return false;">ご帰宅</a><span class="menuSepa">｜</span></span><a href="javascript:void(0)" onclick="return chatx.showConfigDialog(event);">設定</a><span class="menuSepa">｜</span><a rel="nofollow" href="javascript:void(0)" onclick="return subscr();">mail通知</a><span class="menuSepa">｜</span><a rel="nofollow" href="javascript:void(0)" onclick="return textlog(event);">テキストログ</a><span class="menuSepa">｜</span><a rel="nofollow" href="adm/index.html">STAFF ROOM</a><span class="menuSepa">｜</span><a href="javascript:void(0)" onclick="WCUtils.showPopup2(event, 'aboutPopup', true, null); return false;">About</a><span id="information" style="display: inline;"><span class="menuSepa">｜</span><a class="infIcon1" id="informationAnch" href="javascript:void(0)" onclick="WCUtils.showPopup2(event, 'infoPopup', true, null); return false;">お知らせ</a></span></div>
+ <div id="statusWrap">
+ <div id="status" ondblclick="return curStatus(event)" onclick="return susp(event);" style="background-color: rgb(51, 51, 204);" title="state:1"></div>
+ </div>
+ <div class="clr"></div>
+ </div>
+<div id="userhtml" style="display: none;">
+ <div id="userhtmlcontent">
+ <br>
+<span style="color:#9fc24d;font-size:11pt;">《BAR LINDEN》<span>
+<br><br><img border="0" src="chat_files/20240713170423.jpg">
+<span style="color:#a3a3a2;font-size:10pt;"><br><br>
+・道を一つ外れた路地、灯りに照らされた看板の傍に階段。踊り場を挟んで二度下るとその先に分厚い木製の厚い扉<br>
+・jazzが微かに流れる店内はカウンター6席と2人掛の卓5つと20席に満たぬ広さ<br>
+・床は船の甲板に用いられる木を使用した焦茶の素朴な板張り<br>
+・扉を始めとする調度は年数を経た深い飴色の木材を使用<br>
+・灯りは暖色のダウンライトを天井と壁に配置、日常の多忙な心地を和らげる程度の光量で空間を温める<br>
+・喫煙可（同席の方がいらっしゃる場合は、一言お断りを願います）<br>
+<br>
+<br>
+</span></span></span><div class="clr"></div>
+ </div>
+<div id="toggleUserHtml"><span id="toggleUserHtmlInl" onclick="toggleUserHtml()">隠す</span></div>
+</div>
+
+ <div id="formcontainer1">
+ <div id="forms">
+<div id="entf" style="display: none;">
+ <div id="err" class="err"></div>
+ <form onsubmit="return chatx.enter();" action="/enter" method="post" target="dmy">
+ <input type="hidden" name="cb" value="parent.chatx.cb">
+ <input type="hidden" name="logLevel" value="1">
+ <input type="hidden" name="plaf" id="plaf" value="Win32,gecko">
+ <input type="hidden" name="etm" id="etm" value="">
+ <fieldset>
+ <legend>入室</legend>
+ <table>
+ <tbody>
+ <tr>
+ <td><label for="name">名前:</label></td>
+ <td><input class="inptext" type="text" name="name" id="name" value="野良猫"></td>
+ </tr>
+<tr>
+ <td><label for="url">URL:</label></td>
+ <td><input class="inptext" type="text" name="url" id="url"></td>
+ </tr>
+<tr>
+ <td><label for="comment">本日の服装:</label></td>
+ <td><input class="inptext" type="text" name="comment" id="comment" value="サバトラ"></td>
+ </tr>
+<tr>
+ <td colspan="2" class="entfR">
+<input class="inpcheck" id="entCookie" type="checkbox" name="entCookie" value="1"><label for="entCookie">Cookie</label>
+<input class="inpcheck" id="denyPm" type="checkbox" name="denyPm" value="1"><label for="denyPm">PMを拒否</label>
+</td>
+ </tr>
+ <tr>
+ <td colspan="2" class="entfR">
+ <span id="logLevel">ログレベル:1</span>
+ <input class="inpsubmit" type="submit" value="ご来店">
+ </td>
+ </tr>
+ </tbody>
+ </table>
+ </fieldset>
+ </form>
+</div>
+<div id="sndf" style="display: block;">
+ <div id="err2" class="err"></div>
+ <form id="sendformDmy" onsubmit="return chatx.send();" action="javascript:void(0)">
+ <input type="hidden" name="colorDmy" id="colorDmy" value="#7d7d7d">
+ <input type="hidden" name="tm" id="tm" value="1767621170939">
+<fieldset class="plainFs">
+ <p>
+<input class="inptext" type="text" name="msgDmy" id="msgDmy" style="display: inline;">
+<textarea class="inptextarea" cols="10" rows="2" id="mmsgDmy" name="mmsgDmy" onkeydown="return chatx.keyCheck(event);" style="display: none;"></textarea>
+<input class="inpsubmit" id="smtDmy" type="submit" value="発言">
+ </p>
+ </fieldset>
+ <p>
+<label for="pmDmy">PM:</label><select onchange="chatx.focusInput();return false;" name="pmDmy" id="pmDmy" class="inpselect"><option value="" selected="selected"></option><option value="6yuimu_ive">藤白</option><option value="6yuimu_ivi">市橋</option><option value="6yuimu_iwo">吾妻</option><option value="6yuimu_iz2">野良猫</option><option value="all">来店者全員</option></select>
+<span id="sndTools">
+<label for="selColorPicker">文字色</label>
+<select class="inpselect" id="selColorPicker" onchange="updateColor(this.options[this.selectedIndex].value); return false;" style="color: rgb(125, 125, 125);">
+<option value="#eebbcb" style="color:#eebbcb">撫子</option>
+<option value="#b94047" style="color:#b94047">臙脂</option>
+<option value="#f2f2b0" style="color:#f2f2b0">女郎花</option>
+<option value="#ebd842" style="color:#ebd842">金糸雀</option>
+<option value="#bfa46f" style="color:#bfa46f">榛</option>
+<option value="#c3d825" style="color:#c3d825">若草</option>
+<option value="#38b48b" style="color:#38b48b">翡翠</option>
+<option value="#0f8e7b" style="color:#0f8e7b">青碧</option>
+<option value="#eaf4fc" style="color:#eaf4fc">月白</option>
+<option value="#a0d8ef" style="color:#a0d8ef">空色</option>
+<option value="#84a2d4" style="color:#84a2d4">青藤</option>
+<option value="#c0a2c7" style="color:#c0a2c7">薄葡萄</option>
+<option value="#9079ad" style="color:#9079ad">竜胆</option>
+<option value="#cc7eb1" style="color:#cc7eb1">菖蒲</option>
+<option value="#a3a3a2" style="color:#a3a3a2">薄墨</option>
+<option value="#7d7d7d" style="color:#7d7d7d" selected="selected">灰色</option>
+<option value="#0264a6" style="color:#0264a6">瑠璃</option>
+<option value="#c6b095" style="color:#c6b095">亜麻</option>
+<option value="#836bad" style="color:#836bad">紫苑</option>
+<option value="#99d02b" style="color:#99d02b">シャリュトリューズ</option>
+<option value="#fff27b" style="color:#fff27b">ネープルス</option>
+<option value="#7d4f5b" style="color:#7d4f5b">ローズブラウン</option>
+<option value="#cab2d6" style="color:#cab2d6">ペールライラック</option>
+</select>
+<a title="添付ファイル" class="sndTool" id="attachAnch" href="javascript:void(0)" onclick="WCUtils.showPopup2(event, 'sndf2', true, chatx.cancelAttachFunc(chatx));return false;"><img src="chat_files/spacer.gif" style="width:1px;height:16px;border:0"></a><span id="attachFname"></span></span>
+ &nbsp;</p>
+ </form>
+ <form id="exitf" action="/exit" method="post" target="dmy">
+ <input type="hidden" name="cb" value="parent.chatx.cb">
+ </form>
+ <div class="clr"></div>
+</div>
+</div>
+ </div>
+ <div id="cond" style="visibility: visible;"><span id="condUser" style="display: inline;">来店：<span id="in">4</span></span>
+<span id="users">&nbsp;(<a href="javascript:void(0)" onclick="return chatx.showUserInfo(event, '6yuimu_ive');">藤白</a>, <a href="javascript:void(0)" onclick="return chatx.showUserInfo(event, '6yuimu_ivi');">市橋</a>, <a href="javascript:void(0)" onclick="return chatx.showUserInfo(event, '6yuimu_iwo');">吾妻</a>, <a href="javascript:void(0)" onclick="return chatx.showUserInfo(event, '6yuimu_iz2');">野良猫</a>)&nbsp;</span><span id="condRom" style="display: inline;">外の影：<span id="rom">0</span></span></div>
+</div><!-- ctrl -->
+<div id="contentWrap" style="top: 147px; bottom: 64px;">
+<div id="hideLog" style="display:none"></div>
+<div id="content"><div id="eid_6yuimu_iwo_24597" class="log1 clog logeven" style="color: rgb(192, 162, 199);"><span style="display:none" id="uname_24597">吾妻</span><span class="logUser">吾妻：</span><span class="logContent"><span class="logMsg">わ、猫さん（びっくりしてその可愛さに見ほれ）</span><span class="logInfo">(<span class="logTs">01/05(月) 22:53</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_iz2_24596" class="log1 clog logodd" style="color: rgb(125, 125, 125);"><span style="display:none" id="uname_24596">野良猫</span><span class="logUser">野良猫：</span><span class="logContent"><span class="logMsg">にゃー（人参を２枚だけ咥え、窓の隙間からするりと寒空の下へ）</span><span class="logInfo">(<span class="logTs">01/05(月) 22:52</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ivi_24595" class="log1 clog logeven" style="color: rgb(132, 162, 212);"><span style="display:none" id="uname_24595">市橋</span><span class="logUser">市橋：</span><span class="logContent"><span class="logMsg">（2人に飲み物を持って行き）…いらっしゃいませ。猫って鍋食うかな（影が飛び上がって鍋に）うぉ、あっついぞ？大丈夫か</span><span class="logInfo">(<span class="logTs">01/05(月) 22:52</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ive_24594" class="log1 clog logodd" style="color: rgb(56, 180, 139);"><span style="display:none" id="uname_24594">藤白</span><span class="logUser">藤白：</span><span class="logContent"><span class="logMsg">（ぐるぐるの白滝を食べ終えると今度こそ肉！っと意気込み）本当に闇鍋状態ですね。アツいです。お？野良猫さん、いらっしゃーい？</span><span class="logInfo">(<span class="logTs">01/05(月) 22:51</span>)</span></span><div class="logEnd"></div></div><div id="inf_24593" class="log1 clog logeven logInfo"><span class="logUser logInforandom">つまむ：</span><span class="logContent"><span class="logMsg">野良猫がつまんだ、花形に切られた人参２枚、可愛さに心もホッコリ。食べるのが勿体ない、なんて言ってないで是非食べて頂きたい。</span><span class="logInfo">(<span class="logTs">01/05(月) 22:51</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_iwo_24592" class="log1 clog logodd" style="color: rgb(192, 162, 199);"><span style="display:none" id="uname_24592">吾妻</span><span class="logUser">吾妻：</span><span class="logContent"><span class="logMsg">（少し腹が落ち着いてきて、ジントニックをまた飲み）この闇鍋のような感じも良いですね。熱意が湧く</span><span class="logInfo">(<span class="logTs">01/05(月) 22:51</span>)</span></span><div class="logEnd"></div></div><div id="inf_24591" class="log1 clog logeven logInfo"><span class="logContent"><span class="logMsg">野良猫が冬の夜に来店した。（つまむ、と打ち込むと豆乳鍋が食べられます）</span><span class="logInfo">(<span class="logTs">01/05(月) 22:50</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_iwo_24581" class="log1 clog logodd" style="color: rgb(192, 162, 199);"><span style="display:none" id="uname_24581">吾妻</span><span class="logUser">吾妻：</span><span class="logContent"><span class="logMsg">おでんの中では白滝がトップのほうに来ます俺の中で。今日は鍋ですが、鍋の白滝も大好きです（格好いいの言葉に照れつつ）</span><span class="logInfo">(<span class="logTs">01/05(月) 22:48</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ive_24580" class="log1 clog logeven" style="color: rgb(56, 180, 139);"><span style="display:none" id="uname_24580">藤白</span><span class="logUser">藤白：</span><span class="logContent"><span class="logMsg">吾妻さん、カッコイイ白滝の食べ方です！</span><span class="logInfo">(<span class="logTs">01/05(月) 22:47</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_iwo_24579" class="log1 clog logodd" style="color: rgb(192, 162, 199);"><span style="display:none" id="uname_24579">吾妻</span><span class="logUser">吾妻：</span><span class="logContent"><span class="logMsg">白滝とったりぃ！（大好物の白滝をパスタのように箸に巻き取って食べる）はーーこれですこれ</span><span class="logInfo">(<span class="logTs">01/05(月) 22:47</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ive_24578" class="log1 clog logeven" style="color: rgb(56, 180, 139);"><span style="display:none" id="uname_24578">藤白</span><span class="logUser">藤白：</span><span class="logContent"><span class="logMsg">ぐすんぐすん（しょっぱい気持ちで白滝を啜ろうとすれば隣の吾妻の熱い姿に感動）お、おおおお！</span><span class="logInfo">(<span class="logTs">01/05(月) 22:46</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_iwo_24577" class="log1 clog logodd" style="color: rgb(192, 162, 199);"><span style="display:none" id="uname_24577">吾妻</span><span class="logUser">吾妻：</span><span class="logContent"><span class="logMsg">よっし！！長いけど白滝大好物…！うおおお（箸でぐるぐる巻きつけて）</span><span class="logInfo">(<span class="logTs">01/05(月) 22:45</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ive_24576" class="log1 clog logeven" style="color: rgb(56, 180, 139);"><span style="display:none" id="uname_24576">藤白</span><span class="logUser">藤白：</span><span class="logContent"><span class="logMsg">しらたきぃ～！</span><span class="logInfo">(<span class="logTs">01/05(月) 22:45</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ivi_24575" class="log1 clog logodd" style="color: rgb(132, 162, 212);"><span style="display:none" id="uname_24575">市橋</span><span class="logUser">市橋：</span><span class="logContent"><span class="logMsg">ぶはっ（吾妻の白滝踊り食いの予感に吹き出し）</span><span class="logInfo">(<span class="logTs">01/05(月) 22:45</span>)</span></span><div class="logEnd"></div></div><div id="inf_24574" class="log1 clog logeven logInfo"><span class="logUser logInforandom">つまむ：</span><span class="logContent"><span class="logMsg">藤白がつまんだ、しらたき、切れてない。どんだけ長いんだ…一気に啜れ！</span><span class="logInfo">(<span class="logTs">01/05(月) 22:45</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ive_24573" class="log1 clog logodd" style="color: rgb(56, 180, 139);"><span style="display:none" id="uname_24573">藤白</span><span class="logUser">藤白：</span><span class="logContent"><span class="logMsg">（急いでにんじんを掻き込み）自力で取ります！いざ、肉！</span><span class="logInfo">(<span class="logTs">01/05(月) 22:45</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ivi_24572" class="log1 clog logeven" style="color: rgb(132, 162, 212);"><span style="display:none" id="uname_24572">市橋</span><span class="logUser">市橋：</span><span class="logContent"><span class="logMsg">藤白さんとれますか？</span><span class="logInfo">(<span class="logTs">01/05(月) 22:44</span>)</span></span><div class="logEnd"></div></div><div id="inf_24571" class="log1 clog logodd logInfo"><span class="logUser logInforandom">つまむ：</span><span class="logContent"><span class="logMsg">吾妻がつまんだ、しらたき、切れてない。どんだけ長いんだ…一気に啜れ！</span><span class="logInfo">(<span class="logTs">01/05(月) 22:44</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ivi_24570" class="log1 clog logeven" style="color: rgb(132, 162, 212);"><span style="display:none" id="uname_24570">市橋</span><span class="logUser">市橋：</span><span class="logContent"><span class="logMsg">勿論、自慢します。今しないでいつするか。</span><span class="logInfo">(<span class="logTs">01/05(月) 22:44</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_iwo_24569" class="log1 clog logodd" style="color: rgb(192, 162, 199);"><span style="display:none" id="uname_24569">吾妻</span><span class="logUser">吾妻：</span><span class="logContent"><span class="logMsg">にんじんに真っ赤に染められた藤白さん…</span><span class="logInfo">(<span class="logTs">01/05(月) 22:44</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ive_24568" class="log1 clog logeven" style="color: rgb(56, 180, 139);"><span style="display:none" id="uname_24568">藤白</span><span class="logUser">藤白：</span><span class="logContent"><span class="logMsg">ぐぬぬ、市橋さんに肉が……オレも！肉！</span><span class="logInfo">(<span class="logTs">01/05(月) 22:44</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_iwo_24567" class="log1 clog logodd" style="color: rgb(192, 162, 199);"><span style="display:none" id="uname_24567">吾妻</span><span class="logUser">吾妻：</span><span class="logContent"><span class="logMsg">くっ、自慢げ</span><span class="logInfo">(<span class="logTs">01/05(月) 22:43</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ivi_24566" class="log1 clog logeven" style="color: rgb(132, 162, 212);"><span style="display:none" id="uname_24566">市橋</span><span class="logUser">市橋：</span><span class="logContent"><span class="logMsg">……（2人を見て、得意げに肉を自慢する）</span><span class="logInfo">(<span class="logTs">01/05(月) 22:43</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_iwo_24565" class="log1 clog logodd" style="color: rgb(192, 162, 199);"><span style="display:none" id="uname_24565">吾妻</span><span class="logUser">吾妻：</span><span class="logContent"><span class="logMsg">冗談ですよ、たらは返しま………せん（もぐもぐ食べる）返そうとしたら市橋さんが大当たり</span><span class="logInfo">(<span class="logTs">01/05(月) 22:43</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ive_24564" class="log1 clog logeven" style="color: rgb(56, 180, 139);"><span style="display:none" id="uname_24564">藤白</span><span class="logUser">藤白：</span><span class="logContent"><span class="logMsg">……来たか。にんじんよ。（橙色で染まった取り皿にしばし沈黙）</span><span class="logInfo">(<span class="logTs">01/05(月) 22:43</span>)</span></span><div class="logEnd"></div></div><div id="inf_24563" class="log1 clog logodd logInfo"><span class="logUser logInforandom">つまむ：</span><span class="logContent"><span class="logMsg">市橋がつまんだ、肉、肉、がっつり大きな鶏肉が二つ、大当たり！ほろ、と口の中で解ける柔らかジューシーな美味しさ</span><span class="logInfo">(<span class="logTs">01/05(月) 22:43</span>)</span></span><div class="logEnd"></div></div><div id="inf_24562" class="log1 clog logeven logInfo"><span class="logUser logInforandom">つまむ：</span><span class="logContent"><span class="logMsg">藤白がつまんだ、にんじん、にんじん、にんじん、にんじんのみ、いっぱい掬った。体にとっても良さそうだ、残さず食べよう笑</span><span class="logInfo">(<span class="logTs">01/05(月) 22:42</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ivi_24561" class="log1 clog logodd" style="color: rgb(185, 64, 71);"><span style="display:none" id="uname_24561">市橋</span><span class="logUser">市橋：</span><span class="logContent"><span class="logMsg">＿＿＿＿くそ（空になった碗に、再び美味しいとこどりをしたい年頃）</span><span class="logInfo">(<span class="logTs">01/05(月) 22:42</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ive_24560" class="log1 clog logeven" style="color: rgb(56, 180, 139);"><span style="display:none" id="uname_24560">藤白</span><span class="logUser">藤白：</span><span class="logContent"><span class="logMsg">半分の鮭を頂戴いたしました！（あーんっと口へ運んで美味しくもぐもぐ）</span><span class="logInfo">(<span class="logTs">01/05(月) 22:42</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_iwo_24559" class="log1 clog logodd" style="color: rgb(192, 162, 199);"><span style="display:none" id="uname_24559">吾妻</span><span class="logUser">吾妻：</span><span class="logContent"><span class="logMsg">（鍋戦争が起きている…）</span><span class="logInfo">(<span class="logTs">01/05(月) 22:42</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ivi_24558" class="log1 clog logeven" style="color: rgb(185, 64, 71);"><span style="display:none" id="uname_24558">市橋</span><span class="logUser">市橋：</span><span class="logContent"><span class="logMsg">半分だけ、差し上げます。どっちか半分…じゃねえ！？</span><span class="logInfo">(<span class="logTs">01/05(月) 22:41</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_iwo_24557" class="log1 clog logodd" style="color: rgb(192, 162, 199);"><span style="display:none" id="uname_24557">吾妻</span><span class="logUser">吾妻：</span><span class="logContent"><span class="logMsg">ええ、とっても元気ですよ！こういう風に！（こちらはたらを強奪しようと）</span><span class="logInfo">(<span class="logTs">01/05(月) 22:41</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ive_24556" class="log1 clog logeven" style="color: rgb(56, 180, 139);"><span style="display:none" id="uname_24556">藤白</span><span class="logUser">藤白：</span><span class="logContent"><span class="logMsg">（市橋の取り皿から鮭を強奪！）</span><span class="logInfo">(<span class="logTs">01/05(月) 22:40</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ivi_24555" class="log1 clog logodd" style="color: rgb(185, 64, 71);"><span style="display:none" id="uname_24555">市橋</span><span class="logUser">市橋：</span><span class="logContent"><span class="logMsg">やった…これも日ごろの行いの賜物という奴だな（良きかな、良きかな、といいつつ）</span><span class="logInfo">(<span class="logTs">01/05(月) 22:40</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ive_24554" class="log1 clog logeven" style="color: rgb(56, 180, 139);"><span style="display:none" id="uname_24554">藤白</span><span class="logUser">藤白：</span><span class="logContent"><span class="logMsg">市橋さんがタンパク質のダブル取りをなさっている……オレにも！オレにも！（すいっと箸を伸ばし）</span><span class="logInfo">(<span class="logTs">01/05(月) 22:40</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_iwo_24553" class="log1 clog logodd" style="color: rgb(192, 162, 199);"><span style="display:none" id="uname_24553">吾妻</span><span class="logUser">吾妻：</span><span class="logContent"><span class="logMsg">（しゅぱっと市橋の方へ箸が伸びる）</span><span class="logInfo">(<span class="logTs">01/05(月) 22:39</span>)</span></span><div class="logEnd"></div></div><div id="inf_24552" class="log1 clog logeven logInfo"><span class="logUser logInforandom">つまむ：</span><span class="logContent"><span class="logMsg">市橋がつまんだ、たらと鮭のダブル取り、どっちから食べよう…なんて迷っている間に隣から箸が伸びてくるかも！？</span><span class="logInfo">(<span class="logTs">01/05(月) 22:39</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ivi_24551" class="log1 clog logodd" style="color: rgb(185, 64, 71);"><span style="display:none" id="uname_24551">市橋</span><span class="logUser">市橋：</span><span class="logContent"><span class="logMsg">俺も、今頃って思ったんですが言った方がいいだろう（熱い椎茸に我慢しながら吾妻に言い）にしても、二人とも元気そうで良かった</span><span class="logInfo">(<span class="logTs">01/05(月) 22:39</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ive_24550" class="log1 clog logeven" style="color: rgb(56, 180, 139);"><span style="display:none" id="uname_24550">藤白</span><span class="logUser">藤白：</span><span class="logContent"><span class="logMsg">あっ……吾妻さん、どんまいです！（寂寥感ただよわせる吾妻に励ましの言葉を）</span><span class="logInfo">(<span class="logTs">01/05(月) 22:39</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_iwo_24547" class="log1 clog logodd" style="color: rgb(192, 162, 199);"><span style="display:none" id="uname_24547">吾妻</span><span class="logUser">吾妻：</span><span class="logContent"><span class="logMsg">あっ（ぽろりと逃げる豆腐に哀愁）</span><span class="logInfo">(<span class="logTs">01/05(月) 22:38</span>)</span></span><div class="logEnd"></div></div><div id="inf_24546" class="log1 clog logeven logInfo"><span class="logUser logInforandom">つまむ：</span><span class="logContent"><span class="logMsg">吾妻がつまんだ、あっつあつな豆腐、ごま豆乳鍋で甘み増してまろやかトロリ、…と期待したらお玉から逃げた。取れたのは幻だったのかも</span><span class="logInfo">(<span class="logTs">01/05(月) 22:38</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ive_24545" class="log1 clog logodd" style="color: rgb(56, 180, 139);"><span style="display:none" id="uname_24545">藤白</span><span class="logUser">藤白：</span><span class="logContent"><span class="logMsg">（ずぞーっと長い白滝を啜り）改めまして、藤白です。よろしくお願いします。</span><span class="logInfo">(<span class="logTs">01/05(月) 22:37</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_iwo_24544" class="log1 clog logeven" style="color: rgb(192, 162, 199);"><span style="display:none" id="uname_24544">吾妻</span><span class="logUser">吾妻：</span><span class="logContent"><span class="logMsg">市橋さん、今頃…笑　そうです、俺が吾妻です。宜しくお願いします</span><span class="logInfo">(<span class="logTs">01/05(月) 22:37</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_iwo_24542" class="log1 clog logodd" style="color: rgb(192, 162, 199);"><span style="display:none" id="uname_24542">吾妻</span><span class="logUser">吾妻：</span><span class="logContent"><span class="logMsg">ぶふっ（長い白滝を見て笑ってしまい）</span><span class="logInfo">(<span class="logTs">01/05(月) 22:36</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ivi_24541" class="log1 clog logeven" style="color: rgb(163, 163, 162);"><span style="display:none" id="uname_24541">市橋</span><span class="logUser">市橋：</span><span class="logContent"><span class="logMsg">結んでたんですがほふぉぇはんです</span><span class="logInfo">(<span class="logTs">01/05(月) 22:36</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ivi_24540" class="log1 clog logodd" style="color: rgb(163, 163, 162);"><span style="display:none" id="uname_24540">市橋</span><span class="logUser">市橋：</span><span class="logContent"><span class="logMsg">肉厚のって来たいしたら椎茸だった。＿＿吾妻さんと藤白さんは、初対面ですね。（2人を椎茸を覚ましながら紹介）藤白さん、此方は吾妻さんです。吾妻さん、此方が藤白さんです</span><span class="logInfo">(<span class="logTs">01/05(月) 22:36</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ive_24539" class="log1 clog logeven" style="color: rgb(56, 180, 139);"><span style="display:none" id="uname_24539">藤白</span><span class="logUser">藤白：</span><span class="logContent"><span class="logMsg">お、今度は白滝ですね………………長い！結んでくださいよぅ！せめて切るか、結ぶかどっちかを！</span><span class="logInfo">(<span class="logTs">01/05(月) 22:35</span>)</span></span><div class="logEnd"></div></div><div id="inf_24538" class="log1 clog logodd logInfo"><span class="logUser logInforandom">つまむ：</span><span class="logContent"><span class="logMsg">藤白がつまんだ、しらたき、切れてない。どんだけ長いんだ…一気に啜れ！</span><span class="logInfo">(<span class="logTs">01/05(月) 22:34</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_iwo_24537" class="log1 clog logeven" style="color: rgb(192, 162, 199);"><span style="display:none" id="uname_24537">吾妻</span><span class="logUser">吾妻：</span><span class="logContent"><span class="logMsg">ふぅ……美味しいですね、やっぱ鍋は良い。…皆さんも色々摘まめてて良き（皆のラインナップを見ながら肉を味わい）</span><span class="logInfo">(<span class="logTs">01/05(月) 22:34</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ive_24536" class="log1 clog logodd" style="color: rgb(56, 180, 139);"><span style="display:none" id="uname_24536">藤白</span><span class="logUser">藤白：</span><span class="logContent"><span class="logMsg">豆乳鍋って乳白色で中が見えないから、半ば闇鍋状態ですね……次は肉！肉が来ますように！</span><span class="logInfo">(<span class="logTs">01/05(月) 22:34</span>)</span></span><div class="logEnd"></div></div><div id="inf_24535" class="log1 clog logeven logInfo"><span class="logUser logInforandom">つまむ：</span><span class="logContent"><span class="logMsg">市橋がつまんだ、肉厚の椎茸、噛んだら熱々の汁がジュワ。熱い、若干火傷したかも、けど美味い</span><span class="logInfo">(<span class="logTs">01/05(月) 22:32</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ive_24534" class="log1 clog logodd" style="color: rgb(56, 180, 139);"><span style="display:none" id="uname_24534">藤白</span><span class="logUser">藤白：</span><span class="logContent"><span class="logMsg">お、大根再びです。美味しいのが分かっているので安心の味わい（軽く冷まして口へ）あふあふ</span><span class="logInfo">(<span class="logTs">01/05(月) 22:32</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ivi_24533" class="log1 clog logeven" style="color: rgb(163, 163, 162);"><span style="display:none" id="uname_24533">市橋</span><span class="logUser">市橋：</span><span class="logContent"><span class="logMsg">良し俺は今から馬になる、そしてこの人参はご馳走だと。……ん？美味い、肉、羨ましくない。大根も…</span><span class="logInfo">(<span class="logTs">01/05(月) 22:32</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_iwo_24532" class="log1 clog logodd" style="color: rgb(192, 162, 199);"><span style="display:none" id="uname_24532">吾妻</span><span class="logUser">吾妻：</span><span class="logContent"><span class="logMsg">大当たりしました(嬉しげに大きな大きな鶏肉を頬張る、あちち)うまーー。馬だけに…</span><span class="logInfo">(<span class="logTs">01/05(月) 22:31</span>)</span></span><div class="logEnd"></div></div><div id="inf_24531" class="log1 clog logeven logInfo"><span class="logUser logInforandom">つまむ：</span><span class="logContent"><span class="logMsg">藤白がつまんだ、味の染みた大根、煮崩れ間近。火傷覚悟で頬張りましょう。</span><span class="logInfo">(<span class="logTs">01/05(月) 22:31</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ive_24530" class="log1 clog logodd" style="color: rgb(56, 180, 139);"><span style="display:none" id="uname_24530">藤白</span><span class="logUser">藤白：</span><span class="logContent"><span class="logMsg">吾妻さん大当たり！……今年の干支は馬ですね。にんじん大好きな馬です。</span><span class="logInfo">(<span class="logTs">01/05(月) 22:30</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ivi_24529" class="log1 clog logeven" style="color: rgb(163, 163, 162);"><span style="display:none" id="uname_24529">市橋</span><span class="logUser">市橋：</span><span class="logContent"><span class="logMsg">＿＿＿＿……（続いて人参で満たされた皿を眺め）今年の干支って馬……？</span><span class="logInfo">(<span class="logTs">01/05(月) 22:30</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_iwo_24528" class="log1 clog logodd" style="color: rgb(192, 162, 199);"><span style="display:none" id="uname_24528">吾妻</span><span class="logUser">吾妻：</span><span class="logContent"><span class="logMsg">よっしゃ！</span><span class="logInfo">(<span class="logTs">01/05(月) 22:30</span>)</span></span><div class="logEnd"></div></div><div id="inf_24527" class="log1 clog logeven logInfo"><span class="logUser logInforandom">つまむ：</span><span class="logContent"><span class="logMsg">吾妻がつまんだ、肉、肉、がっつり大きな鶏肉が二つ、大当たり！ほろ、と口の中で解ける柔らかジューシーな美味しさ</span><span class="logInfo">(<span class="logTs">01/05(月) 22:30</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_iwo_24526" class="log1 clog logodd" style="color: rgb(192, 162, 199);"><span style="display:none" id="uname_24526">吾妻</span><span class="logUser">吾妻：</span><span class="logContent"><span class="logMsg">しかし、まだまだ始まったばかりなり！今からです！</span><span class="logInfo">(<span class="logTs">01/05(月) 22:30</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ive_24525" class="log1 clog logeven" style="color: rgb(56, 180, 139);"><span style="display:none" id="uname_24525">藤白</span><span class="logUser">藤白：</span><span class="logContent"><span class="logMsg">味が染みた大根おいしいれふ（はふはふっとしながら美味しそうに食べ）</span><span class="logInfo">(<span class="logTs">01/05(月) 22:30</span>)</span></span><div class="logEnd"></div></div><div id="inf_24524" class="log1 clog logodd logInfo"><span class="logUser logInforandom">つまむ：</span><span class="logContent"><span class="logMsg">市橋がつまんだ、にんじん、にんじん、にんじん、にんじんのみ、いっぱい掬った。体にとっても良さそうだ、残さず食べよう笑</span><span class="logInfo">(<span class="logTs">01/05(月) 22:29</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ivi_24523" class="log1 clog logeven" style="color: rgb(163, 163, 162);"><span style="display:none" id="uname_24523">市橋</span><span class="logUser">市橋：</span><span class="logContent"><span class="logMsg">熱いが......（一口の餅、思い切って柔らかく熱い一切れを食べ）</span><span class="logInfo">(<span class="logTs">01/05(月) 22:29</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_iwo_24522" class="log1 clog logodd" style="color: rgb(192, 162, 199);"><span style="display:none" id="uname_24522">吾妻</span><span class="logUser">吾妻：</span><span class="logContent"><span class="logMsg">餅のひとかけら…、ふふ、どっちもどっちですね。大根うらやま(にんじんをちびちび食べる)</span><span class="logInfo">(<span class="logTs">01/05(月) 22:29</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ivi_24521" class="log1 clog logeven" style="color: rgb(163, 163, 162);"><span style="display:none" id="uname_24521">市橋</span><span class="logUser">市橋：</span><span class="logContent"><span class="logMsg">餅のひとかけらとどっちがいいですか？吾妻さん……（藤白の大根に羨ましい視線が流れ）</span><span class="logInfo">(<span class="logTs">01/05(月) 22:28</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ive_24520" class="log1 clog logodd" style="color: rgb(56, 180, 139);"><span style="display:none" id="uname_24520">藤白</span><span class="logUser">藤白：</span><span class="logContent"><span class="logMsg">吾妻さん……取り皿がにんじん色に……いただきまーす（大根をフーフーと冷まして口へと運び）あちあちっ</span><span class="logInfo">(<span class="logTs">01/05(月) 22:27</span>)</span></span><div class="logEnd"></div></div><div id="inf_24519" class="log1 clog logeven logInfo"><span class="logUser logInforandom">つまむ：</span><span class="logContent"><span class="logMsg">市橋がつまんだ、餅。……の端。ひとかけら。鍋の中で揺れる本体。広がりすぎる前にお玉ですくいたい</span><span class="logInfo">(<span class="logTs">01/05(月) 22:27</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ivi_24518" class="log1 clog logodd" style="color: rgb(163, 163, 162);"><span style="display:none" id="uname_24518">市橋</span><span class="logUser">市橋：</span><span class="logContent"><span class="logMsg">乾杯！（遅れて掲げると、ぐい、と冷たい一口を煽ってグラスを置き）じゃあ俺も頂くか（くつくつ揺れる鍋の傍に赴く）</span><span class="logInfo">(<span class="logTs">01/05(月) 22:27</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_iwo_24517" class="log1 clog logeven" style="color: rgb(192, 162, 199);"><span style="display:none" id="uname_24517">吾妻</span><span class="logUser">吾妻：</span><span class="logContent"><span class="logMsg">……………に、にんじん。嫌いではありませんが、……にんじん（ぼつり）</span><span class="logInfo">(<span class="logTs">01/05(月) 22:26</span>)</span></span><div class="logEnd"></div></div><div id="inf_24516" class="log1 clog logodd logInfo"><span class="logUser logInforandom">つまむ：</span><span class="logContent"><span class="logMsg">藤白がつまんだ、味の染みた大根、煮崩れ間近。火傷覚悟で頬張りましょう。</span><span class="logInfo">(<span class="logTs">01/05(月) 22:26</span>)</span></span><div class="logEnd"></div></div><div id="inf_24515" class="log1 clog logeven logInfo"><span class="logUser logInforandom">つまむ：</span><span class="logContent"><span class="logMsg">吾妻がつまんだ、にんじん、にんじん、にんじん、にんじんのみ、いっぱい掬った。体にとっても良さそうだ、残さず食べよう笑</span><span class="logInfo">(<span class="logTs">01/05(月) 22:26</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_iwo_24514" class="log1 clog logodd" style="color: rgb(192, 162, 199);"><span style="display:none" id="uname_24514">吾妻</span><span class="logUser">吾妻：</span><span class="logContent"><span class="logMsg">最高ですね。よし、早速食べますか！（意気込み、ランダムに出てくるであろう具材にメラメラと闘志を燃やす）</span><span class="logInfo">(<span class="logTs">01/05(月) 22:25</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ive_24513" class="log1 clog logeven" style="color: rgb(56, 180, 139);"><span style="display:none" id="uname_24513">藤白</span><span class="logUser">藤白：</span><span class="logContent"><span class="logMsg">（気泡を登らせるグラスに唇を付けると一口二口と飲んでグラスを置き）ん～……美味しいです！誰かと飲む酒は最高ですね。</span><span class="logInfo">(<span class="logTs">01/05(月) 22:24</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_iwo_24512" class="log1 clog logodd" style="color: rgb(192, 162, 199);"><span style="display:none" id="uname_24512">吾妻</span><span class="logUser">吾妻：</span><span class="logContent"><span class="logMsg">はーい！（皆に向けグラス掲げて乾杯交わしてから、一口飲み）ぷはー、生き返ります。</span><span class="logInfo">(<span class="logTs">01/05(月) 22:24</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ive_24511" class="log1 clog logeven" style="color: rgb(56, 180, 139);"><span style="display:none" id="uname_24511">藤白</span><span class="logUser">藤白：</span><span class="logContent"><span class="logMsg">最後の夜の集まりに……かんぱーい！（グラスを掲げると軽く触れ合わせるように近づけ乾杯し）</span><span class="logInfo">(<span class="logTs">01/05(月) 22:23</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_iwo_24510" class="log1 clog logodd" style="color: rgb(192, 162, 199);"><span style="display:none" id="uname_24510">吾妻</span><span class="logUser">吾妻：</span><span class="logContent"><span class="logMsg">ウエーイ！カンパーイ！</span><span class="logInfo">(<span class="logTs">01/05(月) 22:23</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ivi_24509" class="log1 clog logeven" style="color: rgb(163, 163, 162);"><span style="display:none" id="uname_24509">市橋</span><span class="logUser">市橋：</span><span class="logContent"><span class="logMsg">お願いしますー！</span><span class="logInfo">(<span class="logTs">01/05(月) 22:22</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ive_24508" class="log1 clog logodd" style="color: rgb(56, 180, 139);"><span style="display:none" id="uname_24508">藤白</span><span class="logUser">藤白：</span><span class="logContent"><span class="logMsg">市橋さん、太郎さん、準備は良いですかー？（グラスを掲げてカウンター向こうの二人を窺い）</span><span class="logInfo">(<span class="logTs">01/05(月) 22:20</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_iwo_24507" class="log1 clog logeven" style="color: rgb(192, 162, 199);"><span style="display:none" id="uname_24507">吾妻</span><span class="logUser">吾妻：</span><span class="logContent"><span class="logMsg">（皆の乾杯を待ち、それまでは待てをされた犬の気分で待つ、唾液は垂らしていない）</span><span class="logInfo">(<span class="logTs">01/05(月) 22:18</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_iwo_24506" class="log1 clog logodd" style="color: rgb(192, 162, 199);"><span style="display:none" id="uname_24506">吾妻</span><span class="logUser">吾妻：</span><span class="logContent"><span class="logMsg">それでは、貴重な最後の夜に乾杯を！（乾杯しようとグラス掲げて）</span><span class="logInfo">(<span class="logTs">01/05(月) 22:17</span>)</span></span><div class="logEnd"></div></div><div id="inf_24505" class="log1 clog logeven logInfo"><span class="logContent"><span class="logMsg">吾妻が冬の夜に来店した。（つまむ、と打ち込むと豆乳鍋が食べられます）</span><span class="logInfo">(<span class="logTs">01/05(月) 22:16</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ivi_24501" class="log1 clog logodd" style="color: rgb(163, 163, 162);"><span style="display:none" id="uname_24501">市橋</span><span class="logUser">市橋：</span><span class="logContent"><span class="logMsg">俺は、…ここはハいボールにしとくかな（氷を入れ、ウィスキー、炭酸とよどみなく注ぎ）</span><span class="logInfo">(<span class="logTs">01/05(月) 22:14</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ive_24500" class="log1 clog logeven" style="color: rgb(56, 180, 139);"><span style="display:none" id="uname_24500">藤白</span><span class="logUser">藤白：</span><span class="logContent"><span class="logMsg">はい、乾杯したらお鍋も摘まませてもらいますね。（モスコミュールのグラスを目線の高さに掲げて）</span><span class="logInfo">(<span class="logTs">01/05(月) 22:13</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_iwg_24499" class="log1 clog logodd" style="color: rgb(192, 162, 199);"><span style="display:none" id="uname_24499">吾妻</span><span class="logUser">吾妻：</span><span class="logContent"><span class="logMsg">ありがとう、市橋さん。よし、乾杯出来ます（ジントニックを掲げて）市橋さん達も飲んで下さいな、乾杯しましょう</span><span class="logInfo">(<span class="logTs">01/05(月) 22:12</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ivi_24498" class="log1 clog logeven" style="color: rgb(163, 163, 162);"><span style="display:none" id="uname_24498">市橋</span><span class="logUser">市橋：</span><span class="logContent"><span class="logMsg">豆乳も摘まめるように準備しときますよ（太郎が卓席に鍋と小皿とか持って行きまーす、と準備して）つまむ、で自由に取って来て下さいね</span><span class="logInfo">(<span class="logTs">01/05(月) 22:12</span>)</span></span><div class="logEnd"></div></div><div id="inf_24497" class="log1 clog logodd logInfo"><span class="logContent"><span class="logMsg">吾妻が冬の夜に来店した。（つまむ、と打ち込むと豆乳鍋が食べられます）</span><span class="logInfo">(<span class="logTs">01/05(月) 22:10</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ivi_24492" class="log1 clog logeven" style="color: rgb(163, 163, 162);"><span style="display:none" id="uname_24492">市橋</span><span class="logUser">市橋：</span><span class="logContent"><span class="logMsg">ジントニック、畏まりました。（手を洗うと、タンブラーグラスに氷とジン、準備するライムを絞り、果実も入れる。トニックウォーターを入れると吾妻荷下ろし）</span><span class="logInfo">(<span class="logTs">01/05(月) 22:08</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ivt_24491" class="log1 clog logodd" style="color: rgb(192, 162, 199);"><span style="display:none" id="uname_24491">吾妻</span><span class="logUser">吾妻：</span><span class="logContent"><span class="logMsg">（お絞りで手を拭き、目の前のバーテンダー二人を眺めてから藤白のほうへ視線を変え）……冬場はあったかいものが身にしみますよね。冬場のおでん率、鍋率がこう滅茶苦茶上がります。はい、注文の品が来たら、ぜひ乾杯をお願いします。</span><span class="logInfo">(<span class="logTs">01/05(月) 22:06</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ive_24490" class="log1 clog logeven" style="color: rgb(56, 180, 139);"><span style="display:none" id="uname_24490">藤白</span><span class="logUser">藤白：</span><span class="logContent"><span class="logMsg">はい、豆乳スープに味は近いかと思いますよ。沢山飲んで食べましょう。おっと、その前に乾杯ですね。（モスコミュールのグラスに手を伸ばして）</span><span class="logInfo">(<span class="logTs">01/05(月) 22:02</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ivi_24489" class="log1 clog logodd" style="color: rgb(163, 163, 162);"><span style="display:none" id="uname_24489">市橋</span><span class="logUser">市橋：</span><span class="logContent"><span class="logMsg">（店の電話を太郎が取ってくれるのを受け取り）はい、はい。…あ、はい、お待ちしてます（答えでスマホを太郎に返し）</span><span class="logInfo">(<span class="logTs">01/05(月) 22:00</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ivt_24488" class="log1 clog logeven" style="color: rgb(192, 162, 199);"><span style="display:none" id="uname_24488">吾妻</span><span class="logUser">吾妻：</span><span class="logContent"><span class="logMsg">し
+みじみしつつも、今夜は沢山飲んで、食べて行きます！優しい味ですか、最高ですね。豆乳スープにはハマってますので、それと似た感じかな。柚子を入れると
+最高…、えっと飲み物は、そうですね、ジントニックをお願いします。（飲むぞ、と頷いて注文、お絞りを受け取って）乾杯もしたいです</span><span class="logInfo">(<span class="logTs">01/05(月) 22:00</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ivi_24487" class="log1 clog logodd" style="color: rgb(163, 163, 162);"><span style="display:none" id="uname_24487">市橋</span><span class="logUser">市橋：</span><span class="logContent"><span class="logMsg">吾妻さんは飲み物なににしますか（シンクからもどってくると吾妻にお絞りを差し出し）</span><span class="logInfo">(<span class="logTs">01/05(月) 21:56</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ive_24486" class="log1 clog logeven" style="color: rgb(56, 180, 139);"><span style="display:none" id="uname_24486">藤白</span><span class="logUser">藤白：</span><span class="logContent"><span class="logMsg">しみじみ……沢山の思い出があるのですね。（少し遠くを見るような眼差しにそっと相槌を打ち）豆乳鍋は優しい味がして食べやすい鍋ですよ。</span><span class="logInfo">(<span class="logTs">01/05(月) 21:56</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ivt_24485" class="log1 clog logodd" style="color: rgb(192, 162, 199);"><span style="display:none" id="uname_24485">吾妻</span><span class="logUser">吾妻：</span><span class="logContent"><span class="logMsg">え
+え、ここもですが、いろんな箇所からこの部屋の仕組みが無くなる、と聞いて、こう……一区切りというか、ああ、そうなのか…と、しみじみと……（ここを含
+め色々な過去や場所を思いだし、しみじみと遠い思い出を語り）お？豆乳鍋ですか、俺食べたことないかも。（興味深い、と眺めて）</span><span class="logInfo">(<span class="logTs">01/05(月) 21:53</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ive_24484" class="log1 clog logeven" style="color: rgb(56, 180, 139);"><span style="display:none" id="uname_24484">藤白</span><span class="logUser">藤白：</span><span class="logContent"><span class="logMsg">今夜のように寒い夜には鍋が一番美味しいですね。（くつくつと煮えた音を立てる鍋に嬉しそうにして）</span><span class="logInfo">(<span class="logTs">01/05(月) 21:52</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ive_24483" class="log1 clog logodd" style="color: rgb(56, 180, 139);"><span style="display:none" id="uname_24483">藤白</span><span class="logUser">藤白：</span><span class="logContent"><span class="logMsg">こちらこそよろしくお願いします、吾妻さん。こちらには何年も通っていらしたのですね。常連さんです！</span><span class="logInfo">(<span class="logTs">01/05(月) 21:47</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ivt_24482" class="log1 clog logeven" style="color: rgb(192, 162, 199);"><span style="display:none" id="uname_24482">吾妻</span><span class="logUser">吾妻：</span><span class="logContent"><span class="logMsg">何年もお世話になった場所なので、物寂しさを感じます（カウンターの方へ歩いていき案内されたら席に適当につく）藤白さん、初めまして。今夜は宜しくお願いします（にこ、と笑い会釈をして）</span><span class="logInfo">(<span class="logTs">01/05(月) 21:46</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ivi_24481" class="log1 clog logodd" style="color: rgb(163, 163, 162);"><span style="display:none" id="uname_24481">市橋</span><span class="logUser">市橋：</span><span class="logContent"><span class="logMsg">特別に豆乳鍋も仕込んだので、皆で食べましょう（取り皿と小さな蓮華もカウンター端に置かれて）</span><span class="logInfo">(<span class="logTs">01/05(月) 21:45</span>)</span></span><div class="logEnd"></div></div><div id="eid_6yuimu_ivi_24480" class="log1 clog logeven" style="color: rgb(163, 163, 162);"><span style="display:none" id="uname_24480">市橋</span><span class="logUser">市橋：</span><span class="logContent"><span class="logMsg">甘じょっぱいのがどんな酒とも仲良しですからね（笑って言い、戸口が開けば其方を見）吾妻さん、いらっしゃいませ。いやー、此処で飲めるのも最後ですよ</span><span class="logInfo">(<span class="logTs">01/05(月) 21:43</span>)</span></span><div class="logEnd"></div></div></div>
+</div><!-- contentWrap -->
+<div id="ctrl2"><div id="formcontainer2"></div></div>
+<div id="adcontainer2" style="display:block !important; visibility:visible !important">
+ <div id="ad" style="display:block !important; visibility:visible !important">
+ <div id="adbody" style="display:block !important; visibility:visible !important"><iframe frameborder="0" allowtransparency="true" height="60" width="468" marginheight="0" scrolling="no" src="chat_files/ad001.htm" marginwidth="0"></iframe></div>
+ </div>
+</div>
+<!--googleoff: index-->
+<span id="svlog"><img id="svlogImg" style="width:1px;height:1px;border:0;" alt="" src=""></span>
+</div><!-- container -->
+<script type="text/javascript"><!--
+chatx.writeDummyFrame("chatx");
+//-->
+</script><iframe onload="chatx.onFrameLoad(this);" id="dmy" name="dmy" style="width:0px;height:0px;margin-left:-1000px;margin-top:-1000px;"></iframe>
+<iframe id="nkfrm" src="chat_files/_nk.htm" width="0" height="0" style="width:0; height: 0; border: 0; overflow: hidden"></iframe>
+<!-- layers -->
+<div id="mobileInfo" class="popup">
+<div><img src="chat_files/qrcode.png" alt="QR Code" class="qrcode"></div>
+</div>
+
+<div id="config" class="popup">
+ <div id="configf">
+ <form style="margin:0; padding:0" action="javascript:void(0)" onsubmit="return chatx.updateConfig();">
+<p class="confP"><input class="inpcheck" type="checkbox" id="cookie" name="cookie" value="1"><label for="cookie">Cookie</label></p>
+<p class="confP"><input class="inpcheck" type="checkbox" id="multiLine" name="multiLine" value="1"><label for="multiLine">複数行入力</label></p>
+<p class="confP">
+ <label for="viewFontSize">表示フォントサイズ</label><br>
+ <select id="viewFontSize" name="viewFontSize" class="inpselect">
+<option value="70">70%</option>
+<option value="80">80%</option>
+<option value="90">90%</option>
+<option value="100" selected="selected">100%</option>
+<option value="110">110%</option>
+<option value="120">120%</option>
+<option value="130">130%</option>
+<option value="140">140%</option>
+            </select>
+ </p>
+<p class="confP">
+ <label>ログ表示順</label><br>
+ <input class="inpradio" type="radio" id="logorder1" name="logorder" value="desc" checked="checked"><label for="logorder1">降順</label>
+ <input class="inpradio" type="radio" id="logorder2" name="logorder" value="asc"><label for="logorder2">昇順</label>
+ </p>
+ <p class="confP">
+ <label for="maxRows">最大メッセージ数</label><br>
+ <input class="inptext" type="text" size="3" maxlength="3" id="maxRows" name="maxRows" value="100">
+ (10-999)</p>
+<p class="confP">
+ <label for="viewStyle">表示スタイル</label><br>
+ <select id="viewStyle" name="viewStyle" class="inpselect">
+                <option value="1" selected="selected">スタイル1</option>
+                <option value="2">スタイル2</option>
+                <option value="3">スタイル3</option>
+            </select>
+ </p>
+<p class="confP">
+ <label for="scrollType">スクロール</label><br>
+ <select id="scrollType" name="scrollType" class="inpselect">
+                <option value="1" selected="selected">常にON</option>
+                <option value="0">常にOFF</option>
+                <option value="2">自動</option>
+            </select>
+ </p>
+<p class="confP" style="text-align:right"><input class="inpsubmit" type="submit" value="設定"></p>
+ </form>
+ </div>
+</div>
+
+<div id="sndf2" class="popup">
+ <div class="uploadCaution"><em class="uploadCaution">！重要！</em><br>違法ファイル(無修正や著作権侵害など)は絶対にアップロードしないでください。</div><form onsubmit="return false;" id="sendform" action="/send" method="post" target="dmy" enctype="multipart/form-data">
+ <input type="hidden" id="cb" name="cb" value="parent.chatx.cb">
+ <input type="hidden" id="msg" name="msg" value="">
+ <input type="hidden" id="color" name="color" value="#7d7d7d">
+ <input type="hidden" id="fontSize" name="fontSize" value="">
+ <input type="hidden" id="pm" name="pm" value="">
+ <div id="attachWrap"><input class="inpfile" type="file" id="attach" name="attach"></div>
+ <input class="inpbutton" type="button" value="設定" onclick="return chatx.attach();">
+</form>
+</div>
+
+<div id="userinfo" class="popup">
+ <p id="userinfoName"></p>
+ <img src="" alt="ICON" id="uiIcon" style="display:none;margin: 0.5em 0">
+ <dl>
+ <dt id="uiUrlDt">URL</dt>
+ <dd id="uiUrlDd"><span id="userinfoUrl"></span></dd>
+<dt id="uiPmDt">PM</dt>
+ <dd id="uiPmDd"><span id="userinfoDenyPm"></span></dd>
+<dt id="uiCmtDt">コメント</dt>
+ <dd id="uiCmtDd"><span id="userinfoComment"></span></dd>
+ <dt id="uiHostDt">ホスト</dt>
+ <dd id="uiHostDd"><span id="userinfoHost"></span></dd>
+ <dt id="uiIpDt">IP</dt>
+ <dd id="uiIpDd"><span id="userinfoIp"></span></dd>
+ <dt id="uiTermDt">端末</dt>
+ <dd id="uiTermDd"><span id="userinfoTerm"></span></dd>
+ <dt id="uiIdDt">ID</dt>
+ <dd id="uiIdDd"><span id="userinfoId"></span></dd>
+ </dl>
+</div>
+
+<div id="aboutPopup" class="popup">
+
+ <div>
+ <a id="siteLink" rel="external" target="_blank" href="http://www.whocares.jp/" title="無料レンタルチャット">WHOCARES</a>
+ <span id="prodName"><a id="prodLink" rel="external" target="_blank" href="http://www.whocares.jp/chatx.jsp" title="comet chat">chatx</a></span>
+ <span id="version">v3.23</span>
+</div>
+
+</div>
+
+
+<div id="infoPopup" class="popup">
+ <div id="infoMsg"><a href="https://www.whocares.jp/eol.jsp">サービス終了のお知らせ</a></div>
+</div>
+
+<div id="textLog" class="popup">
+ <p class="confP">
+ <label>ログ表示順</label><br>
+ <input class="inpradio" type="radio" id="textLogLogorder1" name="textLogLogorder" value="desc"><label for="textLogLogorder1">降順</label>
+ <input class="inpradio" type="radio" id="textLogLogorder2" name="textLogLogorder" value="asc" checked="checked"><label for="textLogLogorder2">昇順</label>
+ </p>
+ <p class="confP">
+ <label>生成オプション</label><br>
+<input class="inpcheck" type="checkbox" id="textLogPm" name="textLogPm" value="1"><label for="textLogPm">PM</label>
+<input class="inpcheck" type="checkbox" id="textLogInfo" name="textLogInfo" value="1"><label for="textLogInfo"></label>
+ </p>
+
+ <p class="confP">
+ <input class="inpbutton" type="button" onclick="return genTextLog();" value="生成">
+ </p>
+
+ <div class="tlResult"><textarea id="textLogResult" class="tlResult" readonly="readonly" wrap="off" cols="1" rows="1"></textarea></div>
+
+</div>
+
+<div id="curStatus" class="popup">
+ <p><textarea onfocus="this.select()" cols="40" rows="10" readonly="readonly" id="curStatusTa"></textarea></p>
+</div>
+
+<div id="sounds" style="height:0;overflow:hidden">
+</div>
+<!--googleon: index-->
+
+
+</body></html>

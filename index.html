@@ -1,0 +1,496 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="alternate" media="handheld" type="application/xhtml+xml" href="http://501ichihashi.chatx2.whocares.jp/m/?guid=on">
+<link rel="alternate" media="handheld" type="text/html" href="http://501ichihashi.chatx2.whocares.jp/m/?guid=on">
+<link rel="shortcut icon" href="http://chatx2.whocares.jp/favicon.ico">
+<link rel="icon" href="http://chatx2.whocares.jp/favicon.ico">
+<meta name="rating" content="general">
+<meta name="robots" content="noarchive,nofollow,noimageindex,nomediaindex">
+<title>BAR LINDEN</title>
+<script type="text/javascript" charset="UTF-8" src="chat_files/wcutils.js"></script>
+<script type="text/javascript" charset="UTF-8" src="chat_files/chatx.js"></script>
+<script type="text/javascript" charset="UTF-8" src="chat_files/wcpicker.js"></script>
+<script type="text/javascript" charset="UTF-8" src="chat_files/modal.js"></script>
+<link rel="stylesheet" href="chat_files/chatx.css" type="text/css">
+<noscript>
+<meta http-equiv="refresh" content="0; url=http://501ichihashi.chatx2.whocares.jp/c/noscript.jsp" />
+</noscript>
+<script type="text/javascript"><!--
+
+if (window.top != window.self) {
+    window.top.location.href = "/c/frame.jsp";
+
+}
+// else if (!document.cookie || document.cookie.indexOf("JSESSIONID") == -1) {
+//     window.top.location.href = "http://501ichihashi.chatx2.whocares.jp/c/nocookie.jsp";
+// }
+//else if (!window.XMLHttpRequest && !window.ActiveXObject) {
+//    window.top.location.href = "http://501ichihashi.chatx2.whocares.jp/c/unsupported.jsp";
+//}
+
+WCUtils.bgCacheBugWorkaround();
+var chatxconfig = {"tags":{"msg.tag.mailUploadMsg":"<div>メール送信をクリックし、アップロードするファイルを1ファイルのみ添付してメール送信してください。<b>自動挿入される本文は変更しないでください。<\/b><\/div>","msg.tag.uploadMsg1":"<div class=\"uploadCaution\"><em class=\"uploadCaution\">！重要！<\/em><br \/>違法ファイル(無修正や著作権侵害など)は絶対にアップロードしないでください。<\/div>","msg.tag.maintenance":"<div id=\"maintenance\">現在メンテナンス中です。<br \/>申し訳ございませんがしばらくお待ちください。<br \/><br \/>終了予定まであと&nbsp;<span id=\"maintenanceSec\"><\/span>&nbsp;秒<\/div>"},"colors":[{"name":"撫子","value":"#eebbcb"},{"name":"臙脂","value":"#b94047"},{"name":"女郎花","value":"#f2f2b0"},{"name":"金糸雀","value":"#ebd842"},{"name":"榛","value":"#bfa46f"},{"name":"若草","value":"#c3d825"},{"name":"翡翠","value":"#38b48b"},{"name":"青碧","value":"#0f8e7b"},{"name":"月白","value":"#eaf4fc"},{"name":"空色","value":"#a0d8ef"},{"name":"青藤","value":"#84a2d4"},{"name":"薄葡萄","value":"#c0a2c7"},{"name":"竜胆","value":"#9079ad"},{"name":"菖蒲","value":"#cc7eb1"},{"name":"薄墨","value":"#a3a3a2"},{"name":"灰色","value":"#7d7d7d"},{"name":"瑠璃","value":"#0264a6"},{"name":"亜麻","value":"#c6b095"},{"name":"紫苑","value":"#836bad"},{"name":"シャリュトリューズ","value":"#99d02b"},{"name":"ネープルス","value":"#fff27b"},{"name":"ローズブラウン","value":"#7d4f5b"},{"name":"ペールライラック","value":"#cab2d6"}],"enableToggleUsers":false,"messages":{"msg.c.enter":"ご来店","msg.c.nameSuffix":"：","msg.c.err.busy":"ビジーです。","msg.c.hatenaAuth":"はてな認証","msg.c.pmAllow":"許可","msg.c.textLogSeparator":"--------------------------------------------------------------------------------","msg.c.pmDeny":"拒否","msg.c.err.unknownError":"不明なエラー","msg.c.pmAll":"来店者全員","msg.c.attach":"添付ファイル(%CT%, %SIZE%)","msg.c.none":"なし","msg.c.err.name":"名前を入力してください。","msg.c.attached":"あり","msg.c.pmArrow":"⇒","msg.c.mixiAuth":"mixiでログイン","msg.c.cancel":"キャンセル","msg.c.err.maxRows":"最大メッセージ数の指定が不正です。"},"enableMultiLine":true,"enableFontSizeSel":true,"enableThumbnail":false,"fixedViewStyle":-1,"enablePmAll":true,"enableTextEffect":false,"enableScrollType":true,"defaultViewStyle":1,"fixedEnterForm":false};
+var roomdef = {"icon":"./chat_files","attach":"./chat_files","cookieDomain":"localhost","chattop":"./"};
+// 入室前ページ用のchatxオブジェクト
+var chatx = {
+    toggleForm: function() {
+        var entf = document.getElementById('entf');
+        var userhtml = document.getElementById('userhtml');
+        if (entf.style.display === 'none') {
+            entf.style.display = 'block';
+            if (userhtml) userhtml.style.display = 'none';
+        } else {
+            entf.style.display = 'none';
+            if (userhtml) userhtml.style.display = 'block';
+        }
+    },
+    enter: function() {
+        var name = document.getElementById('name').value.trim();
+        if (!name) {
+            alert('名前を入力してください');
+            return false;
+        }
+        // 入室情報をsessionStorageに保存
+        var url = document.getElementById('url').value.trim();
+        var comment = document.getElementById('comment').value.trim();
+        var denyPm = document.getElementById('denyPm').checked;
+        sessionStorage.setItem('enterData', JSON.stringify({name: name, url: url, comment: comment, denyPm: denyPm}));
+        // chat.htmlに遷移
+        window.location.href = 'chat.html';
+        return false;
+    },
+    showConfigDialog: function(e) { WCUtils.showPopup2(e, 'config', true); return false; },
+    updateConfig: function() { return false; }
+};
+
+
+var colorpicker = new wcpicker(chatxconfig.colors, false);
+
+
+function startup() {
+    // 入室前ページなので特に初期化不要
+}
+
+function destroy() {
+    // 入室前ページなので特にクリーンアップ不要
+}
+
+function subscr() {
+    alert('mail通知機能はSupabase版では未実装です');
+    return false;
+}
+
+function textlog(event) {
+    alert('テキストログ機能はチャット画面で利用できます');
+    return false;
+}
+
+function toggleUserHtml() {
+    var link = document.getElementById("toggleUserHtmlInl");
+    var elm = document.getElementById("userhtmlcontent");
+    if (link && elm) {
+        if (elm.style.display == "none") {
+            elm.style.display = "block";
+            link.innerHTML = "隠す";
+        }
+        else {
+            elm.style.display = "none";
+            link.innerHTML = "表示";
+        }
+    }
+}
+
+
+//-->
+</script>
+
+<!--[if lt IE 8]>
+<style type="text/css">
+div#contentWrap {
+  position: static;
+  overflow-y: scroll;
+  width: 100%;
+  height: expression(
+    ((document.documentElement && document.documentElement.clientHeight?
+      document.documentElement.clientHeight : document.body.clientHeight) -
+      document.getElementById("ctrl").offsetHeight -
+      document.getElementById("ctrl2").offsetHeight -
+      document.getElementById("ad").offsetHeight) + "px");
+}
+a#pictgAnch, a#colorAnch, a#attachAnch { display:inline-block; }
+div#userinfo dd { word-wrap: break-word; }
+div.log3 span.logUser { word-wrap: break-word; }
+span.logContent { word-wrap: break-word; }
+div.clog { word-wrap: break-word; }
+</style>
+<![endif]-->
+
+<!--[if lt IE 7]>
+<style type="text/css">
+div.clog { height: 1%; }
+</style>
+<![endif]-->
+
+<!--[if (gt IE 6)|(lt IE 5.5000)]>
+<style type="text/css">
+div.clr {
+  font-size: 1px;
+  line-height: 1px;
+  overflow: hidden;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
+</style>
+<![endif]-->
+
+<link rel="stylesheet" href="chat_files/plain.css" type="text/css">
+<style type="text/css">
+body {
+ background-color: #000000;
+ color: #9fc24d;
+}
+
+
+div#s {
+ background-color: #000000;
+ border-top: solid 1px #9fc24d;
+ border-left: solid 1px #9fc24d;
+ border-right: solid 1px #9fc24d;
+ border-bottom: solid 1px #9fc24d;
+}
+
+span.logMsgPm{background-color:#4d4c61;}
+
+div.popup {
+ background-color: #000000;
+}
+
+legend {
+ color: #9fc24d;
+}
+
+.emflw a {
+ color: #9fc24d !important;
+}
+
+a:link, a:visited, a:active { color: #a3a3a2; text-decoration: none; }
+a:hover { color: #9fc24d; text-decoration: none; }
+
+div#menu a:hover {
+ background-color:（カラーコード入れる） ;text-decoration: none;
+}
+
+input.inptext, input.inppassword, input.inpfile, input.inpsubmit, input.inpbutton, select.inpselect, textarea.inptextarea {
+ background-color: #000000;
+ color: #a3a3a2;
+ border: solid 1px #a3a3a2;
+}
+
+div.logInfo {
+ color: #9fc24d;
+}
+
+div.clog {
+ border-bottom: dashed 1px #ebd842;
+}
+
+html {
+ scrollbar-arrow-color: #00984f;
+ scrollbar-base-color: #9fc24d;
+ scrollbar-darkshadow-color: #9fc24d;
+ scrollbar-face-color: #000000;
+ scrollbar-highlight-color: #9fc24d;
+ scrollbar-shadow-color: #9fc24d;
+ scrollbar-track-color: #9fc24d;
+}
+
+p#userinfoName {
+ color: #9fc24d;
+}
+
+a#attachAnch {
+ background: url(/images/emoji/e/EF78b.gif) center left no-repeat;
+}
+
+a.logAttach {
+ background: url(/images/emoji/e/EF78b.gif) center left no-repeat;
+}</style>
+<script id="adscr" src="chat_files/Untitled" type="text/javascript" charset="UTF-8"></script></head>
+<body onload="startup()" onunload="destroy()"><div id="container">
+<noscript><p>JavaScriptを有効にしてください。</p></noscript>
+<div id="adcontainer1"></div>
+<div id="ctrl" style="height: 456px;">
+ <div id="s">
+ <div id="menu" style="visibility: visible;">
+ <a href="#" onclick="alert('BAR LINDEN - Supabase版'); return false;">HOME</a><span class="menuSepa">｜</span><span id="enter" style="display: inline;"><a id="enterAnc" href="javascript:void(0)" onclick="return chatx.toggleForm();">ご来店</a><span class="menuSepa">｜</span></span><span id="exit" style="display: none;"><a href="javascript:void(0)" onclick="document.getElementById('exitf').submit(); return false;">ご帰宅</a><span class="menuSepa">｜</span></span><a href="javascript:void(0)" onclick="return chatx.showConfigDialog(event);">設定</a><span class="menuSepa">｜</span><a rel="nofollow" href="javascript:void(0)" onclick="return subscr();">mail通知</a><span class="menuSepa">｜</span><a rel="nofollow" href="javascript:void(0)" onclick="return textlog(event);">テキストログ</a><span class="menuSepa">｜</span><a rel="nofollow" href="adm/index.html">STAFF ROOM</a><span class="menuSepa">｜</span><a href="javascript:void(0)" onclick="WCUtils.showPopup2(event, 'aboutPopup', true, null); return false;">About</a><span id="information" style="display: inline;"><span class="menuSepa">｜</span><a class="infIcon1" id="informationAnch" href="javascript:void(0)" onclick="WCUtils.showPopup2(event, 'infoPopup', true, null); return false;">お知らせ</a></span></div>
+ <div id="statusWrap">
+ <div id="status" ondblclick="return curStatus(event)" onclick="return susp(event);" style="background-color: rgb(51, 51, 204);" title="state:1"></div>
+ </div>
+ <div class="clr"></div>
+ </div>
+<div id="userhtml" style="display: block;">
+ <div id="userhtmlcontent">
+ <br>
+<span style="color:#9fc24d;font-size:11pt;">《BAR LINDEN》<span>
+<br><br><img border="0" src="chat_files/20240713170423.jpg">
+<span style="color:#a3a3a2;font-size:10pt;"><br><br>
+・道を一つ外れた路地、灯りに照らされた看板の傍に階段。踊り場を挟んで二度下るとその先に分厚い木製の厚い扉<br>
+・jazzが微かに流れる店内はカウンター6席と2人掛の卓5つと20席に満たぬ広さ<br>
+・床は船の甲板に用いられる木を使用した焦茶の素朴な板張り<br>
+・扉を始めとする調度は年数を経た深い飴色の木材を使用<br>
+・灯りは暖色のダウンライトを天井と壁に配置、日常の多忙な心地を和らげる程度の光量で空間を温める<br>
+・喫煙可（同席の方がいらっしゃる場合は、一言お断りを願います）<br>
+<br>
+<br>
+</span></span></span><div class="clr"></div>
+ </div>
+<div id="toggleUserHtml"><span id="toggleUserHtmlInl" onclick="toggleUserHtml()">隠す</span></div>
+</div>
+
+ <div id="formcontainer1">
+ <div id="forms">
+<div id="entf" style="display: none;">
+ <div id="err" class="err"></div>
+ <form onsubmit="return chatx.enter();" action="/enter" method="post" target="dmy">
+ <input type="hidden" name="cb" value="parent.chatx.cb">
+ <input type="hidden" name="logLevel" value="1">
+ <input type="hidden" name="plaf" id="plaf" value="">
+ <input type="hidden" name="etm" id="etm" value="">
+ <fieldset>
+ <legend>入室</legend>
+ <table>
+ <tbody>
+ <tr>
+ <td><label for="name">名前:</label></td>
+ <td><input class="inptext" type="text" name="name" id="name" value="ナギサ"></td>
+ </tr>
+<tr>
+ <td><label for="url">URL:</label></td>
+ <td><input class="inptext" type="text" name="url" id="url"></td>
+ </tr>
+<tr>
+ <td><label for="comment">本日の服装:</label></td>
+ <td><input class="inptext" type="text" name="comment" id="comment"></td>
+ </tr>
+<tr>
+ <td colspan="2" class="entfR">
+<input class="inpcheck" id="entCookie" type="checkbox" name="entCookie" value="1"><label for="entCookie">Cookie</label>
+<input class="inpcheck" id="denyPm" type="checkbox" name="denyPm" value="1"><label for="denyPm">PMを拒否</label>
+</td>
+ </tr>
+ <tr>
+ <td colspan="2" class="entfR">
+ <span id="logLevel">ログレベル:1</span>
+ <input class="inpsubmit" type="submit" value="ご来店">
+ </td>
+ </tr>
+ </tbody>
+ </table>
+ </fieldset>
+ </form>
+</div>
+<div id="sndf" style="display: none;">
+ <div id="err2" class="err"></div>
+ <form id="sendformDmy" onsubmit="return chatx.send();" action="javascript:void(0)">
+ <input type="hidden" name="colorDmy" id="colorDmy" value="#7d7d7d">
+ <input type="hidden" name="tm" id="tm" value="">
+<fieldset class="plainFs">
+ <p>
+<input class="inptext" type="text" name="msgDmy" id="msgDmy">
+<textarea class="inptextarea" cols="10" rows="2" id="mmsgDmy" name="mmsgDmy" onkeydown="return chatx.keyCheck(event);"></textarea>
+<input class="inpsubmit" id="smtDmy" type="submit" value="発言">
+ </p>
+ </fieldset>
+ <p>
+<label for="pmDmy">PM:</label><select onchange="chatx.focusInput();return false;" name="pmDmy" id="pmDmy" class="inpselect"><option value="" selected="selected"></option><option value="6yuimu_ive">藤白</option><option value="6yuimu_ivi">市橋</option><option value="6yuimu_iwo">吾妻</option><option value="all">来店者全員</option></select>
+<span id="sndTools">
+<label for="selColorPicker">文字色</label>
+<select class="inpselect" id="selColorPicker" onchange="updateColor(this.options[this.selectedIndex].value); return false;" style="color: rgb(125, 125, 125);">
+<option value="#eebbcb" style="color:#eebbcb">撫子</option>
+<option value="#b94047" style="color:#b94047">臙脂</option>
+<option value="#f2f2b0" style="color:#f2f2b0">女郎花</option>
+<option value="#ebd842" style="color:#ebd842">金糸雀</option>
+<option value="#bfa46f" style="color:#bfa46f">榛</option>
+<option value="#c3d825" style="color:#c3d825">若草</option>
+<option value="#38b48b" style="color:#38b48b">翡翠</option>
+<option value="#0f8e7b" style="color:#0f8e7b">青碧</option>
+<option value="#eaf4fc" style="color:#eaf4fc">月白</option>
+<option value="#a0d8ef" style="color:#a0d8ef">空色</option>
+<option value="#84a2d4" style="color:#84a2d4">青藤</option>
+<option value="#c0a2c7" style="color:#c0a2c7">薄葡萄</option>
+<option value="#9079ad" style="color:#9079ad">竜胆</option>
+<option value="#cc7eb1" style="color:#cc7eb1">菖蒲</option>
+<option value="#a3a3a2" style="color:#a3a3a2">薄墨</option>
+<option value="#7d7d7d" style="color:#7d7d7d" selected="selected">灰色</option>
+<option value="#0264a6" style="color:#0264a6">瑠璃</option>
+<option value="#c6b095" style="color:#c6b095">亜麻</option>
+<option value="#836bad" style="color:#836bad">紫苑</option>
+<option value="#99d02b" style="color:#99d02b">シャリュトリューズ</option>
+<option value="#fff27b" style="color:#fff27b">ネープルス</option>
+<option value="#7d4f5b" style="color:#7d4f5b">ローズブラウン</option>
+<option value="#cab2d6" style="color:#cab2d6">ペールライラック</option>
+</select>
+<a title="添付ファイル" class="sndTool" id="attachAnch" href="javascript:void(0)" onclick="WCUtils.showPopup2(event, 'sndf2', true, chatx.cancelAttachFunc(chatx));return false;"><img src="BAR%20LINDEN_files/spacer.gif" style="width:1px;height:16px;border:0"></a><span id="attachFname"></span></span>
+ &nbsp;</p>
+ </form>
+ <form id="exitf" action="/exit" method="post" target="dmy">
+ <input type="hidden" name="cb" value="parent.chatx.cb">
+ </form>
+ <div class="clr"></div>
+</div>
+</div>
+ </div>
+ <div id="cond" style="visibility: visible;"><span id="condUser" style="display: inline;">来店：<span id="in">3</span></span>
+<span id="users">&nbsp;(<a href="javascript:void(0)" onclick="return chatx.showUserInfo(event, '6yuimu_ive');">藤白</a>, <a href="javascript:void(0)" onclick="return chatx.showUserInfo(event, '6yuimu_ivi');">市橋</a>, <a href="javascript:void(0)" onclick="return chatx.showUserInfo(event, '6yuimu_iwo');">吾妻</a>)&nbsp;</span><span id="condRom" style="display: inline;">外の影：<span id="rom">1</span></span></div>
+</div><!-- ctrl -->
+<div id="contentWrap" style="top: 456px; bottom: 64px;">
+<div id="hideLog" style="display: block;"></div>
+<div id="content"></div>
+</div><!-- contentWrap -->
+<div id="ctrl2"><div id="formcontainer2"></div></div>
+<div id="adcontainer2" style="display:block !important; visibility:visible !important">
+ <div id="ad" style="display:block !important; visibility:visible !important">
+ <div id="adbody" style="display:block !important; visibility:visible !important"><iframe frameborder="0" allowtransparency="true" height="60" width="468" marginheight="0" scrolling="no" src="BAR%20LINDEN_files/ad001.htm" marginwidth="0"></iframe></div>
+ </div>
+</div>
+<!--googleoff: index-->
+<span id="svlog"><img id="svlogImg" style="width:1px;height:1px;border:0;" alt="" src=""></span>
+</div><!-- container -->
+<script type="text/javascript"><!--
+chatx.writeDummyFrame("chatx");
+//-->
+</script><iframe onload="chatx.onFrameLoad(this);" id="dmy" name="dmy" style="width:0px;height:0px;margin-left:-1000px;margin-top:-1000px;"></iframe>
+<iframe id="nkfrm" src="BAR%20LINDEN_files/_nk.htm" width="0" height="0" style="width:0; height: 0; border: 0; overflow: hidden"></iframe>
+<!-- layers -->
+<div id="mobileInfo" class="popup">
+<div><img src="BAR%20LINDEN_files/qrcode.png" alt="QR Code" class="qrcode"></div>
+</div>
+
+<div id="config" class="popup">
+ <div id="configf">
+ <form style="margin:0; padding:0" action="javascript:void(0)" onsubmit="return chatx.updateConfig();">
+<p class="confP"><input class="inpcheck" type="checkbox" id="cookie" name="cookie" value="1"><label for="cookie">Cookie</label></p>
+<p class="confP"><input class="inpcheck" type="checkbox" id="multiLine" name="multiLine" value="1"><label for="multiLine">複数行入力</label></p>
+<p class="confP">
+ <label for="viewFontSize">表示フォントサイズ</label><br>
+ <select id="viewFontSize" name="viewFontSize" class="inpselect">
+<option value="70" selected="selected">70%</option>
+<option value="80">80%</option>
+<option value="90">90%</option>
+<option value="100">100%</option>
+<option value="110">110%</option>
+<option value="120">120%</option>
+<option value="130">130%</option>
+<option value="140">140%</option>
+            </select>
+ </p>
+<p class="confP">
+ <label>ログ表示順</label><br>
+ <input class="inpradio" type="radio" id="logorder1" name="logorder" value="desc"><label for="logorder1">降順</label>
+ <input class="inpradio" type="radio" id="logorder2" name="logorder" value="asc"><label for="logorder2">昇順</label>
+ </p>
+ <p class="confP">
+ <label for="maxRows">最大メッセージ数</label><br>
+ <input class="inptext" type="text" size="3" maxlength="3" id="maxRows" name="maxRows">
+ (10-999)</p>
+<p class="confP">
+ <label for="viewStyle">表示スタイル</label><br>
+ <select id="viewStyle" name="viewStyle" class="inpselect">
+                <option value="1" selected="selected">スタイル1</option>
+                <option value="2">スタイル2</option>
+                <option value="3">スタイル3</option>
+            </select>
+ </p>
+<p class="confP">
+ <label for="scrollType">スクロール</label><br>
+ <select id="scrollType" name="scrollType" class="inpselect">
+                <option value="1" selected="selected">常にON</option>
+                <option value="0">常にOFF</option>
+                <option value="2">自動</option>
+            </select>
+ </p>
+<p class="confP" style="text-align:right"><input class="inpsubmit" type="submit" value="設定"></p>
+ </form>
+ </div>
+</div>
+
+<div id="sndf2" class="popup">
+ <div class="uploadCaution"><em class="uploadCaution">！重要！</em><br>違法ファイル(無修正や著作権侵害など)は絶対にアップロードしないでください。</div><form onsubmit="return false;" id="sendform" action="/send" method="post" target="dmy" enctype="multipart/form-data">
+ <input type="hidden" id="cb" name="cb" value="parent.chatx.cb">
+ <input type="hidden" id="msg" name="msg" value="">
+ <input type="hidden" id="color" name="color" value="">
+ <input type="hidden" id="fontSize" name="fontSize" value="">
+ <input type="hidden" id="pm" name="pm" value="">
+ <div id="attachWrap"><input class="inpfile" type="file" id="attach" name="attach"></div>
+ <input class="inpbutton" type="button" value="設定" onclick="return chatx.attach();">
+</form>
+</div>
+
+<div id="userinfo" class="popup">
+ <p id="userinfoName"></p>
+ <img src="" alt="ICON" id="uiIcon" style="display:none;margin: 0.5em 0">
+ <dl>
+ <dt id="uiUrlDt">URL</dt>
+ <dd id="uiUrlDd"><span id="userinfoUrl"></span></dd>
+<dt id="uiPmDt">PM</dt>
+ <dd id="uiPmDd"><span id="userinfoDenyPm"></span></dd>
+<dt id="uiCmtDt">コメント</dt>
+ <dd id="uiCmtDd"><span id="userinfoComment"></span></dd>
+ <dt id="uiHostDt">ホスト</dt>
+ <dd id="uiHostDd"><span id="userinfoHost"></span></dd>
+ <dt id="uiIpDt">IP</dt>
+ <dd id="uiIpDd"><span id="userinfoIp"></span></dd>
+ <dt id="uiTermDt">端末</dt>
+ <dd id="uiTermDd"><span id="userinfoTerm"></span></dd>
+ <dt id="uiIdDt">ID</dt>
+ <dd id="uiIdDd"><span id="userinfoId"></span></dd>
+ </dl>
+</div>
+
+<div id="aboutPopup" class="popup">
+
+ <div>
+ <a id="siteLink" rel="external" target="_blank" href="http://www.whocares.jp/" title="無料レンタルチャット">WHOCARES</a>
+ <span id="prodName"><a id="prodLink" rel="external" target="_blank" href="http://www.whocares.jp/chatx.jsp" title="comet chat">chatx</a></span>
+ <span id="version">v3.23</span>
+</div>
+
+</div>
+
+
+<div id="infoPopup" class="popup">
+ <div id="infoMsg"><a href="https://www.whocares.jp/eol.jsp">サービス終了のお知らせ</a></div>
+</div>
+
+<div id="textLog" class="popup">
+ <p class="confP">
+ <label>ログ表示順</label><br>
+ <input class="inpradio" type="radio" id="textLogLogorder1" name="textLogLogorder" value="desc"><label for="textLogLogorder1">降順</label>
+ <input class="inpradio" type="radio" id="textLogLogorder2" name="textLogLogorder" value="asc"><label for="textLogLogorder2">昇順</label>
+ </p>
+ <p class="confP">
+ <label>生成オプション</label><br>
+<input class="inpcheck" type="checkbox" id="textLogPm" name="textLogPm" value="1"><label for="textLogPm">PM</label>
+<input class="inpcheck" type="checkbox" id="textLogInfo" name="textLogInfo" value="1"><label for="textLogInfo"></label>
+ </p>
+
+ <p class="confP">
+ <input class="inpbutton" type="button" onclick="return genTextLog();" value="生成">
+ </p>
+
+ <div class="tlResult"><textarea id="textLogResult" class="tlResult" readonly="readonly" wrap="off" cols="1" rows="1"></textarea></div>
+
+</div>
+
+<div id="curStatus" class="popup">
+ <p><textarea onfocus="this.select()" cols="40" rows="10" readonly="readonly" id="curStatusTa"></textarea></p>
+</div>
+
+<div id="sounds" style="height:0;overflow:hidden">
+</div>
+<!--googleon: index-->
+
+
+</body></html>

@@ -1,0 +1,10 @@
+
+URL:     https://qdwzvpbaxvmlbwloelas.supabase.co
+
+API_key: sb_publishable_M5ZtxZagVPQo_kbynpPjWA_C6ZBWcCz
+
+anon_key:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFkd3p2cGJheHZtbGJ3bG9lbGFzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc2MjI1MjAsImV4cCI6MjA4MzE5ODUyMH0.MZqPOpNOZrWHQVDGomP5LAhwmtaj33ZaPviq1i2rM1k
+
+
+
+db:TIRxxkusJGGDGkvO

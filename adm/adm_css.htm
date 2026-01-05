@@ -1,0 +1,328 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta name="robots" content="noindex,nofollow,noarchive,nomediaindex,noimageindex">
+<link rel="stylesheet" href="adm_css_files/adm.css" type="text/css">
+<title>chatx Admin</title>
+<script type="text/javascript" charset="UTF-8" src="adm_css_files/wcutils.js"></script>
+<script type="text/javascript" charset="UTF-8" src="adm_css_files/cpicker.js"></script>
+<script type="text/javascript"><!--
+
+var reColor = /^#(\w{3}|\w{6})$/;
+
+var cpicker = new CPicker();
+function _cpick_cb(color, param) {
+    param.value = color;
+    var elm = document.getElementById(param.id + "_btn");
+    if (elm && color.match(reColor)) {
+        elm.style.backgroundColor = color;
+    }
+}
+function colorFieldChanged(elm) {
+    var e = document.getElementById(elm.id + "_btn");
+    try {
+        if (e && elm.value.match(reColor)) {
+            e.style.backgroundColor = elm.value;
+        }
+    }
+    catch(ex) {
+    }
+}
+
+function startCPicker(elm, id) {
+    var e = document.getElementById(id);
+    if (e.disabled) {
+        return;
+    }
+    cpicker.show(true, elm, _cpick_cb, e);
+    return false;
+}
+
+function sound_prev(name) {
+    var elm = document.getElementById("embd" + name);
+    if (!elm || WCUtils.getIEVersion() >= 9.0) {
+        elm = document.getElementById(name);
+    }
+    if (elm) {
+        try {
+            elm.Play();
+        }
+        catch(e) {
+            try {
+                elm.play();
+            }
+            catch(e) {
+                try {
+                    elm.DoPlay();
+                }
+                catch(e) {
+                }
+            }
+        }
+    }
+}
+
+//-->
+</script>
+
+<!--[if IE]>
+<style type="text/css">
+.menuSeparator {
+    margin: 0;
+}
+</style>
+<![endif]-->
+
+</head>
+<body>
+
+<div id="container">
+
+<div id="header">
+<div id="headerTitle">chatx 管理</div>
+<div id="loginInfo">
+<div id="loginId">
+<span>ログイン中: <span class="roomName">501ichihashi</span></span>
+</div>
+<div id="loginMenu">
+</div>
+<div style="clear:both"></div>
+</div>
+</div>
+
+<div id="lmenu">
+<div id="lmenuContainer">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/config">動作設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/disp">表示設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/mobile">携帯関連設定</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/accesskey">アクセスキー設定</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/enter">入室設定</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/input">入力制限</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/mixi">mixi OpenID*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/hatena">はてな認証*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/twitter">Twitter連携</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/msg_common">文字列設定1*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/msg_mobile">文字列設定2</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/msg_info">文字列設定3</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/html">HTML設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/theme">テーマ設定*</a></p>
+<p class="lmenuCurItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/css">CSS設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/mobiledisp">携帯表示設定</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/color">文字色設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/icon">ICON*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/iconGroup">ICONグループ*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/sound">サウンド*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/command">コマンド</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/random">ランダムアクション</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/cap">キャップ</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/aa">顔文字リスト*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/insicon">発言用ICON*</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/logclear">ログクリア</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/users">ユーザー状況</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/logs">過去ログ</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/condv2">入室状況タグ</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/condprog">入室状況タグ(PHP)</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/chatinfo">チャット情報確認</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/chgpass">ID/パスワード変更</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/chgmail">メールアドレス変更</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/confsync">設定コピー*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/confinit">設定初期化*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/confback">設定バックアップ</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/confrestr">設定リストア*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/unregist">登録削除</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/logout">ログアウト</a></p>
+</div>
+</div>
+<div id="content">
+<div id="content2">
+<div class="configForm">
+
+<div class="formDesc">
+追加のCSSを指定します。携帯のCSSは一部キャリアで反映されませんので注意してください。
+</div>
+
+<div><div id="info"><span>　</span></div></div>
+
+<div class="advForm">
+
+<form action="css" method="post">
+<input type="hidden" name="opr" id="opr" value="1">
+
+<div><label class="formLabel">追加CSS(PC)</label></div>
+<textarea cols="20" rows="10" id="css" name="css" class="advtext">body {
+    background-color: #000000;
+    color: #9fc24d;
+}
+
+
+div#s {
+    background-color: #000000;
+    border-top: solid 1px #9fc24d;
+    border-left: solid 1px #9fc24d;
+    border-right: solid 1px #9fc24d;
+    border-bottom: solid 1px #9fc24d;
+}
+
+span.logMsgPm{background-color:#4d4c61;}
+
+div.popup {
+    background-color: #000000;
+}
+
+legend {
+    color: #9fc24d;
+}
+
+.emflw a {
+    color: #9fc24d !important;
+}
+
+a:link, a:visited, a:active { color: #a3a3a2; text-decoration: none; }
+a:hover { color: #9fc24d; text-decoration: none; }
+
+div#menu a:hover {
+    background-color:（カラーコード入れる） ;text-decoration: none;
+}
+
+input.inptext, input.inppassword, input.inpfile, input.inpsubmit, input.inpbutton, select.inpselect, textarea.inptextarea {
+    background-color: #000000;
+    color: #a3a3a2;
+    border: solid 1px #a3a3a2;
+}
+
+div.logInfo {
+    color: #9fc24d;
+}
+
+div.clog {
+    border-bottom: dashed 1px #ebd842;
+}
+
+html {
+    scrollbar-arrow-color: #00984f;
+    scrollbar-base-color: #9fc24d;
+    scrollbar-darkshadow-color: #9fc24d;
+    scrollbar-face-color: #000000;
+    scrollbar-highlight-color: #9fc24d;
+    scrollbar-shadow-color: #9fc24d;
+    scrollbar-track-color: #9fc24d;
+}
+
+p#userinfoName {
+    color: #9fc24d;
+}
+
+a#attachAnch {
+    background: url(/images/emoji/e/EF78b.gif) center left no-repeat;
+}
+
+a.logAttach {
+    background: url(/images/emoji/e/EF78b.gif) center left no-repeat;
+}</textarea><br>
+
+<div><label class="formLabel">追加CSS(携帯)</label></div>
+<textarea cols="20" rows="10" id="mobileCss" name="mobileCss" class="advtext">body {
+    background-color: #000000;
+    color: #9fc24d;
+}
+
+
+div#s {
+    background-color: #000000;
+    border-top: solid 1px #9fc24d;
+    border-left: solid 1px #9fc24d;
+    border-right: solid 1px #9fc24d;
+    border-bottom: solid 1px #9fc24d;
+}
+
+span.logMsgPm{background-color:#4d4c61;}
+
+div.popup {
+    background-color: #000000;
+}
+
+legend {
+    color: #9fc24d;
+}
+
+.emflw a {
+    color: #9fc24d !important;
+}
+
+a:link, a:visited, a:active { color: #a3a3a2; text-decoration: none; }
+a:hover { color: #9fc24d; text-decoration: none; }
+
+div#menu a:hover {
+    background-color:（カラーコード入れる） ;text-decoration: none;
+}
+
+input.inptext, input.inppassword, input.inpfile, input.inpsubmit, input.inpbutton, select.inpselect, textarea.inptextarea {
+    background-color: #000000;
+    color: #a3a3a2;
+    border: solid 1px #a3a3a2;
+}
+
+div.logInfo {
+    color: #9fc24d;
+}
+
+div.clog {
+    border-bottom: dashed 1px #ebd842;
+}
+
+html {
+    scrollbar-arrow-color: #00984f;
+    scrollbar-base-color: #9fc24d;
+    scrollbar-darkshadow-color: #9fc24d;
+    scrollbar-face-color: #000000;
+    scrollbar-highlight-color: #9fc24d;
+    scrollbar-shadow-color: #9fc24d;
+    scrollbar-track-color: #9fc24d;
+}
+
+p#userinfoName {
+    color: #9fc24d;
+}
+
+a#attachAnch {
+    background: url(/images/emoji/e/EF78b.gif) center left no-repeat;
+}
+
+a.logAttach {
+    background: url(/images/emoji/e/EF78b.gif) center left no-repeat;
+}</textarea><br>
+
+<div class="xnote2" style="margin: 1em 0">
+<p style="font-weight:bold">【重要:注意事項】</p>
+<p>CSSを使った広告表示の変更(非表示、サイズを変える、表示位置を変える、重なり順を変える等）は厳禁です。</p>
+</div>
+
+<div class="formSmt">
+<input class="smt" type="submit" value="注意事項に同意して設定">
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+</div>
+<div style="clear:both"></div>
+</div>
+
+<div id="footer">© <a target="_blank" title="無料レンタルチャット" href="http://www.whocares.jp/">WHOCARES</a> <a href="http://www.whocares.jp/chatx.jsp" target="_blank">chatx</a>&nbsp;3.23</div>
+
+
+
+</body></html>

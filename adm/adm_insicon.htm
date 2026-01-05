@@ -1,0 +1,432 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta name="robots" content="noindex,nofollow,noarchive,nomediaindex,noimageindex">
+<link rel="stylesheet" href="adm_insicon_files/adm.css" type="text/css">
+<title>chatx Admin</title>
+<script type="text/javascript" charset="UTF-8" src="adm_insicon_files/wcutils.js"></script>
+<script type="text/javascript" charset="UTF-8" src="adm_insicon_files/cpicker.js"></script>
+<script type="text/javascript"><!--
+
+var reColor = /^#(\w{3}|\w{6})$/;
+
+var cpicker = new CPicker();
+function _cpick_cb(color, param) {
+    param.value = color;
+    var elm = document.getElementById(param.id + "_btn");
+    if (elm && color.match(reColor)) {
+        elm.style.backgroundColor = color;
+    }
+}
+function colorFieldChanged(elm) {
+    var e = document.getElementById(elm.id + "_btn");
+    try {
+        if (e && elm.value.match(reColor)) {
+            e.style.backgroundColor = elm.value;
+        }
+    }
+    catch(ex) {
+    }
+}
+
+function startCPicker(elm, id) {
+    var e = document.getElementById(id);
+    if (e.disabled) {
+        return;
+    }
+    cpicker.show(true, elm, _cpick_cb, e);
+    return false;
+}
+
+function sound_prev(name) {
+    var elm = document.getElementById("embd" + name);
+    if (!elm || WCUtils.getIEVersion() >= 9.0) {
+        elm = document.getElementById(name);
+    }
+    if (elm) {
+        try {
+            elm.Play();
+        }
+        catch(e) {
+            try {
+                elm.play();
+            }
+            catch(e) {
+                try {
+                    elm.DoPlay();
+                }
+                catch(e) {
+                }
+            }
+        }
+    }
+}
+
+//-->
+</script>
+
+<!--[if IE]>
+<style type="text/css">
+.menuSeparator {
+    margin: 0;
+}
+</style>
+<![endif]-->
+
+</head>
+<body>
+
+<div id="container">
+
+<div id="header">
+<div id="headerTitle">chatx 管理</div>
+<div id="loginInfo">
+<div id="loginId">
+<span>ログイン中: <span class="roomName">501ichihashi</span></span>
+</div>
+<div id="loginMenu">
+</div>
+<div style="clear:both"></div>
+</div>
+</div>
+
+<div id="lmenu">
+<div id="lmenuContainer">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/config">動作設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/disp">表示設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/mobile">携帯関連設定</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/accesskey">アクセスキー設定</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/enter">入室設定</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/input">入力制限</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/mixi">mixi OpenID*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/hatena">はてな認証*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/twitter">Twitter連携</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/msg_common">文字列設定1*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/msg_mobile">文字列設定2</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/msg_info">文字列設定3</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/html">HTML設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/theme">テーマ設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/css">CSS設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/mobiledisp">携帯表示設定</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/color">文字色設定*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/icon">ICON*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/iconGroup">ICONグループ*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/sound">サウンド*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/command">コマンド</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/random">ランダムアクション</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/cap">キャップ</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/aa">顔文字リスト*</a></p>
+<p class="lmenuCurItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/insicon">発言用ICON*</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/logclear">ログクリア</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/users">ユーザー状況</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/logs">過去ログ</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/condv2">入室状況タグ</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/condprog">入室状況タグ(PHP)</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/chatinfo">チャット情報確認</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/chgpass">ID/パスワード変更</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/chgmail">メールアドレス変更</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/confsync">設定コピー*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/confinit">設定初期化*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/confback">設定バックアップ</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/confrestr">設定リストア*</a></p>
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/unregist">登録削除</a></p>
+<hr class="menuSeparator">
+<p class="lmenuItem"><a href="http://501ichihashi.chatx2.whocares.jp/adm/logout">ログアウト</a></p>
+</div>
+</div>
+<div id="content">
+<div id="content2">
+<div class="configForm">
+
+<div class="formDesc">
+発言用ICON(ICON挿入機能)の設定を行います。名前には任意名称、URLにはICON画像のURLを指定してください。<br>
+</div>
+
+<div id="xn" class="xnote" style="margin: 1em 0">
+<p style="font-weight:bold">注意点</p>
+<ul style="margin-left:1em">
+<li>URLに指定する画像は、外部参照（直リンク）が許可されている必要があります。詳しくはお使いのWebスペース提供元にお問い合わせください。</li>
+<li>多くの携帯で表示可能になるように、jpgまたはgifファイルの指定を推奨します。pngはdocomoで表示できません。また、多くの携帯はjpgのプログレッシブには対応していませんので注意してください。</li>
+<li>携帯からの利用を考慮し、サイズはできる限り小さなものを使用されることを推奨します。</li>
+</ul>
+</div>
+
+<div><div id="info"><span>　</span></div></div>
+
+<form action="insicon" method="post">
+<input type="hidden" name="opr" value="1">
+
+<table class="ntab">
+<tbody><tr>
+<th class="ntabth">名前</th>
+<th class="ntabth">URL</th>
+</tr>
+
+<tr>
+<td class="ntabtd">
+<input type="text" name="name0" maxlength="24">
+</td>
+<td class="ntabtd">
+<input size="30" type="text" name="url0" maxlength="128">
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name1" maxlength="24">
+</td>
+<td class="ntabtd">
+<input size="30" type="text" name="url1" maxlength="128">
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name2" maxlength="24">
+</td>
+<td class="ntabtd">
+<input size="30" type="text" name="url2" maxlength="128">
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name3" maxlength="24">
+</td>
+<td class="ntabtd">
+<input size="30" type="text" name="url3" maxlength="128">
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name4" maxlength="24">
+</td>
+<td class="ntabtd">
+<input size="30" type="text" name="url4" maxlength="128">
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name5" maxlength="24">
+</td>
+<td class="ntabtd">
+<input size="30" type="text" name="url5" maxlength="128">
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name6" maxlength="24">
+</td>
+<td class="ntabtd">
+<input size="30" type="text" name="url6" maxlength="128">
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name7" maxlength="24">
+</td>
+<td class="ntabtd">
+<input size="30" type="text" name="url7" maxlength="128">
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name8" maxlength="24">
+</td>
+<td class="ntabtd">
+<input size="30" type="text" name="url8" maxlength="128">
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name9" maxlength="24">
+</td>
+<td class="ntabtd">
+<input size="30" type="text" name="url9" maxlength="128">
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name10" maxlength="24">
+</td>
+<td class="ntabtd">
+<input size="30" type="text" name="url10" maxlength="128">
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name11" maxlength="24">
+</td>
+<td class="ntabtd">
+<input size="30" type="text" name="url11" maxlength="128">
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name12" maxlength="24">
+</td>
+<td class="ntabtd">
+<input size="30" type="text" name="url12" maxlength="128">
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name13" maxlength="24">
+</td>
+<td class="ntabtd">
+<input size="30" type="text" name="url13" maxlength="128">
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name14" maxlength="24">
+</td>
+<td class="ntabtd">
+<input size="30" type="text" name="url14" maxlength="128">
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name15" maxlength="24">
+</td>
+<td class="ntabtd">
+<input size="30" type="text" name="url15" maxlength="128">
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name16" maxlength="24">
+</td>
+<td class="ntabtd">
+<input size="30" type="text" name="url16" maxlength="128">
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name17" maxlength="24">
+</td>
+<td class="ntabtd">
+<input size="30" type="text" name="url17" maxlength="128">
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name18" maxlength="24">
+</td>
+<td class="ntabtd">
+<input size="30" type="text" name="url18" maxlength="128">
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name19" maxlength="24">
+</td>
+<td class="ntabtd">
+<input size="30" type="text" name="url19" maxlength="128">
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name20" maxlength="24">
+</td>
+<td class="ntabtd">
+<input size="30" type="text" name="url20" maxlength="128">
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name21" maxlength="24">
+</td>
+<td class="ntabtd">
+<input size="30" type="text" name="url21" maxlength="128">
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name22" maxlength="24">
+</td>
+<td class="ntabtd">
+<input size="30" type="text" name="url22" maxlength="128">
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name23" maxlength="24">
+</td>
+<td class="ntabtd">
+<input size="30" type="text" name="url23" maxlength="128">
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name24" maxlength="24">
+</td>
+<td class="ntabtd">
+<input size="30" type="text" name="url24" maxlength="128">
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name25" maxlength="24">
+</td>
+<td class="ntabtd">
+<input size="30" type="text" name="url25" maxlength="128">
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name26" maxlength="24">
+</td>
+<td class="ntabtd">
+<input size="30" type="text" name="url26" maxlength="128">
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name27" maxlength="24">
+</td>
+<td class="ntabtd">
+<input size="30" type="text" name="url27" maxlength="128">
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name28" maxlength="24">
+</td>
+<td class="ntabtd">
+<input size="30" type="text" name="url28" maxlength="128">
+</td>
+</tr>
+<tr>
+<td class="ntabtd">
+<input type="text" name="name29" maxlength="24">
+</td>
+<td class="ntabtd">
+<input size="30" type="text" name="url29" maxlength="128">
+</td>
+</tr>
+<tr>
+ <td class="formSmt" colspan="2"><input class="smt" type="submit" value="設定"></td>
+ </tr>
+
+</tbody></table>
+
+</form>
+
+</div>
+
+</div>
+</div>
+<div style="clear:both"></div>
+</div>
+
+<div id="footer">© <a target="_blank" title="無料レンタルチャット" href="http://www.whocares.jp/">WHOCARES</a> <a href="http://www.whocares.jp/chatx.jsp" target="_blank">chatx</a>&nbsp;3.23</div>
+
+
+
+</body></html>
